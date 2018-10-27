@@ -6,7 +6,9 @@ from bs4 import BeautifulSoup
 #Example website page for 2017-18 season: https://athletics.case.edu/sports/bsb/2017-18/teams/casewesternreserve
 class team:
 
-    __team_stats_dictionary = {}
+    def __init__(self, year):
+        self.__team_stats_url = __team_stats_url(year)
+        self.__team_stats_dictionary = __fetch_all_team_stats(year)
 
     # Produces the expected url for the baseball team statistics page given the year
     # Example Format as follows: https://athletics.case.edu/sports/bsb/2017-18/teams/casewesternreserve
@@ -22,13 +24,14 @@ class team:
     #Saves all statistics as key-value pairs in __team_stats_dictionary
     #Key to each value is seen as the text on the table from the website
     def __fetch_all_team_stats(year):
-        webpage = requests.get(__team_statistics_url(year))
+        self.__team_stats_dictionary = {}
+        webpage = requests.get(self.__team_stats_url)
         soup = BeautifulSoup(webpage.text, 'html.parser')
         div = soup.find('div', {'class' : 'stats-box half'}):
         table = div.find('table')
         tbody = table.find('tbody')
         for tr in tbody.find_all('tr'):
-            __team_stats_dictionary[tr.find_all('td')[0].text.strip()] = tr.find_all('td')[1].text.strip
+            self.__team_stats_dictionary[tr.find_all('td')[0].text.strip()] = tr.find_all('td')[1].text.strip
 
     def fetch_num_of_games:
         return __team_stats_dictionary["Games"]
