@@ -3,7 +3,11 @@ from bs4 import BeautifulSoup
 
 #Class for fetching information and statistics about players and coaches
 class team_participant:
-    
+
+    def __init__(self, year):
+        self.team_roster_url = __team_roster_url(year)
+        self.individual_statistics_url = __individual_statistics_url(year)
+
     # Produces the expected url for the baseball team roster for the given year
     # Example Format as follows: https://athletics.case.edu/sports/bsb/2017-18/roster?view=list
     # NOTE: Does not check that the url is valid or the page exists
