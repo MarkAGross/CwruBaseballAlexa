@@ -1,4 +1,4 @@
-import requests
+import urllib.request
 from bs4 import BeautifulSoup
 
 #Class for fetching team statistics from CWRU Baseball Athletics website
@@ -25,13 +25,18 @@ class team:
     #Key to each value is seen as the text on the table from the website
     def __fetch_all_team_stats(year):
         self.__team_stats_dictionary = {}
-        webpage = requests.get(self.__team_stats_url)
-        soup = BeautifulSoup(webpage.text, 'html.parser')
-        div = soup.find('div', {'class' : 'stats-box half'}):
-        table = div.find('table')
-        tbody = table.find('tbody')
-        for tr in tbody.find_all('tr'):
-            self.__team_stats_dictionary[tr.find_all('td')[0].text.strip()] = tr.find_all('td')[1].text.strip
+        request = urllib.request.Request(self.__team_stats_url, headers={'User-Agent' : "AlexaSkill"})
+        webpage = urllib.request.urlopen(request)
+        soup = BeautifulSoup(webpage, 'lxml')
+        table = soup.find_all('table')[2]
+        table_rows = table.find_all('tr')
+        for table_row in table_rows:
+            table_data = table_row.find_all('td')
+            row = [item.text.strip() for item in table_data]
+            if len(row) != 0:
+                key = (row[0])
+                value = (row[1])
+                self.__team_stats_dictionary[key] = value
 
     def fetch_num_of_games:
         return __team_stats_dictionary["Games"]
