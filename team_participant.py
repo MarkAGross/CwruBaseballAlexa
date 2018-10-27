@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 #Class for fetching information and statistics about players and coaches
 class team_participant:
-
+    
     # Produces the expected url for the baseball team roster for the given year
     # Example Format as follows: https://athletics.case.edu/sports/bsb/2017-18/roster?view=list
     # NOTE: Does not check that the url is valid or the page exists
@@ -18,7 +18,7 @@ class team_participant:
     # Produces the expected url for the baseball individual statistics page for the given a year
     # Example Format as follows: https://athletics.case.edu/sports/bsb/2017-18/teams/casewesternreserve?view=lineup&r=0&pos=
     # NOTE: Does not check that the url is valid or the page exists
-    def __team_individual_statistics_url(year):
+    def __individual_statistics_url(year):
         url_beginning = 'https://athletics.case.edu/sports/bsb/'
         previous_year_string = str(year - 1)
         dash = '-'
