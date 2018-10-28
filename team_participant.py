@@ -6,7 +6,7 @@ class team_participant:
 
     def __init__(self, year):
         self.team_roster_url = __team_roster_url(year)
-        self.team_roster_list = __get_list_of_all_roster_data()
+        self.team_roster_list = __get_list_of_all_roster_data(self.team_roster_url)
         self.individual_statistics_url = __individual_statistics_url(year)
 
     # Produces the expected url for the baseball team roster for the given year
@@ -33,10 +33,10 @@ class team_participant:
 
     #returns a list of each row of the table, each row being represented by a dictionary.
     #The dictionary key values are the column headers with the values being the table values
-    def __get_list_of_all_roster_data():
+    def __get_list_of_all_roster_data(roster_page_url):
         #get all data from roster table
         list_of_table_rows_raw_data = []
-        request = urllib.request.Request(url, headers={'User-Agent' : "AlexaSkill"})
+        request = urllib.request.Request(roster_page_url, headers={'User-Agent' : "AlexaSkill"})
         webpage = urllib.request.urlopen(request)
         soup = BeautifulSoup(webpage, 'lxml')
         table = soup.find('table')
@@ -46,7 +46,8 @@ class team_participant:
             row = [item.text for item in table_data]
             if len(row) != 0:
                 list_of_table_rows_raw_data.append(row)
-        #change raw data from table to a list of dictionaries, each dictionary having key/value pairs
+        #change raw data from table to a list of dictionaries, each dictionary being a row of
+        #the table with key value pairs of the column name and table value
         list_of_table_rows_refined = []
         for row in list_of_table_rows_raw_data:
             single_row_dictionary = {}
