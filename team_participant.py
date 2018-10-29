@@ -5,9 +5,10 @@ from bs4 import BeautifulSoup
 class team_participant:
 
     def __init__(self, year):
-        self.team_roster_url = __team_roster_url(year)
-        self.team_roster_list = __get_list_of_all_roster_data(self.team_roster_url)
-        self.individual_statistics_url = __individual_statistics_url(year)
+        self.roster_list = __get_list_of_all_roster_data(year)
+        self.individual_statistics_batters_list = __get_list_of_all_individual_batter_statistics(year)
+        self.individual_statistics_pitchers_list = __get_list_of_all_individual_pitcher_statistics(year)
+
 
     # Produces the expected url for the baseball team roster for the given year
     # Example Format as follows: https://athletics.case.edu/sports/bsb/2017-18/roster?view=list
@@ -33,7 +34,8 @@ class team_participant:
 
     #returns a list of each row of the table, each row being represented by a dictionary.
     #The dictionary key values are the column headers with the values being the table values
-    def __get_list_of_all_roster_data(roster_page_url):
+    def __get_list_of_all_roster_data(year):
+        roster_page_url = __team_roster_url(year)
         #get all data from roster table
         list_of_table_rows_raw_data = []
         request = urllib.request.Request(roster_page_url, headers={'User-Agent' : "AlexaSkill"})
@@ -57,3 +59,41 @@ class team_participant:
                 single_row_dictionary[key] = value
             list_of_table_rows_refined.append(single_row_dictionary)
         return list_of_table_rows_refined
+
+    def __get_list_of_all_individual_batter_statistics(year):
+        individual_statistics_url = __individual_statistics_url(year)
+        #get all rows to batter stats table
+        list_of_player_dictionaries = []
+        request = urllib.request.Request(url, headers={'User-Agent' : "AlexaSkill"})
+        webpage = urllib.request.urlopen(request)
+        soup = BeautifulSoup(webpage, 'lxml')
+        table = soup.find_all('table')[4]
+        table_rows = table.find_all('tr')
+        #get all headers
+        headers = []
+        table_headers = table_rows[0].find_all('th')
+        headers = [header.text for header in table_headers]
+        for index in range(len(headers)):
+            headers[index] = headers[index].replace('\n','')
+            headers[index] = headers[index].upper()
+        #get each row / player
+        rows = []
+        for table_row in table_rows:
+            table_data = table_row.find_all('td')
+            row = [item.text for item in table_data]
+            for index in range(len(row)):
+                row[index] = row[index].replace('\n','')
+                row[index] = row[index].replace('-', '0')
+                row[index] = row[index].strip()
+            if len(row) > 0:
+                rows.append(row)
+        #create list of players dictionaries, where the keys are col names and values are player stat values
+        for row in rows:
+            player = {}
+            for index in range(len(headers)):
+                player[headers[index]] = row[index]
+            list_of_player_dictionaries.append(player)
+        return list_of_player_dictionaries
+
+    def __get_list_of_all_individual_pitcher_statistics(year):
+        individual_statistics_url = __individual_statistics_url(year)
