@@ -62,12 +62,22 @@ class team_participant:
 
     def __get_list_of_all_individual_batter_statistics(year):
         individual_statistics_url = __individual_statistics_url(year)
+        individual_statistics_batter_table_number = 4
+        __fetch_all_table_data(individual_statistics_url, individual_statistics_batter_table_number)
+
+    def __get_list_of_all_individual_pitcher_statistics(year):
+        individual_statistics_url = __individual_statistics_url(year)
+        individual_statistics_pitcher_table_number = 8
+        __fetch_all_table_data(individual_statistics_url, individual_statistics_pitcher_table_number)
+
+
+    def __fetch_all_table_data(url, table_number):
         #get all rows to batter stats table
         list_of_player_dictionaries = []
         request = urllib.request.Request(url, headers={'User-Agent' : "AlexaSkill"})
         webpage = urllib.request.urlopen(request)
         soup = BeautifulSoup(webpage, 'lxml')
-        table = soup.find_all('table')[4]
+        table = soup.find_all('table')[table_number]
         table_rows = table.find_all('tr')
         #get all headers
         headers = []
@@ -94,6 +104,3 @@ class team_participant:
                 player[headers[index]] = row[index]
             list_of_player_dictionaries.append(player)
         return list_of_player_dictionaries
-
-    def __get_list_of_all_individual_pitcher_statistics(year):
-        individual_statistics_url = __individual_statistics_url(year)
