@@ -5,7 +5,7 @@ from bs import BeautifulSoup
 class schedule:
 
     def __init__(self, year):
-        self.schedule = __get_full_schedule(year)
+        self.schedule_url = __schedule_url(year)
 
     # Produces the expected url for the baseball schedule for the given year
     # Example Format as follows: https://athletics.case.edu/sports/bsb/2018-19/schedule
@@ -18,17 +18,48 @@ class schedule:
         url_end = '/schedule'
         return (url_beginning + previous_year_string + dash + current_year_last_two_digits_string + url_end)
 
-    def __get_full_schedule(year):
-        schedule_url = __schedule_url(year)
-        #get all data from schedule table
-        list_of_table_rows_raw_data = []
-        request = urllib.request.Request(roster_page_url, headers={'User-Agent' : "AlexaSkill"})
-        webpage = urllib.request.urlopen(request)
-        soup = BeautifulSoup(webpage, 'lxml')
-        table = soup.find('table')
-        table_rows = table.find_all('tr')
-        for table_row in table_rows:
-            table_data = table_row.find_all('td')
-            row = [item.text for item in table_data]
-            if len(row) != 0:
-                list_of_table_rows_raw_data.append(row)
+    def __get_list_of_all_row_dictionaries(url):
+    #get all data from schedule table
+    list_of_table_row_dictionaries = []
+    request = urllib.request.Request(url, headers={'User-Agent' : "AlexaSkill"})
+    webpage = urllib.request.urlopen(request)
+    soup = BeautifulSoup(webpage, 'lxml')
+    table = soup.find('table')
+    table_rows = table.find_all('tr')
+    for table_row in table_rows:
+        row_dictionary = {}
+        __make_row_dictionary(table_row,row_dictionary)
+        if row_dictionary:
+            list_of_table_row_dictionaries.append(row_dictionary)
+
+    def __make_row_dictionary(html_table_row, dictionary):
+        if len(html_table_row) == 1:
+            if __is_Month(html_table_row.text):
+                dictionary['month-title'] = html_table_row.text
+        date = html_table_row.find('td',{'class' : 'e_date'})
+        if date:
+            dictionary['e_date'] = __clean_format(date.text)
+        verses_against =  html_table_row.find('span',{'class' : 'va'})
+        if verses_against:
+            dictionary['va'] = __clean_format(verses_against.text)
+        team_name = html_table_row.find('span',{'class' : 'team-name'})
+        if team_name:
+            dictionary['team-name'] = __clean_format(team_name.text)
+        neutral_site = html_table_row.find('span',{'class' : 'neutralsite'})
+        if neutral_site:
+            dictionary['neutralsite'] = __clean_format(neutral_site.text)
+        result =  html_table_row.find('td',{'class' : 'e_result'})
+        if result:
+            dictionary['e_result'] = __clean_format(result.text)
+        status = html_table_row.find('td',{'class' : 'e_status'})
+        if status:
+            dictionary['e_status'] = __clean_format(status.text)
+
+    def __clean_format(text):
+        text = text.replace('\n','')
+        text = text.replace('*','')
+        text = text.strip()
+        return text
+
+    def __is_Month(text):
+        return text in ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
