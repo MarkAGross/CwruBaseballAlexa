@@ -5,7 +5,7 @@ from bs import BeautifulSoup
 class schedule:
 
     def __init__(self, year):
-        self.schedule_url = __schedule_url(year)
+        self.list_of_game_dictionaries = __get_list_of_all_row_dictionaries(__schedule_url(year))
 
     # Produces the expected url for the baseball schedule for the given year
     # Example Format as follows: https://athletics.case.edu/sports/bsb/2018-19/schedule
