@@ -117,14 +117,14 @@ class team_participant:
         for player in self.individual_statistics_batters_list:
             if player['NO.'] == player_number:
                 return player
-        # if plyaer with input number not found
+        # if player with input number not found
         return {}
 
     def __get_player_pitcher_dictionary(player_number):
         for player in self.individual_statistics_pitchers_list:
             if player['NO.'] == player_number:
                 return player
-        # if plyaer with input number not found
+        # if player with input number not found
         return {}
 
 
