@@ -192,8 +192,8 @@ class getterTester(unittest.TestCase):
 		unittest.main()
 
 
-validBatterNo = team_participant(1)
-invalidBatterNo = team_participant(99)
+validBatterNo = team_participant(1, 2018)
+invalidBatterNo = team_participant(99, 2018)
 validPos = "C"
 invalidPos = "WR"
 posList = ["TRE ARMSTRONG" , "JAKE RYAN" , "DAVID TRISKO" , "CAMERON WHEELER" , "TYLER WYPISZENSKI"]
