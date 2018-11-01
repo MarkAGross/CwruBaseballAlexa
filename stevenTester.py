@@ -81,8 +81,6 @@ class getterTester(unittest.TestCase):
 		assertNotEquals(invalid.fetch_home_attendance_average(), 203, "")
 
     #tests for team_participant class
-     
-
 
 
     #tests getter for player name
@@ -190,7 +188,6 @@ class getterTester(unittest.TestCase):
     
 	if __name__ == '__main__':
 		unittest.main()
-
 
 validBatterNo = team_participant(1, 2018)
 invalidBatterNo = team_participant(99, 2018)
