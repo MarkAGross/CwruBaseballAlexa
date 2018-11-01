@@ -29,18 +29,22 @@ class team:
     #Key to each value is seen as the text on the table from the website
     def fetch_all_team_stats(self, year):
         self.team_stats_dictionary = {}
-        request = urllib.request.Request(self.team_stats_url, headers={'User-Agent' : "AlexaSkill"})
-        webpage = urllib.request.urlopen(request)
-        soup = BeautifulSoup(webpage, 'lxml')
-        table = soup.find_all('table')[2]
-        table_rows = table.find_all('tr')
-        for table_row in table_rows:
-            table_data = table_row.find_all('td')
-            row = [item.text.strip() for item in table_data]
-            if len(row) != 0:
-                key = (row[0])
-                value = (row[1])
-                self.team_stats_dictionary[key] = value
+        try:
+            request = urllib.request.Request(self.team_stats_url, headers={'User-Agent' : "AlexaSkill"})
+            webpage = urllib.request.urlopen(request)
+            soup = BeautifulSoup(webpage, 'lxml')
+            table = soup.find_all('table')[2]
+            table_rows = table.find_all('tr')
+            for table_row in table_rows:
+                table_data = table_row.find_all('td')
+                row = [item.text.strip() for item in table_data]
+                if len(row) != 0:
+                    key = (row[0])
+                    value = (row[1])
+                    self.team_stats_dictionary[key] = value
+        except urllib.error.HTTPError:
+            team_stats_url = None
+
 
     def fetch_num_of_games(self):
         return self.team_stats_dictionary["Games"]

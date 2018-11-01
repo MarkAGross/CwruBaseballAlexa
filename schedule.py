@@ -123,7 +123,6 @@ class schedule:
                     index = sub_index
                 final_dictionary[month] = month_list
         '''
-        print (final_dictionary)
         self.list_of_row_dictionaries = final_dictionary
 
     #pass in a <tr> element and have it placed in a dicitionary with its key being the <tr> class and the value being the text
