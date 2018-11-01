@@ -23,18 +23,21 @@ class schedule:
                 in_correct_month = True
             if in_correct_month:
                 if 'e_date' in row and str(day) in row['e_date']:
-                    return row
+                    row_with_month = row
+                    row_with_month['month-title'] = month
+                    return row_with_month
         return None
 
     # returns the most recent game that occured before the current date
+    # if the schedule and current years are different, returns None
     def fetch_previous_game(self):
         current = datetime.datetime.now()
         year = current.year
         month_num = int(current.month)
         month = current.strftime("%B")
         day = int(current.day)
-        if year > self.year:
-            return self.list_of_row_dictionaries[-1]
+        if year != self.year:
+            return None
         games = self.fetch_games_by_date(month, day)
         while games == None:
             if month_num > 0 and day > 0:
@@ -48,16 +51,34 @@ class schedule:
         return games
 
     # returns the game that is to occur next releative to the current date
+    # if the schedule and current years are different, returns None
     def fetch_next_game(self):
-        return None
+        current = datetime.datetime.now()
+        year = current.year
+        month_num = int(current.month)
+        month = current.strftime("%B")
+        day = int(current.day)
+        if year != self.year:
+            return None
+        games = self.fetch_games_by_date(month, day)
+        while games == None:
+            if month_num < 13 and day < 31:
+                day = day + 1
+            if month_num < 13 and day <= 32:
+                month_num = month_num + 1
+                day = 1
+            if month_num == 13:
+                return None
+            games = self.fetch_games_by_date(calendar.month_name[month_num],day)
+        return games
 
     #returns the score of the game on the input date
     def fetch_score_by_date(self, month, day):
-        return None
+        return self.fetch_games_by_date(month,day)['e_result']
 
     #returns the most recent score previous or during the current date
     def fetch_most_recent_score(self):
-        return None
+        return self.fetch_previous_game['e_result']
 
 
     # Produces the expected url for the baseball schedule for the given year
