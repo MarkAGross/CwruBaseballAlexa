@@ -1,5 +1,6 @@
 import urllib.request
 from bs4 import BeautifulSoup
+import datetime
 
 #Class for fetching information and statistics about players and coaches
 class schedule:
@@ -15,6 +16,7 @@ class schedule:
 
     # returns a game given the input month (string) and day (integer)
     def fetch_games_by_date(self, month, day):
+        # TODO: return multiple games from same day
         in_correct_month = False
         for row in self.list_of_row_dictionaries:
             if 'month-title' in row and row['month-title'] == month:
@@ -24,15 +26,36 @@ class schedule:
                     return row
         return None
 
+    # returns the most recent game that occured before the current date
     def fetch_previous_game(self):
-        return None
+        current = datetime.datetime.now()
+        year = current.year
+        month_num = int(current.month)
+        month = current.strftime("%B")
+        day = int(current.day)
+        if year > self.year:
+            return self.list_of_row_dictionaries[-1]
+        games = self.fetch_games_by_date(month, day)
+        while games == None:
+            if month_num > 0 and day > 0:
+                day = day - 1
+            if month_num > 0 and day <= 0:
+                month_num = month_num - 1
+                day = 31
+            if month_num == 0:
+                return None
+            games = self.fetch_games_by_date(calendar.month_name[month_num],day)
+        return games
 
+    # returns the game that is to occur next releative to the current date
     def fetch_next_game(self):
         return None
 
+    #returns the score of the game on the input date
     def fetch_score_by_date(self, month, day):
         return None
 
+    #returns the most recent score previous or during the current date
     def fetch_most_recent_score(self):
         return None
 
