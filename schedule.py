@@ -10,11 +10,18 @@ class schedule:
         self.url = None
         self.schedule_url(year)
 
-        self.list_of_game_dictionaries = None
+        self.list_of_row_dictionaries = None
         self.get_list_of_all_row_dictionaries(self.url)
 
     # returns a game given the input month (string) and day (integer)
     def fetch_games_by_date(self, month, day):
+        in_correct_month = False
+        for row in self.list_of_row_dictionaries:
+            if 'month-title' in row and row['month-title'] == month:
+                in_correct_month = True
+            if in_correct_month:
+                if 'e_date' in row and str(day) in row['e_date']:
+                    return row
         return None
 
     def fetch_previous_game(self):
@@ -73,7 +80,7 @@ class schedule:
                 final_dictionary[month] = month_list
         '''
         print (final_dictionary)
-        return final_dictionary
+        self.list_of_row_dictionaries = final_dictionary
 
     #pass in a <tr> element and have it placed in a dicitionary with its key being the <tr> class and the value being the text
     def make_row_dictionary(self, html_table_row, dictionary):
