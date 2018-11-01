@@ -313,3 +313,7 @@ class GetterParticipantTester(unittest.TestCase):
         assertEquals(mark.fetch_pitcher_earned_run_average(), 3.69, "The correct earned run average was not fetched")
         assertNotEquals(fake.fetch_pitcher_earned_run_average(), 3.69, "Invalid was not null")
 
+
+if __name__ == '__main__':
+    unittest.main()
+
