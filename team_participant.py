@@ -1,4 +1,4 @@
-import urllibrequest
+import urllib.request
 from bs import BeautifulSoup
 
 #Class for fetching information and statistics about players and coaches
