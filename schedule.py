@@ -14,8 +14,16 @@ class schedule:
         self.list_of_row_dictionaries = None
         self.get_list_of_all_row_dictionaries(self.url)
 
-    # returns a game given the input month (string) and day (integer)
     def fetch_games_by_date(self, month, day):
+        """ Returns a list of games for the given date
+
+        Args:
+            month (string) : full name of the month of the game
+            day (int) : day of the month
+
+        Returns:
+            list : list of game dictionaries on the input date
+        """
         # TODO: return multiple games from same day
         in_correct_month = False
         for row in self.list_of_row_dictionaries:
@@ -28,9 +36,12 @@ class schedule:
                     return row_with_month
         return None
 
-    # returns the most recent game that occured before the current date
-    # if the schedule and current years are different, returns None
     def fetch_previous_game(self):
+        """ Returns the most recent game that occured on or before the current date
+
+        Returns:
+            dictionary : dictionary of the game on the current date or closest previous game to current date
+        """
         current = datetime.datetime.now()
         year = current.year
         month_num = int(current.month)
@@ -50,9 +61,16 @@ class schedule:
             games = self.fetch_games_by_date(calendar.month_name[month_num],day)
         return games
 
-    # returns the game that is to occur next releative to the current date
+
     # if the schedule and current years are different, returns None
     def fetch_next_game(self):
+        """ Returns the next game to occur on or after the current date.
+        If the scheudle and current years are different, returns None.
+
+        Returns:
+            dictionary : Dictionary of the game on the current date or closest future game to current date.
+                         If current year is not the same year as this scheudle object, reurns none.
+        """
         current = datetime.datetime.now()
         year = current.year
         month_num = int(current.month)
@@ -72,19 +90,40 @@ class schedule:
             games = self.fetch_games_by_date(calendar.month_name[month_num],day)
         return games
 
-    #returns the score of the game on the input date
+
     def fetch_score_by_date(self, month, day):
+        """ Returns a score of the game, including win or loss, of a given date
+
+        Args:
+            month (string) : full name of the month of the game
+            day (int) : day of the month
+
+        Returns:
+            str : String of game resulting score of given date, if no game exists returns None.
+        """
         return self.fetch_games_by_date(month,day)['e_result']
 
-    #returns the most recent score previous or during the current date
+
     def fetch_most_recent_score(self):
+        """ Returns a score of the game, including win or loss, of the most recent game from the current date
+
+        Returns:
+            str : String of game result. If no game previous exists, returns None.
+        """
         return self.fetch_previous_game['e_result']
 
 
-    # Produces the expected url for the baseball schedule for the given year
-    # Example Format as follows: https://athletics.case.edu/sports/bsb/2018-19/schedule
-    # NOTE: Does not check that the url is valid or the page exists
     def schedule_url(self, year):
+        """ Produces the expected url for the baseball schedule for the given year.
+        Does not check that url is valid.
+        Input year is upper bound of year range. Example: 2017-18 season can be obtained with an input year of 2018.
+
+        Args:
+            year (integer) : Year of the scheudle.
+
+        Returns:
+            str : URL of the schedule for the given year.
+        """
         url_beginning = 'https://athletics.case.edu/sports/bsb/'
         previous_year_string = str(year - 1)
         dash = '-'
@@ -92,10 +131,15 @@ class schedule:
         url_end = '/schedule'
         self.url = (url_beginning + previous_year_string + dash + current_year_last_two_digits_string + url_end)
 
-    #returns the schedule in the following data structure:
-    # a dictionary with the key being the month and value being list of games in the month
-    # each game consists of a dictionary, the keys and values of which can be found in make_row_dictionary
+
     def get_list_of_all_row_dictionaries(self, url):
+        """ Sets list_of_row_dictionaries attribute of schedule class to following data structure:
+        A dictionary with the key being the month and value being list of games in the month.
+        Each game is a dictionary, the keys and values of which can be found in the funciton make_row_dictionary
+
+        Args:
+            URL (str) : URL of the scheudle page.
+        """
         final_dictionary = {}
         #get all data from schedule table
         list_of_table_row_dictionaries = []
@@ -125,8 +169,27 @@ class schedule:
         '''
         self.list_of_row_dictionaries = final_dictionary
 
-    #pass in a <tr> element and have it placed in a dicitionary with its key being the <tr> class and the value being the text
+
     def make_row_dictionary(self, html_table_row, dictionary):
+        """ Pass in a <tr> element and parts of it placed in the input dicitionary.
+        Its key is the <tr> class and the value is the <tr> text.
+
+        Currntly added classes to the dictionary are:
+          --KEY--    |  --EXAMPLE VALUE--
+        ______________________________
+        month-title  | March
+        e_date       | Sun. 29
+        va           | at
+        team-name    | #20 Marietta
+        neutralsite  | @ Washington, Pa.
+        e_result     | W, 3-2
+        e_status     | Final - 11 Innings
+
+
+        Args:
+            html_table_row (str) : HTML of a table row
+            dictionary (dictionary) : a dictionary object to append the table row classes to
+        """
         if len(html_table_row) == 1:
             if self.is_Month(html_table_row.text):
                 dictionary['month-title'] = html_table_row.text
@@ -149,13 +212,29 @@ class schedule:
         if status:
             dictionary['e_status'] = self.clean_format(status.text)
 
-    #removes unnecessary formatting from a string including whitespace and 'enter'
+
     def clean_format(self, text):
+        """ Removes unnecessary whitespace or characters from string input
+
+        Args:
+            text (str) : string to be formatted
+
+        Returns:
+            str : reformatted text
+        """
         text = text.replace('\n','')
         text = text.replace('*','')
         text = text.strip()
         return text
 
-    #returns if the text is a month of the year
+
     def is_Month(self, text):
+        """ Determines if input text is the full name of a month
+
+        Args:
+            text (str) : text to determine if it is a month
+
+        Returns:
+            bool : True if text is a month, otherwise false
+        """
         return text in ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']

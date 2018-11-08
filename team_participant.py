@@ -17,10 +17,18 @@ class team_participant:
         self.get_list_of_all_individual_pitcher_statistics(year)
 
 
-    # Produces the expected url for the baseball team roster for the given year
-    # Example Format as follows: https://athleticscaseedu/sports/bsb/0-/roster?view=list
-    # NOTE: Does not check that the url is valid or the page exists
     def team_roster_url(self, year):
+        """ Produces the expected url for the baseball roster for the given year.
+        Does not check that url is valid.
+        Input year is upper bound of year range. Example: 2017-18 season can be obtained with an input year of 2018.
+        Example URL: https://athleticscaseedu/sports/bsb/0-/roster?view=list
+
+        Args:
+            year (integer) : Year of the roster.
+
+        Returns:
+            str : URL of the roster for the given year.
+        """
         url_beginning = 'https://athletics.case.edu/sports/bsb/'
         previous_year_string = str(year - 1)
         dash = '-'
@@ -28,10 +36,19 @@ class team_participant:
         url_end = '/roster?view=list'
         return (url_beginning + previous_year_string + dash + current_year_last_two_digits_string + url_end)
 
-    # Produces the expected url for the baseball individual statistics page for the given a year
-    # Example Format as follows: https://athleticscaseedu/sports/bsb/0-/teams/casewesternreserve?view=lineup&r=0&pos=
-    # NOTE: Does not check that the url is valid or the page exists
+
     def individual_statistics_url(self, year):
+        """ Produces the expected url for the individual statistics page for the given year.
+        Does not check that url is valid.
+        Input year is upper bound of year range. Example: 2017-18 season can be obtained with an input year of 2018.
+        Example URL: https://athleticscaseedu/sports/bsb/0-/teams/casewesternreserve?view=lineup&r=0&pos=
+
+        Args:
+            year (integer) : Year of the roster.
+
+        Returns:
+            str : URL of the indivudual statistics page for the given year.
+        """
         url_beginning = 'https://athletics.case.edu/sports/bsb/'
         previous_year_string = str(year - 1)
         dash = '-'
@@ -39,9 +56,15 @@ class team_participant:
         url_end = '/teams/casewesternreserve?view=lineup'
         return (url_beginning + previous_year_string + dash + current_year_last_two_digits_string + url_end)
 
-    #returns a list of each row of the table, each row being represented by a dictionary
-    #The dictionary key values are the column headers with the values being the table values
+
     def get_list_of_all_roster_data(self, year):
+        """ Sets roster_list attribute of team_participant to list of all roster data for input year
+        Each entry in list is a row from table represented by a dictionary.
+        The dictionary key values are the column headers with the values being the table values
+
+        Args:
+            year (integer) : Year of the roster.
+        """
         roster_page_url = self.team_roster_url(year)
         #get all data from roster table
         list_of_table_rows_raw_data = []
