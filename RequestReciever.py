@@ -3,24 +3,19 @@ import sys
 #Class for recieving and interpreting Amazon Alexa requests
 class receiver:
 
-    def __init__(self):
+    def __init__(self, inputstring):
         self.keywords = ["This", "is", "a", "test"]
-
-    def parse_string(inputstring):
         self.data = []
-        keywordslist = inputstring.split("_")
-        for i in range(0, len(keywordslist)):
-            for j in range(0, len(keywords)):
-                if keywordslist[i] == keywords[j]:
-                    input.append(keywordslist[i])
-                    break
-        return data
+        self.inputstring = inputstring
 
-    if __name__ == "__main__":
-        inputstring = str(sys.argv)
-        self.parse_string(inputstring)
-        for i in range(len(input)):
-            print (input[i])
-        print ("done")
+    def parse_string(self):
+        keywordslist = self.inputstring.split("_")
+        for i in range(0, len(keywordslist)):
+            for j in range(0, len(self.keywords)):
+                if keywordslist[i] == self.keywords[j]:
+                    self.data.append(keywordslist[i])
+                    break
+
+        
         #have that same method add the keywords to the array
         #method to fetch appropriate data (might be lots of copy paste)
