@@ -7,6 +7,8 @@ from bs4 import BeautifulSoup
 class team:
 
     def __init__(self, year):
+        self.year = year
+        
         self.team_stats_url = None
         self.get_team_stats_url(year)
 

@@ -3,314 +3,374 @@ from team import team
 from team_participant import team_participant
 
 class GetterTeamTester(unittest.TestCase):
-    valid = team(2018)
-    invalid = team(2000)
 
-    def test_get_games(self):
-        self.self.assertEqual(self.valid.fetch_num_of_games(), "39", "The correct number of games was not fetched")
-        self.self.assertNotEqual(self.invalid.fetch_num_of_games(), "39", "Invalid was not null")
+    valid_2018_team = team(2018)
 
-    def test_get_at_bats(self):
-        self.assertEqual(self.valid.fetch_num_of_at_bats(), "271", "The correct number of at bats was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_at_bats(), "271", "Invalid was not null")
+    '''
+    def test_invalid_team_year(self):
+        .assertRaises(Exception, team(9999), "The invalid year correctly threw an error")
+    '''
+    '''
+    def test_valid_team_year(self):
+        self.assertEqual(team(2015).year, 2015, "The correct year was fetched")
+    '''
 
-    def test_get_runs(self):
-        self.assertEqual(self.valid.fetch_num_of_runs(), "23", "The correct number of runs was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_runs(), "23", "Invalid was not null")
+    def test_fetch_num_of_games(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_games(), "39", "The correct number of games was not fetched")
 
-    def test_get_hits(self):
-        self.assertEqual(self.valid.fetch_num_of_hits(), "402", "The correct number of hits was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_hits(), "402", "Invalid was not null")
+    def test_fetch_num_of_at_bats(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_at_bats(), "271", "The correct number of at bats was not fetched")
 
-    def test_get_doubles(self):
-        self.assertEqual(self.invalid.fetch_num_of_doubles(), "91", "The correct number of doubles was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_doubles(), "91", "Invalid was not null")
+    def test_fetch_num_of_runs(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_runs(), "23", "The correct number of runs was not fetched")
 
-    def test_get_triples(self):
-        self.assertEqual(self.valid.fetch_num_of_triples(), "10", "The correct number of triples was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_triples(), "10", "Invalid was not null")
+    def test_fetch_num_of_hits(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_hits(), "402", "The correct number of hits was not fetched")
 
-    def test_get_home_runs(self):
-        self.assertEqual(self.valid.fetch_num_of_home_runs(), "23", "The correct number of home runs was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_home_runs(), "23", "Invalid was not null")
+    def test_fetch_num_of_doubles(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_doubles(), "91", "The correct number of doubles was not fetched")
 
-    def test_get_rbis(self):
-        self.assertEqual(self.valid.fetch_num_of_runs_batted_in(), "234", "The correct number of RBIs was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_runs_batted_in(), "234", "Invalid was not null")
+    def test_fetch_num_of_triples(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_triples(), "10", "The correct number of triples was not fetched")
 
-    def test_get_extra_base_hits(self):
-        self.assertEqual(self.valid.fetch_num_of_extra_base_hits(), "124", "The correct number of extra base hits was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_extra_base_hits(), "124", "Invalid was not null")
+    def test_fetch_num_of_home_runs(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_home_runs(), "23", "The correct number of home runs was not fetched")
 
-    def test_get_total_bases(self):
-        self.assertEqual(self.valid.fetch_num_of_total_bases(), "582", "The correct number of total bases was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_total_bases(), "582", "Invalid was not null")
+    def test_fetch_num_of_runs_batted_in(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_runs_batted_in(), "234", "The correct number of RBIs was not fetched")
 
-    def test_get_walks(self):
-        self.assertEqual(self.valid.fetch_num_of_walks(), "135", "The correct number of walks was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_walks(), "135", "Invalid was not null")
+    def test_fetch_num_of_extra_base_hits(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_extra_base_hits(), "124", "The correct number of extra base hits was not fetched")
 
-    def test_get_hit_by_pitches(self):
-        self.assertEqual(self.valid.fetch_num_of_hit_by_pitches(), "60", "The correct number of hit by pitches was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_hit_by_pitches(), "60", "Invalid was not null")
+    def test_fetch_num_of_total_bases(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_total_bases(), "582", "The correct number of total bases was not fetched")
 
-    def test_get_strikeouts(self):
-        self.assertEqual(self.valid.fetch_num_of_strikeouts(), "250", "The correct number of strikeouts was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_strikeouts(), "250", "Invalid was not null")
+    def test_fetch_num_of_walks(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_walks(), "135", "The correct number of walks was not fetched")
+
+    def test_fetch_num_of_hit_by_pitches(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_hit_by_pitches(), "60", "The correct number of hit by pitches was not fetched")
+
+    def test_fetch_num_of_strikeouts(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_strikeouts(), "250", "The correct number of strikeouts was not fetched")
 
     #tests getter for number of sac flies
-    def test_get_sacrifice_flies(self):
-        self.assertEqual(self.valid.fetch_num_of_sacrifice_flies(),"27","The correct number of sacrifice flies was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_sacrifice_flies(), "27","")
+    def test_fetch_num_of_sacrifice_flies(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_sacrifice_flies(),"27","The correct number of sacrifice flies was not fetched")
 
     #tests getter for number of sac hits
-    def test_get_sacrifice_hits(self):
-        self.assertEqual(self.valid.fetch_num_of_sacrifice_hits(), "12", "The correct number of sacrifice hits was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_sacrifice_hits(), "12", "")
+    def test_fetch_num_of_sacrifice_hits(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_sacrifice_hits(), "12", "The correct number of sacrifice hits was not fetched")
 
     #tests getter for number of hits into a double play
-    def test_get_hits_into_double_play(self):
-        self.assertEqual(self.valid.fetch_num_of_hit_into_double_play(), "22", "The correct number of hits into double play was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_hit_into_double_play(), "22", "")
+    def test_fetch_num_of_hits_into_double_play(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_hit_into_double_play(), "22", "The correct number of hits into double play was not fetched")
 
     #tests getter for number of stolen bases
-    def test_get_stolen_bases(self):
-        self.assertEqual(self.valid.fetch_num_of_stolen_bases(), "93", "The correct number of stolen bases was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_stolen_bases(), "93", "")
+    def test_fetch_num_of_stolen_bases(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_stolen_bases(), "93", "The correct number of stolen bases was not fetched")
 
     #tests getter for number of times caught stealing
-    def test_get_caught_stealing(self):
-        self.assertEqual(self.valid.fetch_num_of_caught_stealing(), "14", "The correct number of times caught stealing was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_caught_stealing(), "14", "")
+    def test_fetch_num_of_caught_stealing(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_caught_stealing(), "14", "The correct number of times caught stealing was not fetched")
 
     #tests getter for batting average
-    def test_get_batting_average(self):
-        self.assertEqual(self.valid.fetch_batting_average(), ".292", "The correct batting average was not fetched")
-        self.assertNotEqual(self.invalid.fetch_batting_average(), ".292", "")
+    def test_fetch_num_of_batting_average(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_batting_average(), ".292", "The correct batting average was not fetched")
 
     #tests getter for on base percentage
-    def test_get_on_base_percentage(self):
-        self.assertEqual(self.valid.fetch_on_base_percentage(), ".374", "The correct on base percetage was not fetched")
-        self.assertNotEqual(self.invalid.fetch_on_base_percentage(), ".374", "")
+    def test_fetch_on_base_percentage(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_on_base_percentage(), ".374", "The correct on base percetage was not fetched")
 
     #tests getter for slugging percentage
-    def test_get_slugging_percentage(self):
-        self.assertEqual(self.valid.fetch_slugging_percentage(), ".423", "The correct slugging percentage was not fetched")
-        self.assertNotEqual(self.invalid.fetch_slugging_percentage(), ".423", "")
+    def test_fetch_slugging_percentage(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_slugging_percentage(), ".423", "The correct slugging percentage was not fetched")
 
     #tests getter for earned run average (ERA)
-    def test_get_earned_run_average(self):
-        self.assertEqual(self.valid.fetch_earned_run_average(), "3.64", "The correct earned run average was not fetched")
-        self.assertNotEqual(self.invalid.fetch_earned_run_average(), "3.64", "")
+    def test_fetch_earned_run_average(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_earned_run_average(), "3.64", "The correct earned run average was not fetched")
 
     #tests getter for shutuouts
-    def test_get_shutouts(self):
-        self.assertEqual(self.valid.fetch_num_of_shutouts(), "3", "The correct number of shutouts was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_shutouts(), "3", "")
+    def test_fetch_num_of__shutouts(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_shutouts(), "3", "The correct number of shutouts was not fetched")
 
     #tests getter for number of at bats againsts
-    def test_get_at_bats_against(self):
-        self.assertEqual(self.valid.fetch_num_of_at_bats_against(), "1309", "The correct number of at bats against was not fetched")
-        self.assertNotEqual(self.invalid.fetch_num_of_at_bats_against(), "1309", "")
+    def test_fetch_num_of_at_bats_against(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_at_bats_against(), "1309", "The correct number of at bats against was not fetched")
 
     #tests getter for batting average against
-    def test_get_batting_average_against(self):
-        self.assertEqual(self.valid.fetch_batting_average_against(), ".248", "The correct batting average against was not fetched")
-        self.assertNotEqual(self.invalid.fetch_batting_average_against(), ".248", "")
+    def test_fetch_batting_average_against(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_batting_average_against(), ".248", "The correct batting average against was not fetched")
 
     #tests getter for home attendance
-    def test_get_home_attendance(self):
-        self.assertEqual(self.valid.fetch_home_attendance(), "3045", "The correct number for home attendance was not fetched")
-        self.assertNotEqual(self.invalid.fetch_home_attendance(), "3045", "")
+    def test_fetch_home_attendance(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_home_attendance(), "3045", "The correct number for home attendance was not fetched")
 
     #tests getter for home attendance average
-    def test_get_home_attendance_average(self):
-        self.assertEqual(self.valid.fetch_home_attendance_average(), "203", "The correct number for home attendance average was not fetched")
-        self.assertNotEqual(self.invalid.fetch_home_attendance_average(), "203", "")
+    def test_fetch_home_attendance_average(self):
+        self.assertEqual(self.__class__.valid_2018_team.fetch_home_attendance_average(), "203", "The correct number for home attendance average was not fetched")
 
-class GetterParticipantTester(unittest.TestCase):
-    validBatterNo = team_participant(1, 2018)
-    invalidBatterNo = team_participant(99, 2018)
-    validPos = "C"
-    invalidPos = "WR"
-    posList = ["TRE ARMSTRONG" , "JAKE RYAN" , "DAVID TRISKO" , "CAMERON WHEELER" , "TYLER WYPISZENSKI"]
-    validYear = "Sr."
-    invalidYear = "Xy"
-    yearList = ["NATE GLASSER" , "LIAM KILLINGSTAD" , "BEN MURPHY" , "DANNY SOUZA" , "DAN WATSON"]
-    batter = team_participant(11, 2018)
-    mark = team_participant(33, 2018)
-    fake = team_participant(100, 2000)
 
-    #tests getter for player name
-    def test_get_player_name(self):
-        self.assertEqual(validBatterNo.fetch_player_name(), "Jacob Lott", "The correct name for this player was not fetched")
-        self.assertNotEqual(invalidBatterNo.fetch_player_name(), "Jacob Lott", "")
 
-    #tests getter for player position
-    def test_get_player_position(self):
-        self.assertEqual(validBatterNo.fetch_player_position(), "IF", "The correct position for this player was not fetched")
-        self.assertNotEqual(invalidBatterNo.fetch_player_position(), "IF", "")
 
-    #tests getter for list of player positions
-    def test_get_player_position(self):
+
+
+class TeamParticipantTester(unittest.TestCase):
+
+    valid_2018_team_participant = team_participant(2018)
+    player_2018_jacob_lott = {
+        'No.' : '1', 'Name' : 'Jacob Lott', 'Pos.' : 'IF', 'B/T' : 'R/R', 'Ht.' : '5-10', 'Wt.' : '165', 'Yr.' : 'Fr.', 'Hometown/High School' : 'Pickerington, Ohio / Pickerington Central',
+        'G' : '39', 'AB' : '143', 'R' : '22', 'H' : '41', '2B' : '10', '3B' : '2', 'HR' : '2', 'RBI' : '23', 'BB' : '7', 'K' : '25', 'SB' : '5', 'CS' : '2', 'AVG' : '.287', 'OBP' : '.318', 'SLG' : '.427'
+        }
+    player_roster_2018_mark_gross = {
+        'No.' : '33', 'Name' : 'Mark Gross', 'Pos.' : 'RHP', 'B/T' : 'L/R', 'Ht.' : '6-3', 'Wt.' : '200', 'Yr.' : 'Jr.', 'Hometown/High School' : 'Butler, Pa. / Butler Area Senior',
+        'APP' : '11', 'GS' : '10', 'W' : '6', 'L' : '4', 'SV' : '0', 'CG' : '0', 'IP' : '70.2', 'H' : '69', 'R' : '37', 'ER' : '29', 'BB' : '21', 'K' : '44', 'K/9' : '5.60', 'HR' : '1', 'ERA' : '3.69'
+        }
+    player_roster_2018_scott_kutschke = {
+        'No.' : '38', 'Name' : 'Scott Kutschke', 'Pos.' : 'LHP', 'B/T' : 'L/L', 'Ht.' : '6-5', 'Wt.' : '195', 'Yr.' : 'So.', 'Hometown/High School' : 'Morton Grove, Ill. / Notre Dame Prep',
+        'APP' : '14', 'GS' : '0', 'W' : '4', 'L' : '1', 'SV' : '1', 'CG' : '0', 'IP' : '30.2', 'H' : '35', 'R' : '15', 'ER' : '11', 'BB' : '14', 'K' : '24', 'K/9' : '7.04', 'HR' : '2', 'ERA' : '3.23'
+        }
+
+    '''
+    def test_invalid_team_participant_year(self):
+        self.assertRaises(Exception, team_participant(9999), "The invalid year correctly threw an error")
+    '''
+    def test_valid_team_participant_year(self):
+        self.assertEquals(team_partcipant(2015).year, 2015, "The correct year was fetched")
+
+    #tests fetching of player name
+    def test_fetch_player_name(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_name('1'), self.__class__.player_2018_jacob_lott['Name'], "Name for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_name('33'), self.__class__.player_2018_mark_gross['Name'], "Name for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_name('38'), self.__class__.player_2018_scott_kutschke['Name'], "Name for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
+
+    #tests fetching of player position
+    def test_fetch_player_position(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_position('1'), self.__class__.player_2018_jacob_lott['Pos.'], "Position for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_position('33'), self.__class__.player_2018_mark_gross['Pos.'], "Position for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_position('38'), self.__class__.player_2018_scott_kutschke['Pos.'], "Position for number  " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
+
+    '''
+    #tests fetching of list of player positions
+    def test_fetch_player_position(self):
         self.assertEqual(validPos.fetch_player_position(), posList, "The correct list of players for this position was not fetched")
         self.assertNotEqual(invalidPos.fetch_player_position(), posList, "")
+    '''
 
-    #tests getter for player bats and throws
-    def test_get_player_bats_and_throws(self):
-        self.assertEqual(validBatterNo.fetch_player_bats_and_throws(), "R/R", "The correct handedness for this player was not fetched")
-        self.assertNotEqual(invalidBatterNo.fetch_player_bats_and_throws(), "R/R", "")
+    #tests fetching of player bats and throws
+    def test_fetch_player_bats_and_throws(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_bats_and_throws('1'), self.__class__.player_2018_jacob_lott['B/T'], "Bats and Throws for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_bats_and_throws('33'), self.__class__.player_2018_mark_gross['B/T'], "Bats and Throws for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_bats_and_throws('38'), self.__class__.player_2018_scott_kutschke['B/T'], "Bats and Throws for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    #tests getter for player height
-    def test_get_player_height(self):
-        self.assertEqual(validBatterNo.fetch_player_height(), "5 feet 10 inches", "The correct height for this player was not fetched")
-        self.assertNotEqual(invalidBatterNo.fetch_player_height(), "5 feet 10 inches", "")
+    #tests fetching of player height
+    def test_fetch_player_height(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_height('1'), self.__class__.player_2018_jacob_lott['Ht.'], "Height for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_height('33'), self.__class__.player_2018_mark_gross['Ht.'], "Height for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_height('38'), self.__class__.player_2018_scott_kutschke['Ht.'], "Height for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    #tests getter for player weight
-    def test_get_player_weight(self):
-        self.assertEqual(validBatterNo.fetch_player_weight(), 165, "The correct weight for this player was not fetched")
-        self.assertNotEqual(invalidBatterNo.fetch_player_weight(), 165, "")
+    #tests fetching of player weight
+    def test_fetch_player_weight(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_weight('1'), self.__class__.player_2018_jacob_lott['Wt.'], "Weight for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_weight('33'), self.__class__.player_2018_mark_gross['Wt.'], "Weight for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_weight('38'), self.__class__.player_2018_scott_kutschke['Wt.'], "Weight for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    #tests getter for player academic year
-    def test_get_player_year(self):
-        self.assertEqual(validBatterNo.fetch_player_year(), "Fr.", "The correct academic year for this player was not fetched")
-        self.assertNotEqual(invalidBatterNo.fetch_player_year(), "Fr.", "")
+    #tests fetching of player academic year
+    def test_fetch_player_year(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_year('1'), self.__class__.player_2018_jacob_lott['Yr.'], "Academic year for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_year('33'), self.__class__.player_2018_mark_gross['Yr.'], "Academic year for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_year('38'), self.__class__.player_2018_scott_kutschke['Yr.'], "Academic year for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    #tests getter for list of player years
-    def test_get_player_position(self):
-        self.assertEqual(validYear.fetch_player_position(), yearList, "The correct list of players for the academic year was not fetched")
-        self.assertNotEqual(invalidYear.fetch_player_position(), yearList, "")
 
-    #tests getter for player hometown and highschool
-    def test_get_player_town_and_school(self):
-        self.assertEqual(validBatterNo.fetch_player_hometown_and_high_school(), "Pickerington, Ohio / Pickerington Central", "The correct hometown and highschool for this player was not fetched")
-        self.assertNotEqual(invalidBatterNo.fetch_player_hometown_and_high_school(), "Pickerington, Ohio / Pickerington Central", "")
+    #tests fetching of player position
+    def test_fetch_player_position(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_position('1'), self.__class__.player_2018_jacob_lott['Yr.'], "Academic year for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_position('33'), self.__class__.player_2018_mark_gross['Yr.'], "Academic year for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_position('38'), self.__class__.player_2018_scott_kutschke['Yr.'], "Academic year for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    #tests getter for batter games played
-    def test_get_batter_games_played(self):
-        self.assertEqual(validBatterNo.fetch_batter_games_played(), "39", "The correct number of games played for this player was not fetched")
-        self.assertNotEqual(invalidBatterNo.fetch_batter_games_played(), "39", "")
 
-    #tests getter for player at bats
-    def test_get_player_at_bats(self):
-        self.assertEqual(validBatterNo.fetch_batter_num_of_at_bats(), "143", "The correct number of at bats for this player was not fetched")
-        self.assertNotEqual(invalidBatterNo.fetch_batter_num_of_at_bats(), "143", "")
+    #tests fetching of player hometown and highschool
+    def test_fetch_player_town_and_school(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_hometown_and_high_school('1'), self.__class__.player_2018_jacob_lott['Hometown/High School'], "Hometown and high school for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_hometown_and_high_school('33'), self.__class__.player_2018_mark_gross['Hometown/High School'], "Hometown and high school for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_player_hometown_and_high_school('38'), self.__class__.player_2018_scott_kutschke['Hometown/High School'], "Hometown and high school for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    #tests getter for player runs
-    def test_get_player_runs(self):
-        self.assertEqual(validBatterNo.fetch_batter_num_of_runs(), "22", "The correct number of runs scored for this player was not fetched")
-        self.assertNotEqual(invalidBatterNo.fetch_batter_num_of_runs(), "22", "")
 
-    #tests getter for player hits
-    def test_get_player_hits(self):
-        self.assertEqual(validBatterNo.fetch_batter_num_of_hits(), "41", "The correct number of hits for this player was not fetched")
-        self.assertNotEqual(invalidBatterNo.fetch_batter_num_of_hits(), "41", "")
+    #tests fetching of batter games played
+    def test_fetch_batter_games_played(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_games_played('1'), self.__class__.player_2018_jacob_lott['G'], "Batter games played for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_games_played('33'), None, "Batter games played for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_games_played('38'), None, "Batter games played for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    #tests getter for player doubles
-    def test_get_player_doubles(self):
-        self.assertEqual(validBatterNo.fetch_batter_num_of_doubles(), "10", "The correct number of doubles for this player was not fetched")
-        self.assertNotEqual(invalidBatterNo.fetch_batter_num_of_doubles(), "10", "")
 
-    #tests getter for player triples
-    def test_get_player_triples(self):
-        self.assertEqual(validBatterNo.fetch_batter_num_of_triples(), "2", "The correct number of triples for this player was not fetched")
-        self.assertNotEqual(invalidBatterNo.fetch_batter_num_of_triples(), "2", "")
+    #tests fetching of batter at bats
+    def test_fetch_batter_num_of_at_bats(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_at_bats('1'), self.__class__.player_2018_jacob_lott['AB'], "Batter number of at bats for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_at_bats('33'), None, "Batter number of at bats for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_at_bats('38'), None, "Batter number of at bats for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    #tests getter for player home runs
-    def test_get_player_home_runs(self):
-        self.assertEqual(validBatterNo.fetch_batter_num_of_home_runs(), "2", "The correct number of home runs for this player was not fetched")
-        self.assertNotEqual(invalidBatterNo.fetch_batter_num_of_home_runs(), "2", "")
+    #tests fetching of batter runs
+    def test_fetch_batter_num_of_runs(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_runs('1'), self.__class__.player_2018_jacob_lott['R'], "Batter number of runs for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_runs('33'), None, "Batter number of runs for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_runs('38'), None, "Batter number of runs for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    #tests getter for player rbis
-    def test_get_player_runs_batted_in(self):
-        self.assertEqual(validBatterNo.fetch_batter_num_of_runs_batted_in(), "23", "The correct number of runs batted in for this player was not fetched")
-        self.assertNotEqual(invalidBatterNo.fetch_batter_num_of_runs_batted_in(), "23", "")
+    #tests fetching of batter hits
+    def test_fetch_batter_num_of_hits(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_runs('1'), self.__class__.player_2018_jacob_lott['R'], "Batter number of runs for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_runs('33'), None, "Batter number of runs for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_runs('38'), None, "Batter number of runs for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    #tests getter for player walks
-    def test_get_player_walks(self):
-        self.assertEqual(validBatterNo.fetch_batter_num_of_walks(), "7", "The correct number of walks for this player was not fetched")
-        self.assertNotEqual(invalidBatterNo.fetch_batter_num_of_walks(), "7", "")
+    #tests fetching of batter doubles
+    def test_fetch_batter_num_of_doubles(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_doubles('1'), self.__class__.player_2018_jacob_lott['2B'], "Batter number of doubles for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_doubles('33'), None, "Batter number of doubles for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_doubles('38'), None, "Batter number of doubles for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    #tests getter for player strikeouts
-    def test_get_player_strikeouts(self):
-        self.assertEqual(validBatterNo.fetch_batter_num_of_strikeouts(), "25", "The correct number of strikeouts for this player was not fetched")
-        self.assertNotEqual(invalidBatterNo.fetch_batter_num_of_strikeouts(), "25", "")
+    #tests fetching of batter triples
+    def test_fetch_batter_num_of_triples(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_triples('1'), self.__class__.player_2018_jacob_lott['3B'], "Batter number of triples for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_triples('33'), None, "Batter number of triples for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_triples('38'), None, "Batter number of triples for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_stolen_bases(self):
-        self.assertEqual(batter.fetch_batter_num_of_stolen_bases(), "9", "The correct number of stolen bases was not fetched")
-        self.assertNotEqual(fake.fetch_batter_num_of_stolen_bases(), "9", "Invalid was not null")
+    #tests fetching of batter home runs
+    def test_fetch_batter_num_of_home_runs(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_home_runs('1'), self.__class__.player_2018_jacob_lott['HR'], "Batter number of home runs for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_home_runs('33'), None, "Batter number of home runs for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_home_runs('38'), None, "Batter number of home runs for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_batting_average(self):
-        self.assertEqual(batter.fetch_batter_batting_average(), ".471", "The correct batting average was not fetched")
-        self.assertNotEqual(fake.fetch_batter_batting_average(), ".471", "Invalid was not null")
+    #tests fetching of batter rbis
+    def test_fetch_batter_num_of_runs_batted_in(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_runs_batted_in('1'), self.__class__.player_2018_jacob_lott['RBI'], "Batter number of RBIs for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_runs_batted_in('33'), None, "Batter number of RBIs for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_runs_batted_in('38'), None, "Batter number of RBIs for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_on_base_percentage(self):
-        self.assertEqual(batter.fetch_batter_on_base_percentage(), ".517", "The correct OBP was not fetched")
-        self.assertNotEqual(fake.fetch_batter_on_base_percentage(), ".517", "Invalid was not null")
+    #tests fetching of batter walks
+    def test_fetch_batter_num_of_walks(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_walks('1'), self.__class__.player_2018_jacob_lott['BB'], "Batter number of RBIs for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_runs_batted_in('33'), None, "Batter number of RBIs for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_runs_batted_in('38'), None, "Batter number of RBIs for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_slugging_percentage(self):
-        self.assertEqual(batter.fetch_batter_slugging_percentage(), ".673", "The correct slugging_percentage was not fetched")
-        self.assertNotEqual(fake.fetch_batter_slugging_percentage(), ".673", "Invalid was not null")
+    #tests fetching of batter strikeouts
+    def test_fetch_batter_num_of_strikeouts(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_strikeouts('1'), self.__class__.player_2018_jacob_lott['K'], "Batter number of strkeouts for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_strikeouts('33'), None, "Batter number of strikeouts for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_strikeouts('38'), None, "Batter number of strikeouts for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_num_of_appearances(self):
-        self.assertEqual(mark.fetch_pitcher_num_of_appearances(), "11", "The correct number of appearances was not fetched")
-        self.assertNotEqual(fake.fetch_pitcher_num_of_appearances(), "11", "Invalid was not null")
+    #tests fetching of batter stolen bases
+    def test_fetch_batter_num_of_stolen_bases(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_stolen_bases('1'), self.__class__.player_2018_jacob_lott['SB'], "Batter number of stolen bases for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_stolen_bases('33'), None, "Batter number of stolen bases for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_num_of_stolen_bases('38'), None, "Batter number of stolen bases for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_num_of_game_starts(self):
-        self.assertEqual(mark.fetch_pitcher_num_of_game_starts(), "10", "The correct number of game starts was not fetched")
-        self.assertNotEqual(fake.fetch_pitcher_num_of_game_starts(), "10", "Invalid was not null")
+    #tests fetching of batter batting average
+    def test_fetch_batter_batting_average(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_batting_average('1'), self.__class__.player_2018_jacob_lott['BA'], "Batter batting average for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_batting_average('33'), None, "Batter batting average for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_batting_average('38'), None, "Batter batting average for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_num_of_wins(self):
-        self.assertEqual(mark.fetch_pitcher_num_of_wins(), "6", "The correct number of wins was not fetched")
-        self.assertNotEqual(fake.fetch_pitcher_num_of_wins(), "6", "Invalid was not null")
+    #tests fetching of batter on base percentage
+    def test_fetch_batter_on_base_percentage(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_on_base_percentage('1'), self.__class__.player_2018_jacob_lott['OBP'], "Batter on base percentage for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_on_base_percentage('33'), None, "Batter on base percentage for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_on_base_percentage('38'), None, "Batter on base percentage for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_num_of_losses(self):
-        self.assertEqual(mark.fetch_pitcher_num_of_losses(), "4", "The correct number of losses was not fetched")
-        self.assertNotEqual(fake.fetch_pitcher_num_of_losses(), "4", "Invalid was not null")
+    #tests fetching of batter slugging percentage
+    def test_fetch_batter_slugging_percentage(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_slugging_percentage('1'), self.__class__.player_2018_jacob_lott['SLG'], "Batter slugging percentage for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_slugging_percentage('33'), None, "Batter slugging percentage for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_batter_slugging_percentage('38'), None, "Batter slugging percentage for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_num_of_saves(self):
-        self.assertEqual(mark.fetch_pitcher_num_of_saves(), "0", "The correct number of saves was not fetched")
-        self.assertNotEqual(fake.fetch_pitcher_num_of_saves(), "0", "Invalid was not null")
+    #tests fetching of pitcher game appearances
+    def test_fetch_pitcher_num_of_appearances(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_appearances('1'), None, "Pitcher appearances for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_appearances('33'), self.__class__.player_2018_mark_gross['APP'], "Pitcher appearances for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_appearances('38'), self.__class__.player_2018_scott_kutschke['APP'], "Pitcher appearances for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_num_of_complete_games(self):
-        self.assertEqual(mark.fetch_pitcher_num_of_complete_games(), "-", "The correct number of complete games was not fetched")
-        self.assertNotEqual(fake.fetch_pitcher_num_of_complete_games(), "-", "Invalid was not null")
+    #tests fetching of piitcher game starts
+    def test_fetch_pitcher_num_of_game_starts(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_game_starts('1'), None, "Pitcher number of game starts for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_game_starts('33'), self.__class__.player_2018_mark_gross['GS'], "Pitcher number of game starts for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_game_starts('38'), self.__class__.player_2018_scott_kutschke['GS'], "Pitcher number of game starts for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_num_of_innings_pitched(self):
-        self.assertEqual(mark.fetch_pitcher_num_of_innings_pitched(), "70.2", "The correct number of innings pitched was not fetched")
-        self.assertNotEqual(fake.fetch_pitcher_num_of_innings_pitched(), "70.2", "Invalid was not null")
+    #tests fetching of piitcher wins
+    def test_fetch_pitcher_num_of_wins(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_wins('1'), None, "Pitcher number of wins for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_wins('33'), self.__class__.player_2018_mark_gross['W'], "Pitcher number of wins for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_wins('38'), self.__class__.player_2018_scott_kutschke['W'], "Pitcher number of wins for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_num_of_hits(self):
-        self.assertEqual(mark.fetch_pitcher_num_of_hits(), "69", "The correct number of hits was not fetched")
-        self.assertNotEqual(fake.fetch_pitcher_num_of_hits(), "69", "Invalid was not null")
+    #tests fetching of piitcher losses
+    def test_fetch_pitcher_num_of_losses(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_losses('1'), None, "Pitcher number of losses for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_losses('33'), self.__class__.player_2018_mark_gross['L'], "Pitcher number of losses for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_losses('38'), self.__class__.player_2018_scott_kutschke['L'], "Pitcher number of losses for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
+    #tests fetching of piitcher saves
+    def test_fetch_pitcher_num_of_saves(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_saves('1'), None, "Pitcher number of saves for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_saves('33'), self.__class__.player_2018_mark_gross['SV'], "Pitcher number of saves for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_saves('38'), self.__class__.player_2018_scott_kutschke['SV'], "Pitcher number of saves for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
+
+    #tests fetching of piitcher complete games thrown
+    def test_fetch_pitcher_num_of_complete_games(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_complete_games('1'), None, "Pitcher number of complete games for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_complete_games('33'), self.__class__.player_2018_mark_gross['CG'], "Pitcher number of complete games for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_complete_games('38'), self.__class__.player_2018_scott_kutschke['CG'], "Pitcher number of complete games for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
+
+    #tests fetching of piitcher innings pitched
+    def test_fetch_pitcher_num_of_innings_pitched(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_innings_pitched('1'), None, "Pitcher number of innings pitched for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_innings_pitched('33'), self.__class__.player_2018_mark_gross['IP'], "Pitcher number of innings pitched for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_innings_pitched('38'), self.__class__.player_2018_scott_kutschke['IP'], "Pitcher number of innings pitched for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
+
+    #tests fetching of piitcher hits given up
+    def test_fetch_pitcher_num_of_hits(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_hits('1'), None, "Pitcher number of hits for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_hits('33'), self.__class__.player_2018_mark_gross['H'], "Pitcher number of hits for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_hits('38'), self.__class__.player_2018_scott_kutschke['H'], "Pitcher number of hits for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
+
+
+    #tests fetching of piitcher runs given up
     def test_get_num_of_runs(self):
-        self.assertEqual(mark.fetch_pitcher_num_of_runs(), "37", "The correct number of runs was not fetched")
-        self.assertNotEqual(fake.fetch_pitcher_num_of_runs(), "37", "Invalid was not null")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_runs('1'), None, "Pitcher number of runs for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_runs('33'), self.__class__.player_2018_mark_gross['R'], "Pitcher number of runs for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_runs('38'), self.__class__.player_2018_scott_kutschke['R'], "Pitcher number of runs for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_num_of_earned_runs(self):
-        self.assertEqual(mark.fetch_pitcher_num_of_earned_runs(), "29", "The correct number of earned_runs was not fetched")
-        self.assertNotEqual(fake.fetch_pitcher_num_of_earned_runs(), "29", "Invalid was not null")
+    #tests fetching of piitcher earned runs given up
+    def test_fetch_pitcher_num_of_earned_runs(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_earned_runs('1'), None, "Pitcher number of earned runs for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_earned_runs('33'), self.__class__.player_2018_mark_gross['ER'], "Pitcher number of earned runs for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_earned_runs('38'), self.__class__.player_2018_scott_kutschke['ER'], "Pitcher number of earned runs for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_num_of_walks(self):
-        self.assertEqual(mark.fetch_pitcher_num_of_walks(), "21", "The correct number of walks was not fetched")
-        self.assertNotEqual(fake.fetch_pitcher_num_of_walks(), "21", "Invalid was not null")
+    #tests fetching of piitcher walks given up
+    def test_fetch_pitcher_num_of_walks(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_walks('1'), None, "Pitcher number of walks for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_walks('33'), self.__class__.player_2018_mark_gross['BB'], "Pitcher number of walks for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_walks('38'), self.__class__.player_2018_scott_kutschke['BB'], "Pitcher number of walks for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_num_of_strikeouts(self):
-        self.assertEqual(mark.fetch_pitcher_num_of_strikeouts(), "44", "The correct number of strikeouts was not fetched")
-        self.assertNotEqual(fake.fetch_pitcher_num_of_strikeouts(), "44", "Invalid was not null")
+    #tests fetching of piitcher strikouts thrown
+    def test_fetch_pitcher_num_of_strikeouts(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_strikeouts('1'), None, "Pitcher number of stikeouts for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_strikeouts('33'), self.__class__.player_2018_mark_gross['K'], "Pitcher number of strikeouts for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_strikeouts('38'), self.__class__.player_2018_scott_kutschke['K'], "Pitcher number of strikeouts for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_strikeouts_per_nine_innings(self):
-        self.assertEqual(mark.fetch_pitcher_strikeouts_per_nine_innings(), "5.60", "The correct number of strikeouts per nine innings was not fetched")
-        self.assertNotEqual(fake.fetch_pitcher_strikeouts_per_nine_innings(), "5.60", "Invalid was not null")
+    #tests fetching of piitcher average number of strikeouts thrown per nine innings
+    def test_fetch_pitcher_strikeouts_per_nine_innings(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_strikeouts_per_nine_innings('1'), None, "Pitcher number of strikeouts per nine innings for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_strikeouts_per_nine_innings('33'), self.__class__.player_2018_mark_gross['K/9'], "Pitcher number of stikeouts per nine innings for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_strikeouts_per_nine_innings('38'), self.__class__.player_2018_scott_kutschke['K/9'], "Pitcher number of strikeouts per nine innings for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_num_of_home_runs(self):
-        self.assertEqual(mark.fetch_pitcher_num_of_home_runs(), "1", "The correct number of home runs was not fetched")
-        self.assertNotEqual(fake.fetch_pitcher_num_of_home_runs(), "1", "Invalid was not null")
+    #tests fetching of piitcher number of home runs given up
+    def test_fetch_pitcher_num_of_home_runs(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_home_runs('1'), None, "Pitcher number of home runs for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_home_runs('33'), self.__class__.player_2018_mark_gross['HR'], "Pitcher number of home runs for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_num_of_home_runs('38'), self.__class__.player_2018_scott_kutschke['HR'], "Pitcher number of home runs for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-    def test_get_earned_run_average(self):
-        self.assertEqual(mark.fetch_pitcher_earned_run_average(), "3.69", "The correct earned run average was not fetched")
-        self.assertNotEqual(fake.fetch_pitcher_earned_run_average(), "3.69", "Invalid was not null")
+    #tests fetching of piitcher earned run average
+    def test_fetch_pitcher_earned_run_average(self):
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_earned_run_average('1'), None, "Pitcher earned run average for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_earned_run_average('33'), self.__class__.player_2018_mark_gross['ERA'], "Pitcher earned run average for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEquals(self.__class__.valid_2018_team_participant.fetch_pitcher_earned_run_average('38'), self.__class__.player_2018_scott_kutschke['ERA'], "Pitcher earned run average for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
 if __name__ == '__main__':
     unittest.main()
