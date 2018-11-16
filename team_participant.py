@@ -212,7 +212,7 @@ class team_participant:
 
     def fetch_player_hometown_and_high_school(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
-        return player.player_year
+        return player.player_hometown_and_high_school
 
     def fetch_batter_games_played(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
@@ -419,8 +419,8 @@ class player:
             self.batter_num_of_strikeouts = dictionary["K"]
         if "SB" in dictionary:
             self.batter_num_of_stolen_bases= dictionary["SB"]
-        if "BA" in dictionary:
-            self.batter_batting_average = dictionary["BA"]
+        if "AVG" in dictionary:
+            self.batter_batting_average = dictionary["AVG"]
         if "OBP" in dictionary:
             self.batter_on_base_percentage = dictionary["OBP"]
         if "SLG" in dictionary:

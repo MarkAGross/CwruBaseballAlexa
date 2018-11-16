@@ -119,15 +119,15 @@ class TeamParticipantTester(unittest.TestCase):
 
     valid_2018_team_participant = team_participant(2018)
     player_2018_jacob_lott = {
-        'No.' : '1', 'Name' : 'Jacob Lott', 'Pos.' : 'IF', 'B/T' : 'R/R', 'Ht.' : '5-10', 'Wt.' : '165', 'Yr.' : 'Fr.', 'Hometown/High School' : 'Pickerington, Ohio / Pickerington Central',
+        'No.' : '1', 'Name' : 'Jacob Lott', 'Pos.' : 'IF', 'B/T' : 'R/R', 'Ht.' : '5-10', 'Wt.' : '165', 'Yr.' : 'Fr.', 'Hometown/High School' : 'Pickerington, Ohio/Pickerington Central',
         'G' : '39', 'AB' : '143', 'R' : '22', 'H' : '41', '2B' : '10', '3B' : '2', 'HR' : '2', 'RBI' : '23', 'BB' : '7', 'K' : '25', 'SB' : '5', 'CS' : '2', 'AVG' : '.287', 'OBP' : '.318', 'SLG' : '.427'
         }
     player_2018_mark_gross = {
-        'No.' : '33', 'Name' : 'Mark Gross', 'Pos.' : 'RHP', 'B/T' : 'L/R', 'Ht.' : '6-3', 'Wt.' : '200', 'Yr.' : 'Jr.', 'Hometown/High School' : 'Butler, Pa. / Butler Area Senior',
+        'No.' : '33', 'Name' : 'Mark Gross', 'Pos.' : 'RHP', 'B/T' : 'L/R', 'Ht.' : '6-3', 'Wt.' : '200', 'Yr.' : 'Jr.', 'Hometown/High School' : 'Butler, Pa./Butler Area Senior',
         'APP' : '11', 'GS' : '10', 'W' : '6', 'L' : '4', 'SV' : '0', 'CG' : '0', 'IP' : '70.2', 'H' : '69', 'R' : '37', 'ER' : '29', 'BB' : '21', 'K' : '44', 'K/9' : '5.60', 'HR' : '1', 'ERA' : '3.69'
         }
     player_2018_scott_kutschke = {
-        'No.' : '38', 'Name' : 'Scott Kutschke', 'Pos.' : 'LHP', 'B/T' : 'L/L', 'Ht.' : '6-5', 'Wt.' : '195', 'Yr.' : 'So.', 'Hometown/High School' : 'Morton Grove, Ill. / Notre Dame Prep',
+        'No.' : '38', 'Name' : 'Scott Kutschke', 'Pos.' : 'LHP', 'B/T' : 'L/L', 'Ht.' : '6-5', 'Wt.' : '195', 'Yr.' : 'So.', 'Hometown/High School' : 'Morton Grove, Ill./Notre Dame Prep',
         'APP' : '14', 'GS' : '0', 'W' : '4', 'L' : '1', 'SV' : '1', 'CG' : '0', 'IP' : '30.2', 'H' : '35', 'R' : '15', 'ER' : '11', 'BB' : '14', 'K' : '24', 'K/9' : '7.04', 'HR' : '2', 'ERA' : '3.23'
         }
 
@@ -182,14 +182,6 @@ class TeamParticipantTester(unittest.TestCase):
         self.assertEqual(self.__class__.valid_2018_team_participant.fetch_player_year('33'), self.__class__.player_2018_mark_gross['Yr.'], "Academic year for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
         self.assertEqual(self.__class__.valid_2018_team_participant.fetch_player_year('38'), self.__class__.player_2018_scott_kutschke['Yr.'], "Academic year for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-
-    #tests fetching of player position
-    def test_fetch_player_position(self):
-        self.assertEqual(self.__class__.valid_2018_team_participant.fetch_player_position('1'), self.__class__.player_2018_jacob_lott['Yr.'], "Academic year for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
-        self.assertEqual(self.__class__.valid_2018_team_participant.fetch_player_position('33'), self.__class__.player_2018_mark_gross['Yr.'], "Academic year for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
-        self.assertEqual(self.__class__.valid_2018_team_participant.fetch_player_position('38'), self.__class__.player_2018_scott_kutschke['Yr.'], "Academic year for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
-
-
     #tests fetching of player hometown and highschool
     def test_fetch_player_town_and_school(self):
         self.assertEqual(self.__class__.valid_2018_team_participant.fetch_player_hometown_and_high_school('1'), self.__class__.player_2018_jacob_lott['Hometown/High School'], "Hometown and high school for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
@@ -218,9 +210,9 @@ class TeamParticipantTester(unittest.TestCase):
 
     #tests fetching of batter hits
     def test_fetch_batter_num_of_hits(self):
-        self.assertEqual(self.__class__.valid_2018_team_participant.fetch_batter_num_of_runs('1'), self.__class__.player_2018_jacob_lott['R'], "Batter number of runs for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
-        self.assertEqual(self.__class__.valid_2018_team_participant.fetch_batter_num_of_runs('33'), None, "Batter number of runs for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
-        self.assertEqual(self.__class__.valid_2018_team_participant.fetch_batter_num_of_runs('38'), None, "Batter number of runs for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
+        self.assertEqual(self.__class__.valid_2018_team_participant.fetch_batter_num_of_hits('1'), self.__class__.player_2018_jacob_lott['H'], "Batter number of runs for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
+        self.assertEqual(self.__class__.valid_2018_team_participant.fetch_batter_num_of_hits('33'), None, "Batter number of runs for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
+        self.assertEqual(self.__class__.valid_2018_team_participant.fetch_batter_num_of_hits('38'), None, "Batter number of runs for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
     #tests fetching of batter doubles
     def test_fetch_batter_num_of_doubles(self):
