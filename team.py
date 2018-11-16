@@ -51,134 +51,134 @@ class team:
     def fetch_num_of_games(self):
         if "Games" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Games"]
-        else return None
+        else: return None
 
     def fetch_num_of_at_bats(self):
         if "At Bats" in self.team_stats_dictionary:
             return self.team_stats_dictionary["At Bats"]
-        else return None
+        else: return None
 
     def fetch_num_of_runs(self):
         if "Runs" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Runs"]
-        else return None
+        else: return None
 
     def fetch_num_of_hits(self):
         if "Hits" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Hits"]
-        else return None
+        else: return None
 
     def fetch_num_of_doubles(self):
         if "Doubles" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Doubles"]
-        else return None
+        else: return None
 
     def fetch_num_of_triples(self):
         if "Triples" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Triples"]
-        else return None
+        else: return None
 
     def fetch_num_of_home_runs(self):
         if "Home Runs" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Home Runs"]
-        else return None
+        else: return None
 
     def fetch_num_of_runs_batted_in(self):
         if "Runs Batted In" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Runs Batted In"]
-        else return None
+        else: return None
 
     def fetch_num_of_extra_base_hits(self):
         if "Extra Base Hits" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Extra Base Hits"]
-        else return None
+        else: return None
 
     def fetch_num_of_total_bases(self):
         if "Total Bases" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Total Bases"]
-        else return None
+        else: return None
 
     def fetch_num_of_walks(self):
         if "Walks" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Walks"]
-        else return None
+        else: return None
 
     def fetch_num_of_hit_by_pitches(self):
         if "Hit by pitch" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Hit by pitch"]
-        else return None
+        else: return None
 
     def fetch_num_of_strikeouts(self):
         if "Strikeouts" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Strikeouts"]
-        else return None
+        else: return None
 
     def fetch_num_of_sacrifice_flies(self):
         if "Sacrifice Flies" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Sacrifice Flies"]
-        else return None
+        else: return None
 
     def fetch_num_of_sacrifice_hits(self):
         if "Sacrifice Hits" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Sacrifice Hits"]
-        else return None
+        else: return None
 
     def fetch_num_of_hit_into_double_play(self):
         if "Hit into double play" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Hit into double play"]
-        else return None
+        else: return None
 
     def fetch_num_of_stolen_bases(self):
         if "Stolen Bases" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Stolen Bases"]
-        else return None
+        else: return None
 
     def fetch_num_of_caught_stealing(self):
         if "Caught Stealing" in self.team_stats_dictionary:
-            return self.team_stats_dictionary["Runs"]
-        else return None
+            return self.team_stats_dictionary["Caught Stealing"]
+        else: return None
 
     def fetch_batting_average(self):
         if "Batting Average" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Batting Average"]
-        else return None
+        else: return None
 
     def fetch_on_base_percentage(self):
         if "On Base Percentage" in self.team_stats_dictionary:
             return self.team_stats_dictionary["On Base Percentage"]
-        else return None
+        else: return None
 
     def fetch_slugging_percentage(self):
         if "Slugging Percentage" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Slugging Percentage"]
-        else return None
+        else: return None
 
     def fetch_earned_run_average(self):
         if "Earned Run Average" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Earned Run Average"]
-        else return None
+        else: return None
 
     def fetch_num_of_shutouts(self):
         if "Shutouts" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Shutouts"]
-        else return None
+        else: return None
 
     def fetch_num_of_at_bats_against(self):
         if "At Bats Against" in self.team_stats_dictionary:
             return self.team_stats_dictionary["At Bats Against"]
-        else return None
+        else: return None
 
     def fetch_batting_average_against(self):
         if "Batting Average Against" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Batting Average Against"]
-        else return None
+        else: return None
 
     def fetch_home_attendance(self):
         if "Home Attendance" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Home Attendance"]
-        else return None
+        else: return None
 
     def fetch_home_attendance_average(self):
         if "Home Attendance average" in self.team_stats_dictionary:
             return self.team_stats_dictionary["Home Attendance average"]
-        else return None
+        else: return None

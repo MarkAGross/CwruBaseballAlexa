@@ -4,31 +4,34 @@ from bs4 import BeautifulSoup
 #Class for fetching information and statistics about players and coaches
 class team_participant:
 
+    """
+    Constructor for team_particpant
+    Pulls information from website or throws error if unable to connect to website or pull data
+    """
+
     def __init__(self, year):
         self.year = year
 
-        self.roster_list = None
-        self.get_list_of_all_roster_data(year)
+        self.roster_dictionary_list = []
+        self.create_and_set_list_of_all_roster_data(year)
 
-        self.individual_statistics_batters_list = None
-        self.get_list_of_all_individual_batter_statistics(year)
+        self.batters_individual_statistics_dictionary_list = []
+        self.create_and_set_list_of_all_batter_individual_statistics(year)
 
-        self.individual_statistics_pitchers_list = None
-        self.get_list_of_all_individual_pitcher_statistics(year)
+        self.pitchers_individual_statistics_dictionary_list = []
+        self.create_and_set_list_of_all_pitcher_individual_statistics(year)
 
+        self.players_list = []
+        self.create_and_set_players_list(self.roster_dictionary_list, self.batters_individual_statistics_dictionary_list, self.pitchers_individual_statistics_dictionary_list)
+
+
+    """
+    Functions for creating each URL for the input year.
+    Note: Does not check that URL is valid
+    Input year is upper bound of year range: Example: 2017-18 season URL obtained with an input year of 2018
+    """
 
     def team_roster_url(self, year):
-        """ Produces the expected url for the baseball roster for the given year.
-        Does not check that url is valid.
-        Input year is upper bound of year range. Example: 2017-18 season can be obtained with an input year of 2018.
-        Example URL: https://athleticscaseedu/sports/bsb/0-/roster?view=list
-
-        Args:
-            year (integer) : Year of the roster.
-
-        Returns:
-            str : URL of the roster for the given year.
-        """
         url_beginning = 'https://athletics.case.edu/sports/bsb/'
         previous_year_string = str(year - 1)
         dash = '-'
@@ -38,17 +41,6 @@ class team_participant:
 
 
     def individual_statistics_url(self, year):
-        """ Produces the expected url for the individual statistics page for the given year.
-        Does not check that url is valid.
-        Input year is upper bound of year range. Example: 2017-18 season can be obtained with an input year of 2018.
-        Example URL: https://athleticscaseedu/sports/bsb/0-/teams/casewesternreserve?view=lineup&r=0&pos=
-
-        Args:
-            year (integer) : Year of the roster.
-
-        Returns:
-            str : URL of the indivudual statistics page for the given year.
-        """
         url_beginning = 'https://athletics.case.edu/sports/bsb/'
         previous_year_string = str(year - 1)
         dash = '-'
@@ -57,14 +49,12 @@ class team_participant:
         return (url_beginning + previous_year_string + dash + current_year_last_two_digits_string + url_end)
 
 
-    def get_list_of_all_roster_data(self, year):
-        """ Sets roster_list attribute of team_participant to list of all roster data for input year
-        Each entry in list is a row from table represented by a dictionary.
-        The dictionary key values are the column headers with the values being the table values
+    """
+    Functions for creating and setting lists of dictionaries containing table data.
+    Throws error if there is an error connecting to the website of the specified year
+    """
 
-        Args:
-            year (integer) : Year of the roster.
-        """
+    def create_and_set_list_of_all_roster_data(self, year):
         roster_page_url = self.team_roster_url(year)
         #get all data from roster table
         list_of_table_rows_raw_data = []
@@ -88,19 +78,19 @@ class team_participant:
                 key,value = element.split(":")
                 single_row_dictionary[key] = value
             list_of_table_rows_refined.append(single_row_dictionary)
-        self.roster_list = list_of_table_rows_refined
+        self.roster_dictionary_list = list_of_table_rows_refined
 
-    def get_list_of_all_individual_batter_statistics(self, year):
+    def create_and_set_list_of_all_batter_individual_statistics(self, year):
         individual_statistics_url = self.individual_statistics_url(year)
         individual_statistics_batter_table_number = 4
-        self.individual_statistics_batters_list = self.fetch_all_table_data(individual_statistics_url, individual_statistics_batter_table_number)
+        self.batters_individual_statistics_dictionary_list = self.fetch_all_individual_statistics_table_data(individual_statistics_url, individual_statistics_batter_table_number)
 
-    def get_list_of_all_individual_pitcher_statistics(self, year):
+    def create_and_set_list_of_all_pitcher_individual_statistics(self, year):
         individual_statistics_url = self.individual_statistics_url(year)
         individual_statistics_pitcher_table_number = 8
-        self.individual_statistics_pitchers_list = self.fetch_all_table_data(individual_statistics_url, individual_statistics_pitcher_table_number)
+        self.pitchers_individual_statistics_dictionary_list = self.fetch_all_individual_statistics_table_data(individual_statistics_url, individual_statistics_pitcher_table_number)
 
-    def fetch_all_table_data(self, url, table_number):
+    def fetch_all_individual_statistics_table_data(self, url, table_number):
         #get all rows to batter stats table
         list_of_player_dictionaries = []
         request = urllib.request.Request(url, headers={'User-Agent' : "AlexaSkill"})
@@ -135,183 +125,337 @@ class team_participant:
         return list_of_player_dictionaries
 
 
-    def get_player_roster_dictionary(self, player_number):
-        for player in self.roster_list:
-            if player['No.'] == str(player_number):
-                return player
-        # if player with input number not found
-        return {}
+    """
+    Functions for creating the players list from the previously set roster, batter and pitcher dictionaries.
+    Assumes that roster contains all players.
+    """
+
+    def create_and_set_players_list(self, roster_dictionary_list, batter_stats_dictionary_list, pitcher_stats_dictionary_list):
+        for roster_dictionary in roster_dictionary_list:
+            number_string = roster_dictionary["No."]
+            batter_dictionary = self.get_player_batter_dictionary(number_string)
+            pitcher_dictionary = self.get_player_pitcher_dictionary(number_string)
+            created_player = player(roster_dictionary, batter_dictionary, pitcher_dictionary)
+            self.players_list.append(created_player)
+
 
     def get_player_batter_dictionary(self, player_number):
-        for player in self.individual_statistics_batters_list:
+        for player in self.batters_individual_statistics_dictionary_list:
             if player['NO.'] == str(player_number):
                 return player
         # if player with input number not found
-        return {}
+        return None
 
     def get_player_pitcher_dictionary(self, player_number):
-        for player in self.individual_statistics_pitchers_list:
+        for player in self.pitchers_individual_statistics_dictionary_list:
             if player['NO.'] == str(player_number):
                 return player
         # if player with input number not found
-        return {}
+        return None
 
+
+    """
+    Functions for fetching from pulled data.
+    Assumes all data already stored in players_list
+    """
+
+    def get_player_from_players_list_by_number(self, number):
+        for player in self.players_list:
+            if player.number == number:
+                return player
+        #if player with input number not found
+        return None
 
     def fetch_player_name(self, player_number):
-        player = self.get_player_roster_dictionary(player_number)
-        print (player)
-        return player['No.']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.name
 
     def fetch_player_position(self, player_number):
-        player = self.get_player_roster_dictionary(player_number)
-        return player['Pos.']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.player_position
 
     def fetch_all_players_by_position(self, position_abr):
-        list_of_players = []
-        for player in self.roster_list:
-            if player['Pos.'] == position_abr:
-                list_of_players.append(player)
-        return list_of_players
+        list_of_players_for_position = []
+        for player in self.players_list:
+            if player.player_position == position_abr:
+                list_of_players_for_position.append(player)
+        if not list_of_players_for_position:
+            return None
+        else:
+            return list_of_players_for_position
 
     def fetch_player_bats_and_throws(self, player_number):
-        player = self.get_player_roster_dictionary(player_number)
-        return player['B/T']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.bats_and_throws
 
     def fetch_player_height(self, player_number):
-        player = self.get_player_roster_dictionary(player_number)
-        return player['Ht.']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.player_height
 
     def fetch_player_weight(self, player_number):
-        player = self.get_player_roster_dictionary(player_number)
-        return player['Wt.']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.player_weight
 
     def fetch_player_year(self, player_number):
-        player = self.get_player_roster_dictionary(player_number)
-        return player['Yr.']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.player_year
 
     def fetch_all_players_year(self, year_abr):
-        list_of_players = []
-        for player in self.roster_list:
-            if player['Yr.'] == year_abr:
-                list_of_players.append(player)
-        return list_of_players
+        list_of_players_for_academic_year = []
+        for player in self.players_list:
+            if player.player_year == academic_year_abr:
+                list_of_players_for_academic_year.append(player)
+        if not list_of_players_for_academic_year:
+            return None
+        else:
+            return list_of_players_for_academic_year
 
     def fetch_player_hometown_and_high_school(self, player_number):
-        player = self.get_player_roster_dictionary(player_number)
-        return player['Hometown/High School']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.player_year
 
     def fetch_batter_games_played(self, player_number):
-        player = self.get_player_batter_dictionary(player_number)
-        return player['G']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.batter_games_played
 
     def fetch_batter_num_of_at_bats(self, player_number):
-        player = self.get_player_batter_dictionary(player_number)
-        return player['AB']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.batter_num_of_at_bats
 
     def fetch_batter_num_of_runs(self, player_number):
-        player = self.get_player_batter_dictionary(player_number)
-        return player['R']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.batter_num_of_runs
 
     def fetch_batter_num_of_hits(self, player_number):
-        player = self.get_player_batter_dictionary(player_number)
-        return player['H']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.batter_num_of_hits
 
     def fetch_batter_num_of_doubles(self, player_number):
-        player = self.get_player_batter_dictionary(player_number)
-        return player['2B']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.batter_num_of_doubles
 
     def fetch_batter_num_of_triples(self, player_number):
-        player = self.get_player_batter_dictionary(player_number)
-        return player['3B']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.batter_num_of_triples
 
     def fetch_batter_num_of_home_runs(self, player_number):
-        player = self.get_player_batter_dictionary(player_number)
-        return player['HR']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.batter_num_of_home_runs
 
     def fetch_batter_num_of_runs_batted_in(self, player_number):
-        player = self.get_player_batter_dictionary(player_number)
-        return player['RBI']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.batter_num_of_runs_batted_in
 
     def fetch_batter_num_of_walks(self, player_number):
-        player = self.get_player_batter_dictionary(player_number)
-        return player['BB']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.batter_num_of_walks
 
     def fetch_batter_num_of_strikeouts(self, player_number):
-        player = self.get_player_batter_dictionary(player_number)
-        return player['K']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.batter_num_of_strikeouts
 
     def fetch_batter_num_of_stolen_bases(self, player_number):
-        player = self.get_player_batter_dictionary(player_number)
-        return player['SB']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.batter_num_of_stolen_bases
 
     def fetch_batter_batting_average(self, player_number):
-        player = self.get_player_batter_dictionary(player_number)
-        return player['BA']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.batter_batting_average
 
     def fetch_batter_on_base_percentage(self, player_number):
-        player = self.get_player_batter_dictionary(player_number)
-        return player['OBP']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.batter_on_base_percentage
 
     def fetch_batter_slugging_percentage(self, player_number):
-        player = self.get_player_batter_dictionary(player_number)
-        return player['SLG']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.batter_slugging_percentage
 
     def fetch_pitcher_num_of_appearances(self, player_number):
-        player = self.get_player_pitcher_dictionary(player_number)
-        return player['APP']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.pitcher_num_of_appearances
 
     def fetch_pitcher_num_of_game_starts(self, player_number):
-        player = self.get_player_pitcher_dictionary(player_number)
-        return player['GS']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.pitcher_num_of_game_starts
 
     def fetch_pitcher_num_of_wins(self, player_number):
-        player = self.get_player_pitcher_dictionary(player_number)
-        return player['W']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.pitcher_num_of_wins
 
     def fetch_pitcher_num_of_losses(self, player_number):
-        player = self.get_player_pitcher_dictionary(player_number)
-        return player['L']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.pitcher_num_of_losses
 
     def fetch_pitcher_num_of_saves(self, player_number):
-        player = self.get_player_pitcher_dictionary(player_number)
-        return player['SV']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.pitcher_num_of_saves
 
     def fetch_pitcher_num_of_complete_games(self, player_number):
-        player = self.get_player_pitcher_dictionary(player_number)
-        return player['CG']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.pitcher_num_of_complete_games
 
     def fetch_pitcher_num_of_innings_pitched(self, player_number):
-        player = self.get_player_pitcher_dictionary(player_number)
-        return player['IP']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.pitcher_num_of_innings_pitched
 
     def fetch_pitcher_num_of_hits(self, player_number):
-        player = self.get_player_pitcher_dictionary(player_number)
-        return player['H']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.pitcher_num_of_hits
 
     def fetch_pitcher_num_of_runs(self, player_number):
-        player = self.get_player_pitcher_dictionary(player_number)
-        return player['R']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.pitcher_num_of_runs
 
     def fetch_pitcher_num_of_earned_runs(self, player_number):
-        player = self.get_player_pitcher_dictionary(player_number)
-        return player['ER']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.pitcher_num_of_earned_runs
 
     def fetch_pitcher_num_of_walks(self, player_number):
-        player = self.get_player_pitcher_dictionary(player_number)
-        return player['BB']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.pitcher_num_of_walks
 
     def fetch_pitcher_num_of_strikeouts(self, player_number):
-        player = self.get_player_pitcher_dictionary(player_number)
-        return player['K']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.pitcher_num_of_strikeouts
 
     def fetch_pitcher_strikeouts_per_nine_innings(self, player_number):
-        player = self.get_player_pitcher_dictionary(player_number)
-        return player['K/9']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.pitcher_strikeouts_per_nine_innings
 
     def fetch_pitcher_num_of_home_runs(self, player_number):
-        player = self.get_player_pitcher_dictionary(player_number)
-        return player['HR']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.pitcher_num_of_home_runs
 
     def fetch_pitcher_earned_run_average(self, player_number):
-        player = self.get_player_pitcher_dictionary(player_number)
-        return player['ERA']
+        player = self.get_player_from_players_list_by_number(player_number)
+        return player.pitcher_earned_run_average
+
+class player:
+
+    def __init__(self, roster_dictionary, batter_dictionary, pitcher_dictionary):
+        self.number = None
+        self.name = None
+        self.player_position = None
+        self.bats_and_throws = None
+        self.player_height = None
+        self.player_weight = None
+        self.player_year = None
+        self.player_hometown_and_high_school = None
+        self.batter_games_played = None
+        self.batter_num_of_at_bats = None
+        self.batter_num_of_runs = None
+        self.batter_num_of_hits = None
+        self.batter_num_of_doubles = None
+        self.batter_num_of_triples = None
+        self.batter_num_of_home_runs = None
+        self.batter_num_of_runs_batted_in = None
+        self.batter_num_of_walks = None
+        self.batter_num_of_strikeouts = None
+        self.batter_num_of_stolen_bases= None
+        self.batter_batting_average = None
+        self.batter_on_base_percentage = None
+        self.batter_slugging_percentage = None
+        self.pitcher_num_of_appearances = None
+        self.pitcher_num_of_game_starts = None
+        self.pitcher_num_of_wins = None
+        self.pitcher_num_of_losses = None
+        self.pitcher_num_of_saves = None
+        self.pitcher_num_of_complete_games = None
+        self.pitcher_num_of_innings_pitched= None
+        self.pitcher_num_of_hits= None
+        self.pitcher_num_of_runs = None
+        self.pitcher_num_of_earned_runs = None
+        self.pitcher_num_of_walks = None
+        self.pitcher_num_of_strikeouts = None
+        self.pitcher_strikeouts_per_nine_innings = None
+        self.pitcher_num_of_home_runs = None
+        self.pitcher_earned_run_average = None
+        self.initialize_from_roster_dictionary(roster_dictionary)
+        self.initialize_from_batter_dictionary(batter_dictionary)
+        self.initialze_from_pitcher_dictionary(pitcher_dictionary)
+
+    def initialize_from_roster_dictionary(self, dictionary):
+        if dictionary == None:
+            return
+        if "No." in dictionary:
+            self.number = dictionary["No."]
+        if "Name" in dictionary:
+            self.name = dictionary["Name"]
+        if "Pos." in dictionary:
+            self.player_position = dictionary["Pos."]
+        if "B/T" in dictionary:
+            self.bats_and_throws = dictionary["B/T"]
+        if "Ht." in dictionary:
+            self.player_height = dictionary["Ht."]
+        if "Wt." in dictionary:
+            self.player_weight = dictionary["Wt."]
+        if "Yr." in dictionary:
+            self.player_year = dictionary["Yr."]
+        if "Hometown/High School" in dictionary:
+            self.player_hometown_and_high_school = dictionary["Hometown/High School"]
+
+    def initialize_from_batter_dictionary(self, dictionary):
+        if dictionary == None:
+            return
+        if "G" in dictionary:
+            self.batter_games_played = dictionary["G"]
+        if "AB" in dictionary:
+            self.batter_num_of_at_bats = dictionary["AB"]
+        if "R" in dictionary:
+            self.batter_num_of_runs = dictionary["R"]
+        if "H" in dictionary:
+            self.batter_num_of_hits = dictionary["H"]
+        if "2B" in dictionary:
+            self.batter_num_of_doubles = dictionary["2B"]
+        if "3B" in dictionary:
+            self.batter_num_of_triples = dictionary["3B"]
+        if "HR" in dictionary:
+            self.batter_num_of_home_runs = dictionary["HR"]
+        if "RBI" in dictionary:
+            self.batter_num_of_runs_batted_in = dictionary["RBI"]
+        if "BB" in dictionary:
+            self.batter_num_of_walks = dictionary["BB"]
+        if "K" in dictionary:
+            self.batter_num_of_strikeouts = dictionary["K"]
+        if "SB" in dictionary:
+            self.batter_num_of_stolen_bases= dictionary["SB"]
+        if "BA" in dictionary:
+            self.batter_batting_average = dictionary["BA"]
+        if "OBP" in dictionary:
+            self.batter_on_base_percentage = dictionary["OBP"]
+        if "SLG" in dictionary:
+            self.batter_slugging_percentage = dictionary["SLG"]
+
+    def initialze_from_pitcher_dictionary(self,dictionary):
+        if dictionary == None:
+            return
+        if "APP" in dictionary:
+            self.pitcher_num_of_appearances = dictionary["APP"]
+        if "GS" in dictionary:
+            self.pitcher_num_of_game_starts = dictionary["GS"]
+        if "W" in dictionary:
+            self.pitcher_num_of_wins = dictionary["W"]
+        if "L" in dictionary:
+            self.pitcher_num_of_losses = dictionary["L"]
+        if "SV" in dictionary:
+            self.pitcher_num_of_saves = dictionary["SV"]
+        if "CG" in dictionary:
+            self.pitcher_num_of_complete_games = dictionary["CG"]
+        if "IP" in dictionary:
+            self.pitcher_num_of_innings_pitched= dictionary["IP"]
+        if "H" in dictionary:
+            self.pitcher_num_of_hits= dictionary["H"]
+        if "R" in dictionary:
+            self.pitcher_num_of_runs = dictionary["R"]
+        if "ER" in dictionary:
+            self.pitcher_num_of_earned_runs = dictionary["ER"]
+        if "BB" in dictionary:
+            self.pitcher_num_of_walks = dictionary["BB"]
+        if "K" in dictionary:
+            self.pitcher_num_of_strikeouts = dictionary["K"]
+        if "K/9" in dictionary:
+            self.pitcher_strikeouts_per_nine_innings = dictionary["K/9"]
+        if "HR" in dictionary:
+            self.pitcher_num_of_home_runs = dictionary["HR"]
+        if "ERA" in dictionary:
+            self.pitcher_earned_run_average = dictionary["ERA"]
