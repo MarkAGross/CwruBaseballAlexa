@@ -1,9 +1,11 @@
 import unittest
 from team import team
 from team_participant import team_participant
+from schedule import schedule
 
 class GetterTeamTester(unittest.TestCase):
 
+    print ("Testing team")
     valid_2018_team = team(2018)
 
     '''
@@ -116,7 +118,7 @@ class GetterTeamTester(unittest.TestCase):
 
 
 class TeamParticipantTester(unittest.TestCase):
-
+    print ("Testing team_participant")
     valid_2018_team_participant = team_participant(2018)
     player_2018_jacob_lott = {
         'No.' : '1', 'Name' : 'Jacob Lott', 'Pos.' : 'IF', 'B/T' : 'R/R', 'Ht.' : '5-10', 'Wt.' : '165', 'Yr.' : 'Fr.', 'Hometown/High School' : 'Pickerington, Ohio / Pickerington Central',
@@ -364,6 +366,44 @@ class TeamParticipantTester(unittest.TestCase):
         self.assertEqual(self.__class__.valid_2018_team_participant.fetch_pitcher_earned_run_average('1'), None, "Pitcher earned run average for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
         self.assertEqual(self.__class__.valid_2018_team_participant.fetch_pitcher_earned_run_average('33'), self.__class__.player_2018_mark_gross['ERA'], "Pitcher earned run average for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
         self.assertEqual(self.__class__.valid_2018_team_participant.fetch_pitcher_earned_run_average('38'), self.__class__.player_2018_scott_kutschke['ERA'], "Pitcher earned run average for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
+
+class GetterTeamTester(unittest.TestCase):
+    print ("Testing schedule")
+    valid_2018_schedule = schedule(2018)
+    valid_2018_wooster_game = {'month' : 'April', 'day' : '25', 'day_of_week' : 'Wed.', 'verses_or_at' : 'vs', 'opponent_name' : '#2 Wooster', 'result' : 'L, 11-6', 'status' : 'Final'}
+
+    '''
+    def test_invalid_schedule_year(self):
+        .assertRaises(Exception, team(9999), "The invalid year correctly threw an error")
+    '''
+    '''
+    def test_valid_schedule_year(self):
+        self.assertEqual(team(2015).year, 2015, "The correct year was fetched")
+    '''
+
+    def test_fetch_games_by_date_no_games(self):
+        games_for_day = self.__class__.valid_2018_schedule.fetch_games_by_date("March", "2")
+        self.assertEqual(games_for_day, None, "Incorrectly fetched games for date that no games occured")
+
+    def test_fetch_games_by_date_invalid_month(self):
+        games_for_day = self.__class__.valid_2018_schedule.fetch_games_by_date("blahblahblah", "2")
+        self.assertEqual(games_for_day, None, "Incorrectly fetched games for invalid month date")
+
+    def test_fetch_games_by_date_invalid_day(self):
+        games_for_day = self.__class__.valid_2018_schedule.fetch_games_by_date("March", "blah")
+        self.assertEqual(games_for_day, None, "Incorrectly fetched games for invalid day date")
+
+    def test_fetch_games_by_date_single_game(self):
+        games_for_day = self.__class__.valid_2018_schedule.fetch_games_by_date('April', '25')
+        self.assertEqual(len(games_for_day), 1, "Fetched incorrect number of games for date")
+        game = games_for_day[0]
+        self.assertEqual(game.month,  self.__class__.valid_2018_wooster_game['month'], "Fetched game month incorrectly")
+        self.assertEqual(game.day, self.__class__.valid_2018_wooster_game['day'], "Fetched game day incorrectly")
+        self.assertEqual(game.day_of_week, self.__class__.valid_2018_wooster_game['day_of_week'], "Fetched game day of week incorrectly")
+        self.assertEqual(game.verses_or_at,  self.__class__.valid_2018_wooster_game['verses_or_at'], "Fetched game vs or at incorrectly")
+        self.assertEqual(game.opponent_name, self.__class__.valid_2018_wooster_game['opponent_name'], "Fetched game opponent name incorrectly")
+        self.assertEqual(game.result,  self.__class__.valid_2018_wooster_game['result'], "Fetched game result incorrectly")
+        self.assertEqual(game.status, self.__class__.valid_2018_wooster_game['status'], "Fetched game status incorrectly")
 
 if __name__ == '__main__':
     unittest.main()

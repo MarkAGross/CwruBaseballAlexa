@@ -31,7 +31,7 @@ class schedule:
         """
         games_for_input_day = []
         for game in self.list_of_games:
-            if game.month == month and day in game.day:
+            if game.month == month and game.day == day:
                 games_for_input_day.append(game)
         if not games_for_input_day:
             return None
@@ -222,6 +222,7 @@ class game:
     def __init__ (self, game_dictionary):
         self.month = None
         self.day = None
+        self.day_of_week = None
         self.verses_or_at = None
         self.opponent_name = None
         self.neutral_site = None
@@ -233,7 +234,7 @@ class game:
         if "month-title" in game_dictionary:
             self.month = game_dictionary["month-title"]
         if "e_date" in game_dictionary:
-            self.day = game_dictionary["e_date"]
+            self.day_of_week, self.day = game_dictionary['e_date'].split(' ')
         if "va" in game_dictionary:
             self.verses_or_at = game_dictionary["va"]
         else:
