@@ -64,9 +64,11 @@ class team_participant:
         table = soup.find('table')
         table_rows = table.find_all('tr')
         for table_row in table_rows:
-            table_data = table_row.find_all('td')
-            row = [item.text for item in table_data]
-            if len(row) != 0:
+            row_data = table_row.find_all('td')
+            row = [item.text for item in row_data]
+            row_player_name = table_row.find('th').text
+            row.append("Name:" + row_player_name)
+            if len(row) > 2: #filters out empty rows and headers
                 list_of_table_rows_raw_data.append(row)
         #change raw data from table to a list of dictionaries, each dictionary being a row of
         #the table with key value pairs of the column name and table value
@@ -74,8 +76,11 @@ class team_participant:
         for row in list_of_table_rows_raw_data:
             single_row_dictionary = {}
             for element in row:
-                element = element.replace('\n','')
                 key,value = element.split(":")
+                key = key.strip()
+                key = key.replace('\n',' ')
+                value = value.strip()
+                value = value.replace('\n',' ')
                 single_row_dictionary[key] = value
             list_of_table_rows_refined.append(single_row_dictionary)
         self.roster_dictionary_list = list_of_table_rows_refined

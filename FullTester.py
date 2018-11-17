@@ -119,15 +119,15 @@ class TeamParticipantTester(unittest.TestCase):
 
     valid_2018_team_participant = team_participant(2018)
     player_2018_jacob_lott = {
-        'No.' : '1', 'Name' : 'Jacob Lott', 'Pos.' : 'IF', 'B/T' : 'R/R', 'Ht.' : '5-10', 'Wt.' : '165', 'Yr.' : 'Fr.', 'Hometown/High School' : 'Pickerington, Ohio/Pickerington Central',
+        'No.' : '1', 'Name' : 'Jacob Lott', 'Pos.' : 'IF', 'B/T' : 'R/R', 'Ht.' : '5-10', 'Wt.' : '165', 'Yr.' : 'Fr.', 'Hometown/High School' : 'Pickerington, Ohio / Pickerington Central',
         'G' : '39', 'AB' : '143', 'R' : '22', 'H' : '41', '2B' : '10', '3B' : '2', 'HR' : '2', 'RBI' : '23', 'BB' : '7', 'K' : '25', 'SB' : '5', 'CS' : '2', 'AVG' : '.287', 'OBP' : '.318', 'SLG' : '.427'
         }
     player_2018_mark_gross = {
-        'No.' : '33', 'Name' : 'Mark Gross', 'Pos.' : 'RHP', 'B/T' : 'L/R', 'Ht.' : '6-3', 'Wt.' : '200', 'Yr.' : 'Jr.', 'Hometown/High School' : 'Butler, Pa./Butler Area Senior',
+        'No.' : '33', 'Name' : 'Mark Gross', 'Pos.' : 'RHP', 'B/T' : 'L/R', 'Ht.' : '6-3', 'Wt.' : '200', 'Yr.' : 'Jr.', 'Hometown/High School' : 'Butler, Pa. / Butler Area Senior',
         'APP' : '11', 'GS' : '10', 'W' : '6', 'L' : '4', 'SV' : '0', 'CG' : '0', 'IP' : '70.2', 'H' : '69', 'R' : '37', 'ER' : '29', 'BB' : '21', 'K' : '44', 'K/9' : '5.60', 'HR' : '1', 'ERA' : '3.69'
         }
     player_2018_scott_kutschke = {
-        'No.' : '38', 'Name' : 'Scott Kutschke', 'Pos.' : 'LHP', 'B/T' : 'L/L', 'Ht.' : '6-5', 'Wt.' : '195', 'Yr.' : 'So.', 'Hometown/High School' : 'Morton Grove, Ill./Notre Dame Prep',
+        'No.' : '38', 'Name' : 'Scott Kutschke', 'Pos.' : 'LHP', 'B/T' : 'L/L', 'Ht.' : '6-5', 'Wt.' : '195', 'Yr.' : 'So.', 'Hometown/High School' : 'Morton Grove, Ill. / Notre Dame Prep',
         'APP' : '14', 'GS' : '0', 'W' : '4', 'L' : '1', 'SV' : '1', 'CG' : '0', 'IP' : '30.2', 'H' : '35', 'R' : '15', 'ER' : '11', 'BB' : '14', 'K' : '24', 'K/9' : '7.04', 'HR' : '2', 'ERA' : '3.23'
         }
 
