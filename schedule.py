@@ -11,8 +11,13 @@ class schedule:
         self.url = None
         self.schedule_url(year)
 
-        self.list_of_row_dictionaries = None
+        self.list_of_table_row_dictionaries = None
         self.get_list_of_all_row_dictionaries(self.url)
+
+        self.list_of_games = []
+        if self.list_of_table_row_dictionaries != None:
+            for dictionary in self.list_of_table_row_dictionaries:
+                self.list_of_games.append(game(dictionary))
 
     def fetch_games_by_date(self, month, day):
         """ Returns a list of games for the given date
@@ -24,17 +29,14 @@ class schedule:
         Returns:
             list : list of game dictionaries on the input date
         """
-        # TODO: return multiple games from same day
-        in_correct_month = False
-        for row in self.list_of_row_dictionaries:
-            if 'month-title' in row and row['month-title'] == month:
-                in_correct_month = True
-            if in_correct_month:
-                if 'e_date' in row and str(day) in row['e_date']:
-                    row_with_month = row
-                    row_with_month['month-title'] = month
-                    return row_with_month
-        return None
+        games_for_input_day = []
+        for game in self.list_of_games:
+            if game.month == month and day in game.day:
+                games_for_input_day.append(game)
+        if not games_for_input_day:
+            return None
+        else:
+            return games_for_input_day
 
     def fetch_previous_game(self):
         """ Returns the most recent game that occured on or before the current date
@@ -91,28 +93,6 @@ class schedule:
         return games
 
 
-    def fetch_score_by_date(self, month, day):
-        """ Returns a score of the game, including win or loss, of a given date
-
-        Args:
-            month (string) : full name of the month of the game
-            day (int) : day of the month
-
-        Returns:
-            str : String of game resulting score of given date, if no game exists returns None.
-        """
-        return self.fetch_games_by_date(month,day)['e_result']
-
-
-    def fetch_most_recent_score(self):
-        """ Returns a score of the game, including win or loss, of the most recent game from the current date
-
-        Returns:
-            str : String of game result. If no game previous exists, returns None.
-        """
-        return self.fetch_previous_game['e_result']
-
-
     def schedule_url(self, year):
         """ Produces the expected url for the baseball schedule for the given year.
         Does not check that url is valid.
@@ -148,26 +128,24 @@ class schedule:
         soup = BeautifulSoup(webpage, 'lxml')
         table = soup.find('table')
         table_rows = table.find_all('tr')
+        month = None
+        date = None
         for table_row in table_rows:
             row_dictionary = {}
             self.make_row_dictionary(table_row,row_dictionary)
-            if row_dictionary:
+            #adding month to each game
+            if 'month-title' in row_dictionary:
+                month = row_dictionary['month-title']
+            elif month != None:
+                row_dictionary['month-title'] = month
+            #adding date to each game
+            if 'e_date' in row_dictionary and row_dictionary['e_date'] != '':
+                date = row_dictionary['e_date']
+            elif 'e_date' in row_dictionary and row_dictionary['e_date'] == '':
+                row_dictionary['e_date'] = date
+            if len(row_dictionary) > 2: #filters out empty rows or rows with just the month
                 list_of_table_row_dictionaries.append(row_dictionary)
-        final_dictionary = list_of_table_row_dictionaries
-        '''
-        #turn into dictionary, key being the month and value being the list of dictionaries for that month
-        for index in list_of_table_row_dictionaries:
-            if 'month-title' in list_of_table_row_dictionaries[index].keys():
-                month = list_of_table_row_dictionaries[index]['month-title']
-                game_index = index + 1
-                month_list = []
-                while sub_index in list_of_table_row_dictionaries[game_index:]:
-                    if 'month-title' not in list_of_table_row_dictionaries[sub_index].keys():
-                        month_list.append(list_of_table_row_dictionaries[index])
-                    index = sub_index
-                final_dictionary[month] = month_list
-        '''
-        self.list_of_row_dictionaries = final_dictionary
+        self.list_of_table_row_dictionaries = list_of_table_row_dictionaries
 
 
     def make_row_dictionary(self, html_table_row, dictionary):
@@ -238,3 +216,33 @@ class schedule:
             bool : True if text is a month, otherwise false
         """
         return text in ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+class game:
+
+    def __init__ (self, game_dictionary):
+        self.month = None
+        self.day = None
+        self.verses_or_at = None
+        self.opponent_name = None
+        self.neutral_site = None
+        self.result = None
+        self.status = None
+        self.initialize_from_game_dictionary(game_dictionary)
+
+    def initialize_from_game_dictionary(self, game_dictionary):
+        if "month-title" in game_dictionary:
+            self.month = game_dictionary["month-title"]
+        if "e_date" in game_dictionary:
+            self.day = game_dictionary["e_date"]
+        if "va" in game_dictionary:
+            self.verses_or_at = game_dictionary["va"]
+        else:
+            self.verses_or_at = "vs"
+        if "team-name" in game_dictionary:
+            self.opponent_name = game_dictionary["team-name"]
+        if "neutralsite" in game_dictionary:
+            self.neutral_site = game_dictionary["neutralsite"]
+        if "e_result" in game_dictionary:
+            self.result = game_dictionary["e_result"]
+        if "e_status" in game_dictionary:
+            self.status = game_dictionary["e_status"]
