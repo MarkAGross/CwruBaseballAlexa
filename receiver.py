@@ -1,9 +1,10 @@
 from RequestReciever import receiver
 import sys
 
-inputstring = "This is not a test"
+inputstring = "games at bats runs hits not in don't pick me"
 r = receiver(inputstring)
 r.parse_string()
 for i in range(len(r.data)):
-    print (r.data[i])
+    print (r.data[i], end = " ")
+print (" ")
 print ("done")
