@@ -61,7 +61,8 @@ class schedule:
             if month_num == 0:
                 return None
             games = self.fetch_games_by_date(calendar.month_name[month_num],day)
-        return games
+        return games[-1] #gets last and most recent game of the list of games
+
 
 
     # if the schedule and current years are different, returns None
@@ -90,7 +91,7 @@ class schedule:
             if month_num == 13:
                 return None
             games = self.fetch_games_by_date(calendar.month_name[month_num],day)
-        return games
+        return games[0] #gets first game in the list of games. The list of games is for the next day with games
 
 
     def schedule_url(self, year):
