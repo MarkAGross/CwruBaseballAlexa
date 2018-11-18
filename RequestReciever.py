@@ -40,7 +40,7 @@ class receiver:
                         self.tosendpart[2] = p.fetch_player_bats_and_throws(self.playernumber)
                     if i == 3:
                         self.tosendpart[3] = p.fetch_player_height(self.playernumber)
-                    if i == 4 || i == 5:
+                    if i == 4 or i == 5:
                         self.tosendpart[4] = p.fetch_player_weight(self.playernumber)
                     if i == 6:
                         self.tosendpart[5] = p.fetch_player_year(self.playernumber)
@@ -98,7 +98,7 @@ class receiver:
                         self.tosendpart[26] = p.fetch_pitcher_num_of_complete_games(self.playernumber)
                     if i == 28:
                         self.tosendpart[27] = p.fetch_pitcher_num_of_innings_pitched(self.playernumber)
-                    if i == 29 || i == 30:
+                    if i == 29 or i == 30:
                         self.tosendpart[28] = p.fetch_pitcher_num_of_strikeouts_per_nine_innings(self.playernumber)
                     if i == 31:
                         self.tosendpart[29] = p.fetch_pitcher_num_of_earned_runs(self.playernumber)
@@ -109,7 +109,7 @@ class receiver:
         print (self.playernumber)
         print (self.year)
 
-        else if "next game" in self.inputstring || "previous game" in self.inputstring:
+        elif ("next game" in self.inputstring) or ("previous game" in self.inputstring):
             s = schedule(self.year)
             if "next game" in self.inputstring:
                 self.tosendsched[0] = s.fetch_next_game()
