@@ -105,17 +105,20 @@ class receiver:
                     if i == 32:
                         self.tosendpart[30] = p.fetch_pitcher_earned_run_average(self.playernumber)
                     
-                    self.data.append(self.keywords[i])
+                    print(self.tosendpart)
 
         elif "next game" in self.inputstring:
             s = schedule(self.year)
             if "next game" in self.inputstring:
                 self.tosendsched[0] = s.fetch_next_game()
+            print(self.tosendsched)
 
         elif "previous game" in self.inputstring:
             s = schedule(self.year)
             if "previous game" in self.inputstring:
                 self.tosendsched[1] = s.fetch_prev_game()
+            print(self.tosendsched)
+                
 
                 
         else:
@@ -179,7 +182,7 @@ class receiver:
                         self.tosend[25] = t.fetch_home_attendance()
                     if i == 26:
                         self.tosend[26] = t.fetch_home_attendance_average()
-                    self.data.append(self.keywords[i]) 
+                    print(self.tosend) 
             
 
     
