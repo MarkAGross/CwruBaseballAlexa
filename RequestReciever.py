@@ -52,11 +52,11 @@ class receiver:
                         self.tosendpart[8] = p.fetch_batter_num_of_at_bats(self.playernumber)
                     if i == 10:
                         self.tosendpart[9] = p.fetch_batter_num_of_runs(self.playernumber)
-                        if self.tosendpart[9] == "-":
+                        if self.tosendpart[9] == None:
                             self.tosendpart[9] = p.fetch_pitcher_num_of_runs(self.playernumber)
                     if i == 11:
                         self.tosendpart[10] = p.fetch_batter_num_of_hits(self.playernumber)
-                        if self.tosendpart[10] == "-":
+                        if self.tosendpart[10] == None:
                             self.tosendpart[10] = p.fetch_pitcher_num_of_hits(self.playernumber)
                     if i == 12:
                         self.tosendpart[11] = p.fetch_batter_num_of_doubles(self.playernumber)
@@ -64,17 +64,17 @@ class receiver:
                         self.tosendpart[12] = p.fetch_batter_num_of_triples(self.playernumber)
                     if i == 14:
                         self.tosendpart[13] = p.fetch_batter_num_of_home_runs(self.playernumber)
-                        if self.tosendpart[13] == "-":
+                        if self.tosendpart[13] == None:
                             self.tosendpart[13] = p.fetch_pitcher_num_of_home_runs(self.playernumber)
                     if i == 15:
                         self.tosendpart[14] = p.fetch_batter_num_of_runs_batted_in(self.playernumber)
                     if i == 16:
                         self.tosendpart[15] = p.fetch_batter_num_of_walks(self.playernumber)
-                        if self.tosendpart[15] == "-":
+                        if self.tosendpart[15] == None:
                             self.tosendpart[15] = p.fetch_pitcher_num_of_walks(self.playernumber)
                     if i == 17:
                         self.tosendpart[16] = p.fetch_batter_num_of_strikeouts(self.playernumber)
-                        if self.tosendpart[16] == "-":
+                        if self.tosendpart[16] == None:
                             self.tosendpart[16] = p.fetch_pitcher_num_of_strikeouts(self.playernumber)
                     if i == 18:
                         self.tosendpart[17] = p.fetch_batter_num_of_stolen_bases(self.playernumber)
@@ -105,15 +105,15 @@ class receiver:
                     if i == 32:
                         self.tosendpart[30] = p.fetch_pitcher_earned_run_average(self.playernumber)
                     
-                    self.data.append(self.keywords[i]) 
-        print (self.playernumber)
-        print (self.year)
+                    self.data.append(self.keywords[i])
 
-        elif ("next game" in self.inputstring) or ("previous game" in self.inputstring):
+        elif "next game" in self.inputstring:
             s = schedule(self.year)
             if "next game" in self.inputstring:
                 self.tosendsched[0] = s.fetch_next_game()
 
+        elif "previous game" in self.inputstring:
+            s = schedule(self.year)
             if "previous game" in self.inputstring:
                 self.tosendsched[1] = s.fetch_prev_game()
 
