@@ -17,10 +17,9 @@ inputstring5 = "I like spaghetti"
 
 r = receiver(inputstring)                                   #create receiver class
 data = []
-print ("receiver created")
+
 data = r.parse_string()                 #make array with data
-print(data)
-print(len(data))
+
 resp = response()
 if(len(data) == 28):                    #print with respective method based on data size
     resp.teamResponse(data)
@@ -35,10 +34,9 @@ else:
 
 r2 = receiver(inputstring2)                                   #create receiver class
 data2 = []
-print ("receiver created")
+
 data2 = r2.parse_string()                 #make array with data
-print(data2)
-print(len(data2))
+
 resp2 = response()
 if(len(data2) == 28):                    #print with respective method based on data size
     resp.teamResponse(data2)
@@ -51,10 +49,9 @@ else:
 
 r3 = receiver(inputstring3)                                   #create receiver class
 data3 = []
-print ("receiver created")
+
 data3 = r3.parse_string()                 #make array with data
-print(data3)
-print(len(data3))
+
 resp3 = response()
 if(len(data3) == 28):                    #print with respective method based on data size
     resp.teamResponse(data2)
@@ -67,10 +64,9 @@ else:
 
 r4 = receiver(inputstring4)                                   #create receiver class
 data4 = []
-print ("receiver created")
+
 data4 = r4.parse_string()                 #make array with data
-print(data4)
-print(len(data4))
+
 resp4 = response()
 if(len(data4) == 28):                    #print with respective method based on data size
     resp.teamResponse(data4)
@@ -85,8 +81,7 @@ r5 = receiver(inputstring5)                                   #create receiver c
 data5 = []
 print ("receiver created")
 data5 = r5.parse_string()                 #make array with data
-print(data5)
-print(len(data5))
+
 resp5 = response()
 if(len(data5) == 28):                    #print with respective method based on data size
     resp.teamResponse(data5)

@@ -1,6 +1,7 @@
 
 from error import LACK_OF_TEAM_INFORMATION_ERROR
 from error import LACK_OF_PARTICIPANT_INFORMATION_ERROR
+from schedule import game
 class response(object):
 
     #create mock list of player info
@@ -40,8 +41,7 @@ class response(object):
                 indexList.append(i)
                 count +=1
         #if statement to be removed later when exception handling works
-        print(indexList)
-        print(statArray)
+       
         if(count<=1):
             print("Unable to retrieve sufficent information")
         else:
@@ -59,9 +59,7 @@ class response(object):
        # except:
             #raise LACK_OF_TEAM_INFORMATION_ERROR
 
-        #print(statArray)
-        #print(indexList)
-        #print(nameStatArray)
+        
 
     #function to format and return information about individual participant stats
     def participantResponse(self, keyList):
@@ -97,16 +95,14 @@ class response(object):
             statNumString = statArray[0]
             yearString = str(statArray[2])
             playerString = statArray[1]
-            print(statArray)
+            
 
             print("Player No." + playerString + " has " + statNumString + " " + statString + " in " + yearString)
         
         #except:
             #raise LACK_OF_PARTICIPANT_INFORMATION_ERROR
             
-        #print(statArray)
-        #print(indexList)
-        #print(nameStatArray)
+        
 
     #function to format and return information about team schedule
     def scheduleResponse(self, keyList):
@@ -115,27 +111,28 @@ class response(object):
         statArray = []
         indexList = []
         nameStatArray = []
-        statString = ""
-        statNumString = ""
-        playerString = ""
-        yearString = ""
+        
 
         for i in range(len(keyList)):
             if keyList[i] is not None:
                 statArray.append(keyList[i])
                 indexList.append(i)
                 count +=1
-                print(statArray)
+                
 
         for i in range(len(indexList)):
             nameStatArray.append(scheduleStatList[indexList[i]])
-
-        statString = nameStatArray[0]
-        #statNumString = statArray[0]
-        yearString = statArray[0]
+        
+        
+        game  = statArray[0][0]
+        monthString = game.month
+        dayString = game.day
+        oppString = game.opponent_name
+        resultString = game.result
+        yearString = statArray[1]
         
 
-        print("inside schedule response")
+        print("CWRU baseball team played " + oppString+ "on the " +dayString+ " of "+monthString+ ", and the result was" + resultString+ "." )
         
         
 
