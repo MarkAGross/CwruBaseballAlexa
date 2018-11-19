@@ -1,6 +1,7 @@
 import urllib.request
 from bs4 import BeautifulSoup
 from error import CONNECTION_TO_WEBSITE_ERROR
+import datetime
 
 #Class for fetching information and statistics about players and coaches
 class team_participant:
@@ -11,6 +12,9 @@ class team_participant:
     """
 
     def __init__(self, year):
+        if year == None:
+            year = datetime.datetime.now().year
+
         self.year = year
 
         self.roster_dictionary_list = []

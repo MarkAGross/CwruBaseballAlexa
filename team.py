@@ -8,6 +8,9 @@ from error import CONNECTION_TO_WEBSITE_ERROR
 class team:
 
     def __init__(self, year):
+        if year == None:
+            year = datetime.datetime.now().year
+            
         self.year = year
 
         self.team_stats_url = None

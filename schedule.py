@@ -7,6 +7,9 @@ import datetime
 class schedule:
 
     def __init__(self, year):
+        if year == None:
+            year = datetime.datetime.now().year
+            
         self.year = year
 
         self.url = None
