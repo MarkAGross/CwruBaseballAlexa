@@ -47,21 +47,21 @@ else:
 #else:
     #print("Missed array length")
 
-#r3 = receiver(inputstring3)                                   #create receiver class
-#data3 = []
-#print ("receiver created")
-#data3 = r3.parse_string()                 #make array with data
-#print(data3)
-#print(len(data3))
-#resp3 = response()
-#if(len(data3) == 28):                    #print with respective method based on data size
-    #resp.teamResponse(data2)
-#elif(len(data3) == 33):
-    #resp.participantResponse(data2)
-#elif(len(data3) == 3):
-    #resp.scheduleResponse(data3)
-#else:
-    #print("Missed array length")
+r3 = receiver(inputstring3)                                   #create receiver class
+data3 = []
+print ("receiver created")
+data3 = r3.parse_string()                 #make array with data
+print(data3)
+print(len(data3))
+resp3 = response()
+if(len(data3) == 28):                    #print with respective method based on data size
+    resp.teamResponse(data2)
+elif(len(data3) == 33):
+    resp.participantResponse(data2)
+elif(len(data3) == 3):
+    resp.scheduleResponse(data3)
+else:
+    print("Missed array length")
 
 r4 = receiver(inputstring4)                                   #create receiver class
 data4 = []

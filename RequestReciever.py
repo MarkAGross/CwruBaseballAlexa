@@ -129,7 +129,7 @@ class receiver:
             self.tosendsched[2] = self.year
             print("Fetching previous game data:")   #fetch data for previous game
             if "previous game" in self.inputstring:
-                self.tosendsched[1] = s.fetch_prev_game()
+                self.tosendsched[1] = s.fetch_previous_game()
             return self.tosendsched                 #return array
                 
 
