@@ -15,7 +15,6 @@ data = r.parse_string()                 #make array with data
 print(data)
 print(len(data))
 resp = response()
-print(len(data))
 if(len(data) == 27):                    #print with respective method based on data size
     resp.teamResponse(data)
 elif(len(data) == 33):
