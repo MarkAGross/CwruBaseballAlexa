@@ -33,7 +33,6 @@ class receiver:
                 self.playernumber = self.numbers[j]
         #if there is a player number present
         if "number" in self.inputstring:
-            print("Found number in string")
             p = team_participant(self.year)                 #create instance of team_participant
             self.tosendpart[31] = self.playernumber   #add player number and year to the list
             self.tosendpart[32] = self.year
@@ -148,14 +147,13 @@ class receiver:
             self.tosend[27] = self.year
             print("Fetching team data:")
             for i in range(0, len(self.keywords)):
-                                                            #fetch team data based on keywords in array
+                                                        #fetch team data based on keywords in array
                 if self.keywords[i] in self.inputstring:
                     if i == 0:
                         self.tosend[0] = t.fetch_num_of_games()
                     if i == 1:
                         self.tosend[1] = t.fetch_num_of_at_bats()
                     if i == 2:
-                        print("Found runs")
                         self.tosend[2] = t.fetch_num_of_runs()
                     if i == 3:
                         self.tosend[3] = t.fetch_num_of_hits()
