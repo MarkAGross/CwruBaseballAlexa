@@ -1,21 +1,23 @@
 import unittest
+from error import CONNECTION_TO_WEBSITE_ERROR
 from team import team
 from team_participant import team_participant
 from schedule import schedule
+import datetime
 
-class GetterTeamTester(unittest.TestCase):
+class TestTeam(unittest.TestCase):
 
     print ("Testing team")
     valid_2018_team = team(2018)
 
-    '''
+    def text_no_specified_year(self):
+        self.assertEqual(team(None).year, datetime.datetime.now().year, "The current year was not used when no year specified")
+
     def test_invalid_team_year(self):
-        .assertRaises(Exception, team(9999), "The invalid year correctly threw an error")
-    '''
-    '''
+        with self.assertRaises(CONNECTION_TO_WEBSITE_ERROR): team(9999)
+
     def test_valid_team_year(self):
         self.assertEqual(team(2015).year, 2015, "The correct year was fetched")
-    '''
 
     def test_fetch_num_of_games(self):
         self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_games(), "39", "The correct number of games was not fetched")
@@ -117,7 +119,7 @@ class GetterTeamTester(unittest.TestCase):
 
 
 
-class TeamParticipantTester(unittest.TestCase):
+class TestTeamParticipant(unittest.TestCase):
     print ("Testing team_participant")
     valid_2018_team_participant = team_participant(2018)
     player_2018_jacob_lott = {
@@ -133,13 +135,18 @@ class TeamParticipantTester(unittest.TestCase):
         'APP' : '14', 'GS' : '0', 'W' : '4', 'L' : '1', 'SV' : '1', 'CG' : '0', 'IP' : '30.2', 'H' : '35', 'R' : '15', 'ER' : '11', 'BB' : '14', 'K' : '24', 'K/9' : '7.04', 'HR' : '2', 'ERA' : '3.23'
         }
 
-    '''
+    def test_no_specified_team_participant_year(self):
+        self.assertEqual(team_participant(None).year, datetime.datetime.now().year, "The current year was not used when no year specified")
+
     def test_invalid_team_participant_year(self):
-        self.assertRaises(Exception, team_participant(9999), "The invalid year correctly threw an error")
-    '''
+        with self.assertRaises(CONNECTION_TO_WEBSITE_ERROR): team_participant(9999)
+
     def test_valid_team_participant_year(self):
         tp = team_participant(2015)
         self.assertEqual(tp.year, 2015, "The correct year was fetched")
+
+    def test_valid_team_fetch_invalid_player_num(self):
+        self.assertEqual(self.__class__.valid_2018_team_participant.fetch_player_name('9999'), None, "Invalid player number did not fetch a value of None")
 
     #tests fetching of player name
     def test_fetch_player_name(self):
@@ -152,13 +159,6 @@ class TeamParticipantTester(unittest.TestCase):
         self.assertEqual(self.__class__.valid_2018_team_participant.fetch_player_position('1'), self.__class__.player_2018_jacob_lott['Pos.'], "Position for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
         self.assertEqual(self.__class__.valid_2018_team_participant.fetch_player_position('33'), self.__class__.player_2018_mark_gross['Pos.'], "Position for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
         self.assertEqual(self.__class__.valid_2018_team_participant.fetch_player_position('38'), self.__class__.player_2018_scott_kutschke['Pos.'], "Position for number  " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
-
-    '''
-    #tests fetching of list of player positions
-    def test_fetch_player_position(self):
-        self.assertEqual(validPos.fetch_player_position(), posList, "The correct list of players for this position was not fetched")
-        self.assertNotEqual(invalidPos.fetch_player_position(), posList, "")
-    '''
 
     #tests fetching of player bats and throws
     def test_fetch_player_bats_and_throws(self):
@@ -367,19 +367,22 @@ class TeamParticipantTester(unittest.TestCase):
         self.assertEqual(self.__class__.valid_2018_team_participant.fetch_pitcher_earned_run_average('33'), self.__class__.player_2018_mark_gross['ERA'], "Pitcher earned run average for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
         self.assertEqual(self.__class__.valid_2018_team_participant.fetch_pitcher_earned_run_average('38'), self.__class__.player_2018_scott_kutschke['ERA'], "Pitcher earned run average for number " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
 
-class GetterTeamTester(unittest.TestCase):
+class TestSchedule(unittest.TestCase):
     print ("Testing schedule")
     valid_2018_schedule = schedule(2018)
-    valid_2018_wooster_game = {'month' : 'April', 'day' : '25', 'day_of_week' : 'Wed.', 'verses_or_at' : 'vs', 'opponent_name' : '#2 Wooster', 'result' : 'L, 11-6', 'status' : 'Final'}
+    valid_2018_wooster_game = {'month' : 'April', 'day' : '25', 'day_of_week' : 'Wed.', 'verses_or_at' : 'vs', 'opponent_name' : '#2 Wooster', 'neutralsite' : None , 'result' : 'L, 11-6', 'status' : 'Final'}
+    valid_2018_washington_and_jefferson_game = {'month' : 'March', 'day' : '4', 'day_of_week' : 'Sun.', 'verses_or_at' : 'at', 'opponent_name' : '#4 Washington & Jefferson', 'neutralsite' : None , 'result' : 'L, 8-2', 'status' : 'Final'}
+    valid_2018_allegheny_game = {'month' : 'March', 'day' : '4', 'day_of_week' : 'Sun.', 'verses_or_at' : 'vs', 'opponent_name' : 'Allegheny','neutralsite' : '@ Washington, Pa.' , 'result' : 'W, 4-3', 'status' : 'Final'}
 
-    '''
+
+    def test_no_specified_scheudle_year(self):
+        self.assertEqual(schedule(None).year, datetime.datetime.now().year, "The currrent year not used when no year speecified")
+
     def test_invalid_schedule_year(self):
-        .assertRaises(Exception, team(9999), "The invalid year correctly threw an error")
-    '''
-    '''
+        with self.assertRaises(CONNECTION_TO_WEBSITE_ERROR): schedule(9999)
+
     def test_valid_schedule_year(self):
         self.assertEqual(team(2015).year, 2015, "The correct year was fetched")
-    '''
 
     def test_fetch_games_by_date_no_games(self):
         games_for_day = self.__class__.valid_2018_schedule.fetch_games_by_date("March", "2")
@@ -402,8 +405,32 @@ class GetterTeamTester(unittest.TestCase):
         self.assertEqual(game.day_of_week, self.__class__.valid_2018_wooster_game['day_of_week'], "Fetched game day of week incorrectly")
         self.assertEqual(game.verses_or_at,  self.__class__.valid_2018_wooster_game['verses_or_at'], "Fetched game vs or at incorrectly")
         self.assertEqual(game.opponent_name, self.__class__.valid_2018_wooster_game['opponent_name'], "Fetched game opponent name incorrectly")
+        self.assertEqual(game.neutralsite, self.__class__.valid_2018_wooster_game['neutralsite'], "Fetched game neutral site incorrectly")
         self.assertEqual(game.result,  self.__class__.valid_2018_wooster_game['result'], "Fetched game result incorrectly")
         self.assertEqual(game.status, self.__class__.valid_2018_wooster_game['status'], "Fetched game status incorrectly")
+
+    def test_fetch_games_by_date_multiple_games(self):
+        games_for_day = self.__class__.valid_2018_schedule.fetch_games_by_date('April', '25')
+        self.assertEqual(len(games_for_day), 2, "Fetched incorrect number of games for date")
+        game_one = games_for_day[0]
+        game_two = games_for_day[1]
+        self.assertEqual(game_one.month,  self.__class__.valid_2018_washington_and_jefferson_game['month'], "Fetched game month incorrectly")
+        self.assertEqual(game_one.day, self.__class__.valid_2018_washington_and_jefferson_game['day'], "Fetched game day incorrectly")
+        self.assertEqual(game_one.day_of_week, self.__class__.valid_2018_washington_and_jefferson_game['day_of_week'], "Fetched game day of week incorrectly")
+        self.assertEqual(game_one.verses_or_at,  self.__class__.valid_2018_washington_and_jefferson_game['verses_or_at'], "Fetched game vs or at incorrectly")
+        self.assertEqual(game_one.opponent_name, self.__class__.valid_2018_washington_and_jefferson_game['opponent_name'], "Fetched game opponent name incorrectly")
+        self.assertEqual(game.neutralsite, self.__class__.valid_2018_washington_and_jefferson_game['neutralsite'], "Fetched game neutral site incorrectly")
+        self.assertEqual(game_one.result,  self.__class__.valid_2018_washington_and_jefferson_game['result'], "Fetched game result incorrectly")
+        self.assertEqual(game_one.status, self.__class__.valid_2018_washington_and_jefferson_game['status'], "Fetched game status incorrectly")
+
+        self.assertEqual(game_two.month,  self.__class__.valid_2018_allegheny_game['month'], "Fetched game month incorrectly")
+        self.assertEqual(game_two.day, self.__class__.valid_2018_allegheny_game['day'], "Fetched game day incorrectly")
+        self.assertEqual(game_two.day_of_week, self.__class__.valid_2018_allegheny_game['day_of_week'], "Fetched game day of week incorrectly")
+        self.assertEqual(game_two.verses_or_at,  self.__class__.valid_2018_allegheny_game['verses_or_at'], "Fetched game vs or at incorrectly")
+        self.assertEqual(game_two.opponent_name, self.__class__.valid_2018_allegheny_game['opponent_name'], "Fetched game opponent name incorrectly")
+        self.assertEqual(game.neutralsite, self.__class__.valid_2018_allegheny_game['neutralsite'], "Fetched game neutral site incorrectly")
+        self.assertEqual(game_two.result,  self.__class__.valid_2018_allegheny_game['result'], "Fetched game result incorrectly")
+        self.assertEqual(game_two.status, self.__class__.valid_2018_allegheny_game['status'], "Fetched game status incorrectly")
 
 if __name__ == '__main__':
     unittest.main()
