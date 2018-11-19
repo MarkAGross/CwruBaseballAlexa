@@ -33,7 +33,7 @@ class response(object):
         statNumString = ""
         yearString = ""
 
-       # try:
+       
         for i in range(len(keyList)):
             if keyList[i] is not None:
                 statArray.append(keyList[i])
@@ -47,9 +47,13 @@ class response(object):
         statNumString = statArray[0]
         yearString = statArray[1]
 
-        print("The CWRU Baseball team has "+ statNumString +" "+ statString + " in " + yearString)
+        #if statement to be removed later when exception handling works
+        if(count<=1):
+            print("Unable to retrieve sufficent information")
+        else:
+            print("The CWRU Baseball team has "+ statNumString +" "+ statString + " in " + yearString)
 
-       # except count<=1:
+       # except:
             #raise LACK_OF_TEAM_INFORMATION_ERROR
 
         #print(statArray)
@@ -73,24 +77,28 @@ class response(object):
         playerString = ""
         yearString = ""
 
-        try:
-            for i in range(len(keyList)):
-                if keyList[i] is not None:
-                    statArray.append(keyList[i])
-                    indexList.append(i)
-                    count +=1
+        #try:
+        for i in range(len(keyList)):
+            if keyList[i] is not None:
+                statArray.append(keyList[i])
+                indexList.append(i)
+                count +=1
 
-            for i in range(len(indexList)):
-                nameStatArray.append(participantStatList[indexList[i]])
+        for i in range(len(indexList)):
+            nameStatArray.append(participantStatList[indexList[i]])
 
-            statString = nameStatArray[0]
-            statNumString = statArray[0]
-            yearString = statArray[1]
+        statString = nameStatArray[0]
+        statNumString = statArray[0]
+        yearString = statArray[1]
 
+        #if statement to be removed later when exception handling works
+        if(count<=2):
+            print("Unable to retrieve sufficent information")
+        else:
             print("Player No." +playerString+ " has " + statNumString + " " + statString + " in " + yearString)
         
-        except count<=2:
-            raise LACK_OF_PARTICIPANT_INFORMATION_ERROR
+        #except:
+            #raise LACK_OF_PARTICIPANT_INFORMATION_ERROR
             
         #print(statArray)
         #print(indexList)

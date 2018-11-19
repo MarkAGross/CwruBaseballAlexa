@@ -8,6 +8,7 @@ import urllib.request
 import sys
 
 inputstring = "how many games has number 29 played in 2018"
+
 r = receiver(inputstring)                                   #create receiver class
 data = []
 print ("receiver created")
