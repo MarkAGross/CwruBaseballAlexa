@@ -39,18 +39,16 @@ class response(object):
                 statArray.append(keyList[i])
                 indexList.append(i)
                 count +=1
-
-        for i in range(len(indexList)):
-            nameStatArray.append(teamStatList[indexList[i]])
-        
-        statString = nameStatArray[0]
-        statNumString = statArray[0]
-        yearString = statArray[1]
-
         #if statement to be removed later when exception handling works
         if(count<=1):
-            print("Unable to retrieve sufficent information")
+            print("Unable to retrieve sufficent information team")
         else:
+            for i in range(len(indexList)):
+                nameStatArray.append(teamStatList[indexList[i]])
+        
+            statString = nameStatArray[0]
+            statNumString = statArray[0]
+            yearString = statArray[1]
             print("The CWRU Baseball team has "+ statNumString +" "+ statString + " in " + yearString)
 
        # except:
@@ -83,19 +81,20 @@ class response(object):
                 statArray.append(keyList[i])
                 indexList.append(i)
                 count +=1
-
-        for i in range(len(indexList)):
-            nameStatArray.append(participantStatList[indexList[i]])
-
-        statString = nameStatArray[0]
-        statNumString = statArray[0]
-        yearString = statArray[1]
-
         #if statement to be removed later when exception handling works
         if(count<=2):
             print("Unable to retrieve sufficent information")
+
+        for i in range(len(indexList)):
+            nameStatArray.append(participantStatList[indexList[i]])
         else:
-            print("Player No." +playerString+ " has " + statNumString + " " + statString + " in " + yearString)
+            statString = nameStatArray[0]
+            statNumString = statArray[0]
+            yearString = str(statArray[2])
+            playerString = statArray[1]
+            print(statArray)
+
+            print("Player No." + playerString + " has " + statNumString + " " + statString + " in " + yearString)
         
         #except:
             #raise LACK_OF_PARTICIPANT_INFORMATION_ERROR
@@ -127,12 +126,11 @@ class response(object):
 
         statString = nameStatArray[0]
         statNumString = statArray[0]
-        yearString = "2018"
+        yearString = statArray[1]
+        
 
-        print()
-        print(statArray)
-        print(indexList)
-        print(nameStatArray)
+        print("inside schedule response")
+        
         
 
 
