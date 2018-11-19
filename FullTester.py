@@ -1,4 +1,5 @@
 import unittest
+from error import CONNECTION_TO_WEBSITE_ERROR
 from team import team
 from team_participant import team_participant
 from schedule import schedule
@@ -8,15 +9,12 @@ class GetterTeamTester(unittest.TestCase):
     print ("Testing team")
     valid_2018_team = team(2018)
 
-    '''
     def test_invalid_team_year(self):
-        .assertRaises(Exception, team(9999), "The invalid year correctly threw an error")
-    '''
-    '''
+        with self.assertRaises(CONNECTION_TO_WEBSITE_ERROR): team(9999)
+    
     def test_valid_team_year(self):
         self.assertEqual(team(2015).year, 2015, "The correct year was fetched")
-    '''
-
+    
     def test_fetch_num_of_games(self):
         self.assertEqual(self.__class__.valid_2018_team.fetch_num_of_games(), "39", "The correct number of games was not fetched")
 
@@ -133,10 +131,10 @@ class TeamParticipantTester(unittest.TestCase):
         'APP' : '14', 'GS' : '0', 'W' : '4', 'L' : '1', 'SV' : '1', 'CG' : '0', 'IP' : '30.2', 'H' : '35', 'R' : '15', 'ER' : '11', 'BB' : '14', 'K' : '24', 'K/9' : '7.04', 'HR' : '2', 'ERA' : '3.23'
         }
 
-    '''
+
     def test_invalid_team_participant_year(self):
-        self.assertRaises(Exception, team_participant(9999), "The invalid year correctly threw an error")
-    '''
+        with self.assertRaises(CONNECTION_TO_WEBSITE_ERROR): team_participant(9999)
+
     def test_valid_team_participant_year(self):
         tp = team_participant(2015)
         self.assertEqual(tp.year, 2015, "The correct year was fetched")
@@ -152,13 +150,6 @@ class TeamParticipantTester(unittest.TestCase):
         self.assertEqual(self.__class__.valid_2018_team_participant.fetch_player_position('1'), self.__class__.player_2018_jacob_lott['Pos.'], "Position for number " + self.__class__.player_2018_jacob_lott['No.'] + " not correcctly fetched")
         self.assertEqual(self.__class__.valid_2018_team_participant.fetch_player_position('33'), self.__class__.player_2018_mark_gross['Pos.'], "Position for number " + self.__class__.player_2018_mark_gross['No.'] + " not correcctly fetched")
         self.assertEqual(self.__class__.valid_2018_team_participant.fetch_player_position('38'), self.__class__.player_2018_scott_kutschke['Pos.'], "Position for number  " + self.__class__.player_2018_scott_kutschke['No.'] + " not correcctly fetched")
-
-    '''
-    #tests fetching of list of player positions
-    def test_fetch_player_position(self):
-        self.assertEqual(validPos.fetch_player_position(), posList, "The correct list of players for this position was not fetched")
-        self.assertNotEqual(invalidPos.fetch_player_position(), posList, "")
-    '''
 
     #tests fetching of player bats and throws
     def test_fetch_player_bats_and_throws(self):
@@ -372,14 +363,12 @@ class GetterTeamTester(unittest.TestCase):
     valid_2018_schedule = schedule(2018)
     valid_2018_wooster_game = {'month' : 'April', 'day' : '25', 'day_of_week' : 'Wed.', 'verses_or_at' : 'vs', 'opponent_name' : '#2 Wooster', 'result' : 'L, 11-6', 'status' : 'Final'}
 
-    '''
+    
     def test_invalid_schedule_year(self):
-        .assertRaises(Exception, team(9999), "The invalid year correctly threw an error")
-    '''
-    '''
+        with self.assertRaises(CONNECTION_TO_WEBSITE_ERROR): schedule(9999)
+    
     def test_valid_schedule_year(self):
         self.assertEqual(team(2015).year, 2015, "The correct year was fetched")
-    '''
 
     def test_fetch_games_by_date_no_games(self):
         games_for_day = self.__class__.valid_2018_schedule.fetch_games_by_date("March", "2")

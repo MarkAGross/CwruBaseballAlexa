@@ -1,5 +1,6 @@
 import urllib.request
 from bs4 import BeautifulSoup
+from error import CONNECTION_TO_WEBSITE_ERROR
 import datetime
 
 #Class for fetching information and statistics about players and coaches
@@ -124,29 +125,32 @@ class schedule:
         final_dictionary = {}
         #get all data from schedule table
         list_of_table_row_dictionaries = []
-        request = urllib.request.Request(url, headers={'User-Agent' : "AlexaSkill"})
-        webpage = urllib.request.urlopen(request)
-        soup = BeautifulSoup(webpage, 'lxml')
-        table = soup.find('table')
-        table_rows = table.find_all('tr')
-        month = None
-        date = None
-        for table_row in table_rows:
-            row_dictionary = {}
-            self.make_row_dictionary(table_row,row_dictionary)
-            #adding month to each game
-            if 'month-title' in row_dictionary:
-                month = row_dictionary['month-title']
-            elif month != None:
-                row_dictionary['month-title'] = month
-            #adding date to each game
-            if 'e_date' in row_dictionary and row_dictionary['e_date'] != '':
-                date = row_dictionary['e_date']
-            elif 'e_date' in row_dictionary and row_dictionary['e_date'] == '':
-                row_dictionary['e_date'] = date
-            if len(row_dictionary) > 2: #filters out empty rows or rows with just the month
-                list_of_table_row_dictionaries.append(row_dictionary)
-        self.list_of_table_row_dictionaries = list_of_table_row_dictionaries
+        try:
+            request = urllib.request.Request(url, headers={'User-Agent' : "AlexaSkill"})
+            webpage = urllib.request.urlopen(request)
+            soup = BeautifulSoup(webpage, 'lxml')
+            table = soup.find('table')
+            table_rows = table.find_all('tr')
+            month = None
+            date = None
+            for table_row in table_rows:
+                row_dictionary = {}
+                self.make_row_dictionary(table_row,row_dictionary)
+                #adding month to each game
+                if 'month-title' in row_dictionary:
+                    month = row_dictionary['month-title']
+                elif month != None:
+                    row_dictionary['month-title'] = month
+                #adding date to each game
+                if 'e_date' in row_dictionary and row_dictionary['e_date'] != '':
+                    date = row_dictionary['e_date']
+                elif 'e_date' in row_dictionary and row_dictionary['e_date'] == '':
+                    row_dictionary['e_date'] = date
+                if len(row_dictionary) > 2: #filters out empty rows or rows with just the month
+                    list_of_table_row_dictionaries.append(row_dictionary)
+            self.list_of_table_row_dictionaries = list_of_table_row_dictionaries
+        except urllib.error.HTTPError:
+            raise CONNECTION_TO_WEBSITE_ERROR("Cannot connect to schedule website")
 
 
     def make_row_dictionary(self, html_table_row, dictionary):

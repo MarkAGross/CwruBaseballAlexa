@@ -1,5 +1,6 @@
 import urllib.request
 from bs4 import BeautifulSoup
+from error import CONNECTION_TO_WEBSITE_ERROR
 
 #Class for fetching information and statistics about players and coaches
 class team_participant:
@@ -58,32 +59,35 @@ class team_participant:
         roster_page_url = self.team_roster_url(year)
         #get all data from roster table
         list_of_table_rows_raw_data = []
-        request = urllib.request.Request(roster_page_url, headers={'User-Agent' : "AlexaSkill"})
-        webpage = urllib.request.urlopen(request)
-        soup = BeautifulSoup(webpage, 'lxml')
-        table = soup.find('table')
-        table_rows = table.find_all('tr')
-        for table_row in table_rows:
-            row_data = table_row.find_all('td')
-            row = [item.text for item in row_data]
-            row_player_name = table_row.find('th').text
-            row.append("Name:" + row_player_name)
-            if len(row) > 2: #filters out empty rows and headers
-                list_of_table_rows_raw_data.append(row)
-        #change raw data from table to a list of dictionaries, each dictionary being a row of
-        #the table with key value pairs of the column name and table value
-        list_of_table_rows_refined = []
-        for row in list_of_table_rows_raw_data:
-            single_row_dictionary = {}
-            for element in row:
-                key,value = element.split(":")
-                key = key.strip()
-                key = key.replace('\n',' ')
-                value = value.strip()
-                value = value.replace('\n',' ')
-                single_row_dictionary[key] = value
-            list_of_table_rows_refined.append(single_row_dictionary)
-        self.roster_dictionary_list = list_of_table_rows_refined
+        try:
+            request = urllib.request.Request(roster_page_url, headers={'User-Agent' : "AlexaSkill"})
+            webpage = urllib.request.urlopen(request)
+            soup = BeautifulSoup(webpage, 'lxml')
+            table = soup.find('table')
+            table_rows = table.find_all('tr')
+            for table_row in table_rows:
+                row_data = table_row.find_all('td')
+                row = [item.text for item in row_data]
+                row_player_name = table_row.find('th').text
+                row.append("Name:" + row_player_name)
+                if len(row) > 2: #filters out empty rows and headers
+                    list_of_table_rows_raw_data.append(row)
+            #change raw data from table to a list of dictionaries, each dictionary being a row of
+            #the table with key value pairs of the column name and table value
+            list_of_table_rows_refined = []
+            for row in list_of_table_rows_raw_data:
+                single_row_dictionary = {}
+                for element in row:
+                    key,value = element.split(":")
+                    key = key.strip()
+                    key = key.replace('\n',' ')
+                    value = value.strip()
+                    value = value.replace('\n',' ')
+                    single_row_dictionary[key] = value
+                list_of_table_rows_refined.append(single_row_dictionary)
+            self.roster_dictionary_list = list_of_table_rows_refined
+        except urllib.error.HTTPError:
+            raise CONNECTION_TO_WEBSITE_ERROR("Cannot connect to roster website")
 
     def create_and_set_list_of_all_batter_individual_statistics(self, year):
         individual_statistics_url = self.individual_statistics_url(year)
@@ -98,36 +102,40 @@ class team_participant:
     def fetch_all_individual_statistics_table_data(self, url, table_number):
         #get all rows to batter stats table
         list_of_player_dictionaries = []
-        request = urllib.request.Request(url, headers={'User-Agent' : "AlexaSkill"})
-        webpage = urllib.request.urlopen(request)
-        soup = BeautifulSoup(webpage, 'lxml')
-        table = soup.find_all('table')[table_number]
-        table_rows = table.find_all('tr')
-        #get all headers
-        headers = []
-        table_headers = table_rows[0].find_all('th')
-        headers = [header.text for header in table_headers]
-        for index in range(len(headers)):
-            headers[index] = headers[index].replace('\n','')
-            headers[index] = headers[index].upper()
-        #get each row / player
-        rows = []
-        for table_row in table_rows:
-            table_data = table_row.find_all('td')
-            row = [item.text for item in table_data]
-            for index in range(len(row)):
-                row[index] = row[index].replace('\n','')
-                row[index] = row[index].replace('-', '0')
-                row[index] = row[index].strip()
-            if len(row) > 0:
-                rows.append(row)
-        #create list of players dictionaries, where the keys are col names and values are player stat values
-        for row in rows:
-            player = {}
+        try:
+            request = urllib.request.Request(url, headers={'User-Agent' : "AlexaSkill"})
+            webpage = urllib.request.urlopen(request)
+            soup = BeautifulSoup(webpage, 'lxml')
+            table = soup.find_all('table')[table_number]
+            table_rows = table.find_all('tr')
+            #get all headers
+            headers = []
+            table_headers = table_rows[0].find_all('th')
+            headers = [header.text for header in table_headers]
             for index in range(len(headers)):
-                player[headers[index]] = row[index]
-            list_of_player_dictionaries.append(player)
-        return list_of_player_dictionaries
+                headers[index] = headers[index].replace('\n','')
+                headers[index] = headers[index].upper()
+            #get each row / player
+            rows = []
+            for table_row in table_rows:
+                table_data = table_row.find_all('td')
+                row = [item.text for item in table_data]
+                for index in range(len(row)):
+                    row[index] = row[index].replace('\n','')
+                    row[index] = row[index].replace('-', '0')
+                    row[index] = row[index].strip()
+                if len(row) > 0:
+                    rows.append(row)
+            #create list of players dictionaries, where the keys are col names and values are player stat values
+            for row in rows:
+                player = {}
+                for index in range(len(headers)):
+                    player[headers[index]] = row[index]
+                list_of_player_dictionaries.append(player)
+            return list_of_player_dictionaries
+        #if cannot connect to website
+        except urllib.error.HTTPError:
+            raise CONNECTION_TO_WEBSITE_ERROR("Cannot connect to individual statistics website")
 
 
     """
