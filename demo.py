@@ -13,11 +13,14 @@ data = []
 print ("receiver created")
 data = r.parse_string()                 #make array with data
 resp = response()
-if(len(data) == 28):                    #print with respective method based on data size
+if(len(data) == 27):                    #print with respective method based on data size
     resp.teamResponse(data)
 elif(len(data) == 33):
     resp.participantResponse(data)
 elif(len(data) == 3):
     resp.scheduleResponse(data)
+else:
+    print("HERE")
+
 print (" ")
 print ("done")
