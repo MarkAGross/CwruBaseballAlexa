@@ -25,7 +25,7 @@ class receiver:
     def parse_string(self):
         #find year in string and possibly player number
         self.numbers = re.findall('\d+', self.inputstring)
-            for j in range(0, len(self.numbers)):
+        for j in range(0, len(self.numbers)):
                 if int(self.numbers[j]) > 2010:
                     self.year = int(self.numbers[j])
                 else:

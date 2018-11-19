@@ -45,16 +45,16 @@ class response(object):
         
         statString = nameStatArray[0]
         statNumString = statArray[0]
-        #yearString = statArray[1]
+        yearString = statArray[1]
 
         print("The CWRU Baseball team has "+ statNumString +" "+ statString + " in " + yearString)
 
        # except count<=1:
             #raise LACK_OF_TEAM_INFORMATION_ERROR
 
-        print(statArray)
-        print(indexList)
-        print(nameStatArray)
+        #print(statArray)
+        #print(indexList)
+        #print(nameStatArray)
 
     #function to format and return information about individual participant stats
     def participantResponse(keyList):
@@ -92,9 +92,9 @@ class response(object):
         except count<=2:
             raise LACK_OF_PARTICIPANT_INFORMATION_ERROR
             
-        print(statArray)
-        print(indexList)
-        print(nameStatArray)
+        #print(statArray)
+        #print(indexList)
+        #print(nameStatArray)
 
     #function to format and return information about team schedule
     def scheduleResponse(keyList):
@@ -134,5 +134,5 @@ class response(object):
     #response(testTeamStat)
     #response(testPlayerStat)
     #response(testError)
-    teamResponse(testTeamStat)
-    participantResponse(testPlayerStat)
+    #teamResponse(testTeamStat)
+    #participantResponse(testPlayerStat)
