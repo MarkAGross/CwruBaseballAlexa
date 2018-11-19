@@ -372,7 +372,7 @@ class TestSchedule(unittest.TestCase):
     valid_2018_schedule = schedule(2018)
     valid_2018_wooster_game = {'month' : 'April', 'day' : '25', 'day_of_week' : 'Wed.', 'verses_or_at' : 'vs', 'opponent_name' : '#2 Wooster', 'neutralsite' : None , 'result' : 'L, 11-6', 'status' : 'Final'}
     valid_2018_washington_and_jefferson_game = {'month' : 'March', 'day' : '4', 'day_of_week' : 'Sun.', 'verses_or_at' : 'at', 'opponent_name' : '#4 Washington & Jefferson', 'neutralsite' : None , 'result' : 'L, 8-2', 'status' : 'Final'}
-    valid_2018_allegheny_game = {'month' : 'March', 'day' : '4', 'day_of_week' : 'Sun.', 'verses_or_at' : 'vs', 'opponent_name' : 'Allegheny','neutralsite' : '@ Washington, Pa.' , 'result' : 'W, 4-3', 'status' : 'Final'}
+    valid_2018_allegheny_game = {'month' : 'March', 'day' : '4', 'day_of_week' : 'Sun.', 'verses_or_at' : 'vs.', 'opponent_name' : 'Allegheny','neutralsite' : '@ Washington, Pa.' , 'result' : 'W, 4-3', 'status' : 'Final'}
 
 
     def test_no_specified_scheudle_year(self):
@@ -405,12 +405,12 @@ class TestSchedule(unittest.TestCase):
         self.assertEqual(game.day_of_week, self.__class__.valid_2018_wooster_game['day_of_week'], "Fetched game day of week incorrectly")
         self.assertEqual(game.verses_or_at,  self.__class__.valid_2018_wooster_game['verses_or_at'], "Fetched game vs or at incorrectly")
         self.assertEqual(game.opponent_name, self.__class__.valid_2018_wooster_game['opponent_name'], "Fetched game opponent name incorrectly")
-        self.assertEqual(game.neutralsite, self.__class__.valid_2018_wooster_game['neutralsite'], "Fetched game neutral site incorrectly")
+        self.assertEqual(game.neutral_site, self.__class__.valid_2018_wooster_game['neutralsite'], "Fetched game neutral site incorrectly")
         self.assertEqual(game.result,  self.__class__.valid_2018_wooster_game['result'], "Fetched game result incorrectly")
         self.assertEqual(game.status, self.__class__.valid_2018_wooster_game['status'], "Fetched game status incorrectly")
 
     def test_fetch_games_by_date_multiple_games(self):
-        games_for_day = self.__class__.valid_2018_schedule.fetch_games_by_date('April', '25')
+        games_for_day = self.__class__.valid_2018_schedule.fetch_games_by_date('March', '4')
         self.assertEqual(len(games_for_day), 2, "Fetched incorrect number of games for date")
         game_one = games_for_day[0]
         game_two = games_for_day[1]
@@ -419,7 +419,7 @@ class TestSchedule(unittest.TestCase):
         self.assertEqual(game_one.day_of_week, self.__class__.valid_2018_washington_and_jefferson_game['day_of_week'], "Fetched game day of week incorrectly")
         self.assertEqual(game_one.verses_or_at,  self.__class__.valid_2018_washington_and_jefferson_game['verses_or_at'], "Fetched game vs or at incorrectly")
         self.assertEqual(game_one.opponent_name, self.__class__.valid_2018_washington_and_jefferson_game['opponent_name'], "Fetched game opponent name incorrectly")
-        self.assertEqual(game.neutralsite, self.__class__.valid_2018_washington_and_jefferson_game['neutralsite'], "Fetched game neutral site incorrectly")
+        self.assertEqual(game_one.neutral_site, self.__class__.valid_2018_washington_and_jefferson_game['neutralsite'], "Fetched game neutral site incorrectly")
         self.assertEqual(game_one.result,  self.__class__.valid_2018_washington_and_jefferson_game['result'], "Fetched game result incorrectly")
         self.assertEqual(game_one.status, self.__class__.valid_2018_washington_and_jefferson_game['status'], "Fetched game status incorrectly")
 
@@ -428,7 +428,7 @@ class TestSchedule(unittest.TestCase):
         self.assertEqual(game_two.day_of_week, self.__class__.valid_2018_allegheny_game['day_of_week'], "Fetched game day of week incorrectly")
         self.assertEqual(game_two.verses_or_at,  self.__class__.valid_2018_allegheny_game['verses_or_at'], "Fetched game vs or at incorrectly")
         self.assertEqual(game_two.opponent_name, self.__class__.valid_2018_allegheny_game['opponent_name'], "Fetched game opponent name incorrectly")
-        self.assertEqual(game.neutralsite, self.__class__.valid_2018_allegheny_game['neutralsite'], "Fetched game neutral site incorrectly")
+        self.assertEqual(game_two.neutral_site, self.__class__.valid_2018_allegheny_game['neutralsite'], "Fetched game neutral site incorrectly")
         self.assertEqual(game_two.result,  self.__class__.valid_2018_allegheny_game['result'], "Fetched game result incorrectly")
         self.assertEqual(game_two.status, self.__class__.valid_2018_allegheny_game['status'], "Fetched game status incorrectly")
 

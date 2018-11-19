@@ -185,10 +185,14 @@ class team_participant:
 
     def fetch_player_name(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.name
 
     def fetch_player_position(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.player_position
 
     def fetch_all_players_by_position(self, position_abr):
@@ -203,18 +207,26 @@ class team_participant:
 
     def fetch_player_bats_and_throws(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.bats_and_throws
 
     def fetch_player_height(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.player_height
 
     def fetch_player_weight(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.player_weight
 
     def fetch_player_year(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.player_year
 
     def fetch_all_players_year(self, year_abr):
@@ -229,122 +241,182 @@ class team_participant:
 
     def fetch_player_hometown_and_high_school(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.player_hometown_and_high_school
 
     def fetch_batter_games_played(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.batter_games_played
 
     def fetch_batter_num_of_at_bats(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.batter_num_of_at_bats
 
     def fetch_batter_num_of_runs(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.batter_num_of_runs
 
     def fetch_batter_num_of_hits(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.batter_num_of_hits
 
     def fetch_batter_num_of_doubles(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.batter_num_of_doubles
 
     def fetch_batter_num_of_triples(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.batter_num_of_triples
 
     def fetch_batter_num_of_home_runs(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.batter_num_of_home_runs
 
     def fetch_batter_num_of_runs_batted_in(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.batter_num_of_runs_batted_in
 
     def fetch_batter_num_of_walks(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.batter_num_of_walks
 
     def fetch_batter_num_of_strikeouts(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.batter_num_of_strikeouts
 
     def fetch_batter_num_of_stolen_bases(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.batter_num_of_stolen_bases
 
     def fetch_batter_batting_average(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.batter_batting_average
 
     def fetch_batter_on_base_percentage(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.batter_on_base_percentage
 
     def fetch_batter_slugging_percentage(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.batter_slugging_percentage
 
     def fetch_pitcher_num_of_appearances(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.pitcher_num_of_appearances
 
     def fetch_pitcher_num_of_game_starts(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.pitcher_num_of_game_starts
 
     def fetch_pitcher_num_of_wins(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.pitcher_num_of_wins
 
     def fetch_pitcher_num_of_losses(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.pitcher_num_of_losses
 
     def fetch_pitcher_num_of_saves(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.pitcher_num_of_saves
 
     def fetch_pitcher_num_of_complete_games(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.pitcher_num_of_complete_games
 
     def fetch_pitcher_num_of_innings_pitched(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.pitcher_num_of_innings_pitched
 
     def fetch_pitcher_num_of_hits(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.pitcher_num_of_hits
 
     def fetch_pitcher_num_of_runs(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.pitcher_num_of_runs
 
     def fetch_pitcher_num_of_earned_runs(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.pitcher_num_of_earned_runs
 
     def fetch_pitcher_num_of_walks(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.pitcher_num_of_walks
 
     def fetch_pitcher_num_of_strikeouts(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.pitcher_num_of_strikeouts
 
     def fetch_pitcher_strikeouts_per_nine_innings(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.pitcher_strikeouts_per_nine_innings
 
     def fetch_pitcher_num_of_home_runs(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.pitcher_num_of_home_runs
 
     def fetch_pitcher_earned_run_average(self, player_number):
         player = self.get_player_from_players_list_by_number(player_number)
+        if player == None:
+            return None
         return player.pitcher_earned_run_average
 
 class player:
