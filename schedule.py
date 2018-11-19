@@ -10,7 +10,7 @@ class schedule:
     def __init__(self, year):
         if year == None:
             year = datetime.datetime.now().year
-            
+
         self.year = year
 
         self.url = None
@@ -56,7 +56,7 @@ class schedule:
         day = int(current.day)
         if year != self.year:
             return None
-        games = self.fetch_games_by_date(month, day)
+        games = self.fetch_games_by_date(calendar.month_name[month_num], str(day))
         while games == None:
             if month_num > 0 and day > 0:
                 day = day - 1
@@ -65,7 +65,7 @@ class schedule:
                 day = 31
             if month_num == 0:
                 return None
-            games = self.fetch_games_by_date(calendar.month_name[month_num],day)
+            games = self.fetch_games_by_date(calendar.month_name[month_num], str(day))
         return games[-1] #gets last and most recent game of the list of games
 
 
@@ -86,7 +86,7 @@ class schedule:
         day = int(current.day)
         if year != self.year:
             return None
-        games = self.fetch_games_by_date(month, day)
+        games = self.fetch_games_by_date(calendar.month_name[month_num], str(day))
         while games == None:
             if month_num < 13 and day < 31:
                 day = day + 1
@@ -95,7 +95,7 @@ class schedule:
                 day = 1
             if month_num == 13:
                 return None
-            games = self.fetch_games_by_date(calendar.month_name[month_num],day)
+            games = self.fetch_games_by_date(calendar.month_name[month_num], str(day))
         return games[0] #gets first game in the list of games. The list of games is for the next day with games
 
 
