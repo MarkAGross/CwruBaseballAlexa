@@ -13,7 +13,7 @@ inputstring3 = "What was the previous game played"
 inputstring4 = "This has nothing to do with baseball 2018"
 inputstring5 = "I like spaghetti"
 
-r = receiver(inputstring5)                                   #create receiver class
+r = receiver(inputstring2)                                   #create receiver class
 data = []
 print ("receiver created")
 data = r.parse_string()                 #make array with data

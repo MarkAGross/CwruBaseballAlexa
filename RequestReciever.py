@@ -138,13 +138,15 @@ class receiver:
             t = team(self.year)                         #create team object
             self.tosend[27] = self.year
             print("Fetching team data:")
-            for i in range(0, len(self.keywords)):              #fetch team data based on keywords in array
+            for i in range(0, len(self.keywords)):
+                                                            #fetch team data based on keywords in array
                 if self.keywords[i] in self.inputstring:
                     if i == 0:
                         self.tosend[0] = t.fetch_num_of_games()
                     if i == 1:
                         self.tosend[1] = t.fetch_num_of_at_bats()
                     if i == 2:
+                        print("Found runs")
                         self.tosend[2] = t.fetch_num_of_runs()
                     if i == 3:
                         self.tosend[3] = t.fetch_num_of_hits()
@@ -195,5 +197,5 @@ class receiver:
                     if i == 26:
                         self.tosend[26] = t.fetch_home_attendance_average()
 
-                return self.tosend                              #return team data array
+            return self.tosend                              #return team data array
         
