@@ -1,12 +1,21 @@
 from team import team
 from team_participant import team_participant
 from schedule import schedule
+from RequestReciever import receiver
+from Response import response
+import sys
 
-t = team(2018)
-tp = team_participant(2018)
-s = schedule(2018)
-
-print ('Team batting average is ' + t.fetch_batting_average())
-print ('ERA for number 33 is ' + tp.fetch_pitcher_earned_run_average(33))
-print ('Game on March 10th 2018 is ' )
-print (s.fetch_games_by_date('March', 10))
+inputstring = "how many games has number 29 played in 2018"
+r = receiver(inputstring)
+data = []
+print ("receiver created")
+data = r.parse_string()
+resp = response()
+if(len(data) == 28):
+    resp.teamResponse(data)
+elif(len(data) == 33):
+    resp.participantResponse(data)
+elif(len(data) == 3):
+    resp.scheduleResponse(data)
+print (" ")
+print ("done")
