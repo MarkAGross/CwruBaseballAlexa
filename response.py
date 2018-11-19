@@ -18,7 +18,7 @@ class response(object):
 
 
     #function to format and return information about team stats
-    def teamResponse(keyList):
+    def teamResponse(self, keyList):
         teamStatList = ["Games","At Bats", "Runs", "Hits", "Doubles", "Triples", "Home runs"
                     "RBIs", "Extra Base Hits", "Total Bases", "Walks", "Hit by pitches",
                     "Strikeouts", "Sacrifice flies", "Sacrifice hits", "Hits into double play",
@@ -57,7 +57,7 @@ class response(object):
         #print(nameStatArray)
 
     #function to format and return information about individual participant stats
-    def participantResponse(keyList):
+    def participantResponse(self, keyList):
         participantStatList = ["Name", "Position", "Bats and throws", "Height", "Weight", "Academic Year",
                            "Hometown and high school", "Games played", "At bats", "Runs", "Hits",
                            "Doubles", "Triples", "Home runs", "RBIs", "Walks", "Strikeouts",
@@ -97,7 +97,7 @@ class response(object):
         #print(nameStatArray)
 
     #function to format and return information about team schedule
-    def scheduleResponse(keyList):
+    def scheduleResponse(self, keyList):
         scheduleStatList = ["Next game", "Previous game"]
         count = 0
         statArray = []
