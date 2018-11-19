@@ -7,6 +7,7 @@ from schedule import schedule
 #Class for recieving and interpreting Amazon Alexa requests
 class receiver:
 
+    #constructor for receiver class
     def __init__(self, inputstring):
         self.numbers = []
         self.playernumber = 0
@@ -20,20 +21,23 @@ class receiver:
         self.tosendpart = [None] * (len(self.keywordspart) + 2)
         self.tosendsched = [None] * (len(self.keywordssched) + 1)
 
+    #method for parsing through any string
     def parse_string(self):
-        if "number" in self.inputstring:
-            print("Found number in string")
-            self.numbers = re.findall('\d+', self.inputstring)
+        #find year in string and possibly player number
+        self.numbers = re.findall('\d+', self.inputstring)
             for j in range(0, len(self.numbers)):
                 if int(self.numbers[j]) > 2010:
                     self.year = int(self.numbers[j])
                 else:
                     self.playernumber = self.numbers[j]
                     self.year = 2018
-            p = team_participant(self.year)
-            self.tosendpart.insert(31, self.playernumber)
+        #if there is a player number present
+        if "number" in self.inputstring:
+            print("Found number in string")
+            p = team_participant(self.year)                 #create instance of team_participant
+            self.tosendpart.insert(31, self.playernumber)   #add player number and year to the list
             self.tosendpart.insert(32, self.year)
-            print("Fetching team_participant data")
+            print("Fetching team_participant data")         #fetch relevant data from team_participant fetches
             for i in range(0, len(self.keywords)):
                 if self.keywordspart[i] in self.inputstring:
                     if i == 0:
@@ -110,34 +114,32 @@ class receiver:
                     if i == 34:
                         self.tosendpart.insert(30, p.fetch_pitcher_earned_run_average(self.playernumber))
 
-            return self.tosendpart
+            return self.tosendpart                                                                              #return array
 
+        #if user requests something from the schedule class
         elif "next game" in self.inputstring:
             s = schedule(self.year)
-            self.tosendsched.insert(2, self.year)
+            self.tosendsched.insert(2, self.year)   #fetch data for next game
             print("Fetching next game data:")
-            if "next game" in self.inputstring:
+            if "next game" in self.inputstring:     
                 self.tosendsched.insert(0, s.fetch_next_game())
-            return self.tosendsched
+            return self.tosendsched                 #return array
 
         elif "previous game" in self.inputstring:
             s = schedule(self.year)
             self.tosendsched.insert(2, self.year)
-            print("Fetching previous game data:")
+            print("Fetching previous game data:")   #fetch data for previous game
             if "previous game" in self.inputstring:
                 self.tosendsched.insert(1, s.fetch_prev_game())
-            return self.tosendsched
+            return self.tosendsched                 #return array
                 
 
-                
+        #for returning team data        
         else:
-            self.numbers = re.findall('\d+', self.inputstring)
-            self.numbers = [int(x) for x in self.numbers]
-            self.year = self.numbers[j]
-            t = team(self.year)
+            t = team(self.year)                         #create team object
             self.tosend.insert(27, self.year)
             print("Fetching team data:")
-            for i in range(0, len(self.keywords)):
+            for i in range(0, len(self.keywords)):              #fetch team data based on keywords in array
                 if self.keywords[i] in self.inputstring:
                     if i == 0:
                         self.tosend.insert(0, t.fetch_num_of_games())
@@ -194,12 +196,5 @@ class receiver:
                     if i == 26:
                         self.tosend.insert(26, t.fetch_home_attendance_average())
 
-                return self.tosend
-            
-
-    
-            
-
+                return self.tosend                              #return team data array
         
-        #have that same method add the keywords to the array
-        #method to fetch appropriate data (might be lots of copy paste)
