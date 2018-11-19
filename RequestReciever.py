@@ -117,6 +117,7 @@ class receiver:
 
         #if user requests something from the schedule class
         elif "next game" in self.inputstring:
+            self.year = 2017
             s = schedule(self.year)
             self.tosendsched[2] = self.year   #fetch data for next game
             print("Fetching next game data:")
@@ -125,6 +126,7 @@ class receiver:
             return self.tosendsched                 #return array
 
         elif "previous game" in self.inputstring:
+            self.year = 2017
             s = schedule(self.year)
             self.tosendsched[2] = self.year
             print("Fetching previous game data:")   #fetch data for previous game
