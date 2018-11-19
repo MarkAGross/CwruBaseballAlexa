@@ -11,7 +11,7 @@ import calendar
 
 inputstring = "how many games has number 29 played in 2018"
 inputstring2 = "How many runs did the team get in 2018"
-inputstring3 = "What is the next game played"
+inputstring3 = "What game was played on April 25 2018"
 inputstring4 = "This has nothing to do with baseball 2018"
 inputstring5 = "I like spaghetti"
 

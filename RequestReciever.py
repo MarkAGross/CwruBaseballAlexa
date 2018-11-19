@@ -14,12 +14,12 @@ class receiver:
         self.year = 0
         self.keywords = ["games", "at bats", "runs", "hits", "doubles", "triples", "home runs", "runs batted in", "extra base hits", "total bases", "walks", "hit by pitches", "strikeouts", "sacrifice flies", "sacrifice hits", "hits into double play", "stolen bases", "caught stealing", "batting average", "on base percentage", "slugging percentage", "earned run average", "shutouts", "at bats against", "batting average against", "home attendance", "home attendance average"]
         self.keywordspart = ["name", "position", "bats and throws", "height", "weight", "weigh", "year", "hometown and high school", "hometown", "high school", "games", "at bats", "runs", "hits", "doubles", "triples", "home runs", "runs batted in", "walks", "strikeouts", "stolen bases", "batting average", "on base percentage", "slugging percentage", "appearances", "game starts", "wins", "losses", "saves", "complete games", "innings pitched", "strikeouts per nine innings", "strikeouts per 9 innings", "earned runs", "earned run average"] 
-        self.keywordssched = ["next game", "previous game"]
+        self.keywordssched = ["next game", "previous game", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
         self.data = []
         self.inputstring = inputstring
         self.tosend = [None] * (len(self.keywords) + 1)
         self.tosendpart = [None] * (len(self.keywordspart) + 2 - 4)
-        self.tosendsched = [None] * (len(self.keywordssched) + 1)
+        self.tosendsched = [None] * (3)
 
     #method for parsing through any string
     def parse_string(self):
@@ -117,7 +117,6 @@ class receiver:
 
         #if user requests something from the schedule class
         elif "next game" in self.inputstring:
-            self.year = 2017
             s = schedule(self.year)
             self.tosendsched[2] = self.year   #fetch data for next game
             print("Fetching next game data:")
@@ -126,13 +125,21 @@ class receiver:
             return self.tosendsched                 #return array
 
         elif "previous game" in self.inputstring:
-            self.year = 2017
             s = schedule(self.year)
             self.tosendsched[2] = self.year
             print("Fetching previous game data:")   #fetch data for previous game
             if "previous game" in self.inputstring:
                 self.tosendsched[1] = s.fetch_previous_game()
             return self.tosendsched                 #return array
+
+        elif "on" in self.inputstring:
+            s = schedule(self.year)
+            self.tosendsched[2] = self.year
+            print("Fetching dated game data")
+            for i in range(0, len(self.keywordssched)):
+                if self.keywordssched[i] in self.inputstring:
+                    self.tosendsched[1] = s.fetch_games_by_date(self.keywordssched[i], self.playernumber)
+            return self.tosendsched 
                 
 
         #for returning team data        
