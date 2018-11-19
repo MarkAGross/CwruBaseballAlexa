@@ -2,6 +2,7 @@ import urllib.request
 from bs4 import BeautifulSoup
 from error import CONNECTION_TO_WEBSITE_ERROR
 import datetime
+import calendar
 
 #Class for fetching information and statistics about players and coaches
 class schedule:
