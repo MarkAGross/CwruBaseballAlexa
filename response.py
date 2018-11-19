@@ -43,7 +43,7 @@ class response(object):
         print(indexList)
         print(statArray)
         if(count<=1):
-            print("Unable to retrieve sufficent information team")
+            print("Unable to retrieve sufficent information")
         else:
             for i in range(len(indexList)):
                 
@@ -110,7 +110,7 @@ class response(object):
 
     #function to format and return information about team schedule
     def scheduleResponse(self, keyList):
-        scheduleStatList = ["Next game", "Previous game"]
+        scheduleStatList = ["Next game", "Previous game", "Year"]
         count = 0
         statArray = []
         indexList = []
@@ -125,13 +125,14 @@ class response(object):
                 statArray.append(keyList[i])
                 indexList.append(i)
                 count +=1
+                print(statArray)
 
         for i in range(len(indexList)):
             nameStatArray.append(scheduleStatList[indexList[i]])
 
         statString = nameStatArray[0]
-        statNumString = statArray[0]
-        yearString = statArray[1]
+        #statNumString = statArray[0]
+        yearString = statArray[0]
         
 
         print("inside schedule response")
