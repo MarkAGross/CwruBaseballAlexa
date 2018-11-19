@@ -24,7 +24,7 @@ class response(object):
                     "Strikeouts", "Sacrifice flies", "Sacrifice hits", "Hits into double play",
                     "Stolen bases", "Caught stealing", "Batting average", "On base percentage",
                     "Slugging percentage", "ERA", "Shutouts", "At bats against",
-                    "Batting average against", "Home attendance", "Home attendance average", "Year"]
+                    "Batting average against", "Home attendance", "Home attendance average", "Year","Year"]
         count = 0
         statArray = []
         indexList = []
@@ -40,15 +40,20 @@ class response(object):
                 indexList.append(i)
                 count +=1
         #if statement to be removed later when exception handling works
+        print(indexList)
+        print(statArray)
         if(count<=1):
             print("Unable to retrieve sufficent information team")
         else:
             for i in range(len(indexList)):
+                
                 nameStatArray.append(teamStatList[indexList[i]])
+                
+
         
             statString = nameStatArray[0]
             statNumString = statArray[0]
-            yearString = statArray[1]
+            yearString = str(statArray[1])
             print("The CWRU Baseball team has "+ statNumString +" "+ statString + " in " + yearString)
 
        # except:

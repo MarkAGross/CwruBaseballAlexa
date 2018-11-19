@@ -31,37 +31,37 @@ else:
 
 
 
-#r2 = receiver(inputstring2)                                   #create receiver class
-#data2 = []
-#print ("receiver created")
-#data2 = r2.parse_string()                 #make array with data
-#print(data2)
-#print(len(data2))
-#resp2 = response()
-#if(len(data2) == 28):                    #print with respective method based on data size
-    #resp.teamResponse(data2)
-#elif(len(data2) == 33):
-    #resp.participantResponse(data2)
-#elif(len(data2) == 3):
-    #resp.scheduleResponse(data2)
-#else:
-    #print("Missed array length")
-
-r3 = receiver(inputstring3)                                   #create receiver class
-data3 = []
+r2 = receiver(inputstring2)                                   #create receiver class
+data2 = []
 print ("receiver created")
-data3 = r3.parse_string()                 #make array with data
-print(data3)
-print(len(data3))
-resp3 = response()
-if(len(data3) == 28):                    #print with respective method based on data size
+data2 = r2.parse_string()                 #make array with data
+print(data2)
+print(len(data2))
+resp2 = response()
+if(len(data2) == 28):                    #print with respective method based on data size
     resp.teamResponse(data2)
-elif(len(data3) == 33):
+elif(len(data2) == 33):
     resp.participantResponse(data2)
-elif(len(data3) == 3):
-    resp.scheduleResponse(data3)
+elif(len(data2) == 3):
+    resp.scheduleResponse(data2)
 else:
     print("Missed array length")
+
+#r3 = receiver(inputstring3)                                   #create receiver class
+#data3 = []
+#print ("receiver created")
+#data3 = r3.parse_string()                 #make array with data
+#print(data3)
+#print(len(data3))
+#resp3 = response()
+#if(len(data3) == 28):                    #print with respective method based on data size
+    #resp.teamResponse(data2)
+#elif(len(data3) == 33):
+    #resp.participantResponse(data2)
+#elif(len(data3) == 3):
+    #resp.scheduleResponse(data3)
+#else:
+    #print("Missed array length")
 
 r4 = receiver(inputstring4)                                   #create receiver class
 data4 = []
