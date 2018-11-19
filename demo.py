@@ -6,12 +6,12 @@ from Response import response
 import sys
 
 inputstring = "how many games has number 29 played in 2018"
-r = receiver(inputstring)
+r = receiver(inputstring)                                   #create receiver class
 data = []
 print ("receiver created")
-data = r.parse_string()
+data = r.parse_string()                 #make array with data
 resp = response()
-if(len(data) == 28):
+if(len(data) == 28):                    #print with respective method based on data size
     resp.teamResponse(data)
 elif(len(data) == 33):
     resp.participantResponse(data)
