@@ -51,7 +51,7 @@ r3 = receiver(inputstring3)                                   #create receiver c
 data3 = []
 
 data3 = r3.parse_string()                 #make array with data
-
+#print(data3)
 resp3 = response()
 if(len(data3) == 28):                    #print with respective method based on data size
     resp.teamResponse(data2)
@@ -79,7 +79,7 @@ else:
 
 r5 = receiver(inputstring5)                                   #create receiver class
 data5 = []
-print ("receiver created")
+
 data5 = r5.parse_string()                 #make array with data
 
 resp5 = response()

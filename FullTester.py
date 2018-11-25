@@ -3,6 +3,8 @@ from error import CONNECTION_TO_WEBSITE_ERROR
 from team import team
 from team_participant import team_participant
 from schedule import schedule
+from schedule import game
+from response import response
 import datetime
 
 class TestTeam(unittest.TestCase):
@@ -113,11 +115,6 @@ class TestTeam(unittest.TestCase):
     #tests getter for home attendance average
     def test_fetch_home_attendance_average(self):
         self.assertEqual(self.__class__.valid_2018_team.fetch_home_attendance_average(), "203", "The correct number for home attendance average was not fetched")
-
-
-
-
-
 
 class TestTeamParticipant(unittest.TestCase):
     print ("Testing team_participant")
@@ -431,6 +428,43 @@ class TestSchedule(unittest.TestCase):
         self.assertEqual(game_two.neutral_site, self.__class__.valid_2018_allegheny_game['neutralsite'], "Fetched game neutral site incorrectly")
         self.assertEqual(game_two.result,  self.__class__.valid_2018_allegheny_game['result'], "Fetched game result incorrectly")
         self.assertEqual(game_two.status, self.__class__.valid_2018_allegheny_game['status'], "Fetched game status incorrectly")
+
+
+class TestResponse(unittest.TestCase):
+    print("Testing responses ")
+  
+
+    def test_valid_team_stat_response(self):
+        validTeamStat = [None] * 28
+        validTeamStat[2] = "15"
+        validTeamStat[26] = "2018"
+        resp = response()
+        self.assertEqual(resp.teamResponse(validTeamStat), 'The CWRU Baseball team has 15 Runs in 2018')
+
+
+    def test_valid_participant_stat_response(self):
+        validPlayerStat = [None] * 33
+        validPlayerStat[7] = 39
+        validPlayerStat[31] = 29
+        validPlayerStat[32] = "2018"
+        resp = response()
+        self.assertEqual(resp.participantResponse(validPlayerStat), 'Player No.29 has 39 Games played in 2018')
+
+
+    def test_valid_schedule_response(self):
+        data = []
+        gameObj = game(data)
+        gameObj.month = "April"
+        gameObj.day = 25
+        gameObj.opponent_name = "#2 Wooster"
+        gameObj.result = "L, 11-6"
+        validSchedule = [None] * 3
+        validSchedule[1] = gameObj
+        validSchedule[2] = "2018"
+        resp = response()
+
+        #print(validSchedule)
+        self.assertEqual(resp.scheduleResponse(validSchedule), 'CWRU baseball team played #2 Wooster on the 25 of April, and the result was L, 11-6.')
 
 if __name__ == '__main__':
     unittest.main()

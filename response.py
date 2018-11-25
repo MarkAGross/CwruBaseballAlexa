@@ -10,22 +10,23 @@ class response(object):
    
     
 
-    testTeamStat = [None] * 27
+    testTeamStat = [None] * 28
     testTeamStat[2] = "15"
     testTeamStat[26] = "2018"
     testPlayerStat = [None] * 33
-    testPlayerStat[5] = "SR."
-    testPlayerStat[32] = "2017"
+    testPlayerStat[7] = 42
+    testPlayerStat[31] = 29
+    testPlayerStat[32] = "2018"
 
 
     #function to format and return information about team stats
     def teamResponse(self, keyList):
-        teamStatList = ["Games","At Bats", "Runs", "Hits", "Doubles", "Triples", "Home runs"
+        teamStatList = ["Games","At Bats", "Runs", "Hits", "Doubles", "Triples", "Home runs",
                     "RBIs", "Extra Base Hits", "Total Bases", "Walks", "Hit by pitches",
                     "Strikeouts", "Sacrifice flies", "Sacrifice hits", "Hits into double play",
                     "Stolen bases", "Caught stealing", "Batting average", "On base percentage",
                     "Slugging percentage", "ERA", "Shutouts", "At bats against",
-                    "Batting average against", "Home attendance", "Home attendance average", "Year","Year"]
+                    "Batting average against", "Home attendance", "Home attendance average", "YearFirst","YearSecond"]
         count = 0
         statArray = []
         indexList = []
@@ -42,6 +43,7 @@ class response(object):
                 count +=1
         #if statement to be removed later when exception handling works
        
+        
         if(count<=1):
             print("Unable to retrieve sufficent information")
         else:
@@ -54,7 +56,10 @@ class response(object):
             statString = nameStatArray[0]
             statNumString = statArray[0]
             yearString = str(statArray[1])
+
+            printString = "The CWRU Baseball team has "+ statNumString +" "+ statString + " in " + yearString
             print("The CWRU Baseball team has "+ statNumString +" "+ statString + " in " + yearString)
+            return(printString)
 
        # except:
             #raise LACK_OF_TEAM_INFORMATION_ERROR
@@ -84,6 +89,8 @@ class response(object):
                 statArray.append(keyList[i])
                 indexList.append(i)
                 count +=1
+
+        
         #if statement to be removed later when exception handling works
         if(count<=2):
             print("Unable to retrieve sufficent information")
@@ -92,12 +99,13 @@ class response(object):
             nameStatArray.append(participantStatList[indexList[i]])
         else:
             statString = nameStatArray[0]
-            statNumString = statArray[0]
+            statNumString = str(statArray[0])
             yearString = str(statArray[2])
-            playerString = statArray[1]
+            playerString = str(statArray[1])
             
-
+            printString = "Player No." + playerString + " has " + statNumString + " " + statString + " in " + yearString
             print("Player No." + playerString + " has " + statNumString + " " + statString + " in " + yearString)
+            return(printString)
         
         #except:
             #raise LACK_OF_PARTICIPANT_INFORMATION_ERROR
@@ -123,25 +131,24 @@ class response(object):
         for i in range(len(indexList)):
             nameStatArray.append(scheduleStatList[indexList[i]])
         
-        
-        game  = statArray[0][0]
-        monthString = game.month
-        dayString = game.day
-        oppString = game.opponent_name
-        resultString = game.result
+        empty = []
+        gameObj = game(empty)
+        gameObj  = statArray[0]
+        monthString = gameObj.month
+        dayString = str(gameObj.day)
+        oppString = gameObj.opponent_name
+        resultString = gameObj.result
         yearString = statArray[1]
         
-
-        print("CWRU baseball team played " + oppString+ "on the " +dayString+ " of "+monthString+ ", and the result was" + resultString+ "." )
+        printString = "CWRU baseball team played " + oppString+ " on the " +dayString+ " of "+monthString+ ", and the result was " + resultString+ "." 
+        print("CWRU baseball team played " + oppString+ " on the " +dayString+ " of "+monthString+ ", and the result was " + resultString+ "." )
+        return(printString)
         
-        
 
 
 
 
 
-    #response(testTeamStat)
-    #response(testPlayerStat)
-    #response(testError)
+    
     #teamResponse(testTeamStat)
     #participantResponse(testPlayerStat)
