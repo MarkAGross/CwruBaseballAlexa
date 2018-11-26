@@ -6,7 +6,7 @@ from response import response
 
 inputstring = "games 2018"
 inputstring2 = "doubles 29 2018"
-inputstring3 = "previous game 2018"
+inputstring3 = "previous game"
 inputstring4 = ""
 
 

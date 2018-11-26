@@ -139,6 +139,9 @@ class response(object):
         nameStatArray = []
         printString = ""
 
+        if keyList[2] is None:
+            keyList[2] = "2018"
+
         for i in range(len(keyList)):
             if keyList[i] is not None:
                 statArray.append(keyList[i])
