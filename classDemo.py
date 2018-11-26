@@ -9,7 +9,6 @@ inputstring2 = "doubles 29 2018"
 inputstring3 = "previous game"
 inputstring4 = ""
 
-
 r = receiver(inputstring)                                   #create receiver class
 data = []
 
