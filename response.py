@@ -143,7 +143,7 @@ class response(object):
                 statArray.append(-1)
                 
         
-        
+        print(statArray)
         try:
             for i in range(len(indexList)):
                 nameStatArray.append(scheduleStatList[indexList[i]])
@@ -154,10 +154,11 @@ class response(object):
             printString =""
             
             if(statArray[0] == -1):
+                
                 empty = []
                 gameObj = game(empty)
-                gameObj  = statArray[1]
-                monthString = gameObj.month
+                gameObj  = statArray[1][0]
+                monthString = str(gameObj.month)
                 dayString = str(gameObj.day)
                 oppString = gameObj.opponent_name
                 resultString = gameObj.result
@@ -167,7 +168,7 @@ class response(object):
             elif(statArray[1] == -1):
                 empty = []
                 gameObj = game(empty)
-                gameObj  = statArray[0]
+                gameObj  = statArray[0][0]
                 monthString = gameObj.month
                 dayString = str(gameObj.day)
                 oppString = gameObj.opponent_name
