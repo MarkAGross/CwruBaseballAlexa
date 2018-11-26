@@ -1,20 +1,14 @@
-#from team import team
-#from team_participant import team_participant
-#from schedule import schedule
+
 from RequestReciever import receiver
 from response import response
-#from bs4 import BeautifulSoup
-#import urllib.request
-#import sys
-#import datetime
-#import calendar
 
-#inputstring = "how many games has number 29 played in 2018"
-inputstring = ""
-inputstring2 = "How many runs did the team get in 2018"
-inputstring3 = "What game was played on April 25 2018"
-inputstring4 = "This has nothing to do with baseball 2018"
-inputstring5 = "I like spaghetti"
+
+
+inputstring = "games 2018"
+inputstring2 = "doubles 29 2018"
+inputstring3 = "previous game 2018"
+inputstring4 = ""
+
 
 r = receiver(inputstring)                                   #create receiver class
 data = []
@@ -78,20 +72,6 @@ elif(len(data4) == 3):
 else:
     print("Missed array length")
 
-r5 = receiver(inputstring5)                                   #create receiver class
-data5 = []
-
-data5 = r5.parse_string()                 #make array with data
-
-resp5 = response()
-if(len(data5) == 28):                    #print with respective method based on data size
-    resp.teamResponse(data5)
-elif(len(data5) == 33):
-    resp.participantResponse(data5)
-elif(len(data5) == 3):
-    resp.scheduleResponse(data5)
-else:
-    print("Missed array length")
 
 print (" ")
 print ("done")

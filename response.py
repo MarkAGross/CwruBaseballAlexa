@@ -43,7 +43,7 @@ class response(object):
         statString = ""
         statNumString = ""
         yearString = ""
-
+        printString = ""
        
         for i in range(len(keyList)):
             if keyList[i] is not None:
@@ -59,18 +59,22 @@ class response(object):
                 nameStatArray.append(teamStatList[indexList[i]])
 
             statString = nameStatArray[0]
-            statNumString = statArray[0]
+            statNumString = str(statArray[0])
             yearString = str(statArray[1])
+
+            
+            printString = "The CWRU Baseball team has "+ statNumString +" "+ statString + " in " + yearString
+            print("The CWRU Baseball team has "+ statNumString +" "+ statString + " in " + yearString)
         except IndexError:
+            print("Unable to retrieve sufficient information for this team stat")
             
-            raise LACK_OF_TEAM_INFORMATION_ERROR("Unable to retrieve sufficient information for this team stat")
+            #raise LACK_OF_TEAM_INFORMATION_ERROR("Unable to retrieve sufficient information for this team stat")
             
 
         
         
 
-        printString = "The CWRU Baseball team has "+ statNumString +" "+ statString + " in " + yearString
-        print("The CWRU Baseball team has "+ statNumString +" "+ statString + " in " + yearString)
+        
         return(printString)
 
        
@@ -93,7 +97,7 @@ class response(object):
         statNumString = ""
         playerString = ""
         yearString = ""
-
+        printString = ""
         
         for i in range(len(keyList)):
             if keyList[i] is not None:
@@ -111,14 +115,15 @@ class response(object):
             statNumString = str(statArray[0])
             yearString = str(statArray[2])
             playerString = str(statArray[1])
-        
+            printString = "Player No." + playerString + " has " + statNumString + " " + statString + " in " + yearString
+            print("Player No." + playerString + " has " + statNumString + " " + statString + " in " + yearString)
             
         except IndexError:
-            raise LACK_OF_PARTICIPANT_INFORMATION_ERROR("Unable to retrieve sufficient information for this team stat")
+            print("Unable to retrieve sufficient information for this team stat")
+            #raise LACK_OF_PARTICIPANT_INFORMATION_ERROR("Unable to retrieve sufficient information for this team stat")
 
 
-        printString = "Player No." + playerString + " has " + statNumString + " " + statString + " in " + yearString
-        print("Player No." + playerString + " has " + statNumString + " " + statString + " in " + yearString)
+        
         return(printString)
         
             
@@ -132,7 +137,7 @@ class response(object):
         statArray = []
         indexList = []
         nameStatArray = []
-        
+        printString = ""
 
         for i in range(len(keyList)):
             if keyList[i] is not None:
@@ -143,7 +148,6 @@ class response(object):
                 statArray.append(-1)
                 
         
-        print(statArray)
         try:
             for i in range(len(indexList)):
                 nameStatArray.append(scheduleStatList[indexList[i]])
@@ -157,7 +161,7 @@ class response(object):
                 
                 empty = []
                 gameObj = game(empty)
-                gameObj  = statArray[1][0]
+                gameObj  = statArray[1]
                 monthString = str(gameObj.month)
                 dayString = str(gameObj.day)
                 oppString = gameObj.opponent_name
@@ -179,7 +183,8 @@ class response(object):
 
 
         except (IndexError , AttributeError):
-            raise LACK_OF_TEAM_INFORMATION_ERROR("Unable to retrieve sufficient information for this schedule inquiry")
+            printprint("Unable to retrieve sufficient information for this team stat")
+            #raise LACK_OF_TEAM_INFORMATION_ERROR("Unable to retrieve sufficient information for this schedule inquiry")
         
 
         
