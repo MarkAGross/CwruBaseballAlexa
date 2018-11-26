@@ -1,4 +1,5 @@
-
+from RequestReciever import receiver
+from response import response
 from __future__ import print_function
 
 
@@ -28,6 +29,8 @@ def build_response(speechlet_response):
 # --------------- Functions that control the skill's behavior ------------------
 
 def recieve_request(intent):
+    pass
+    '''
     title = intent['name']
     input_string = ""
     for slot in intent['slots']:
@@ -46,6 +49,8 @@ def recieve_request(intent):
     elif (len(data) == 3):
         speech_output = response.scheduleResponse(data)
     return build_response(build_speechlet_response(title, speech_output))
+    '''
+    return build_response(build_speechlet_response('case baseball', 'There are some games played'))
 
 
 # --------------- Events ------------------
