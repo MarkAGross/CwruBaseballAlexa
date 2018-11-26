@@ -17,6 +17,15 @@ class response(object):
     testPlayerStat[7] = 42
     testPlayerStat[31] = 29
     testPlayerStat[32] = "2018"
+    data = []
+    gameObj = game(data)
+    gameObj.month = "April"
+    gameObj.day = 25
+    gameObj.opponent_name = "#2 Wooster"
+    gameObj.result = "L, 11-6"
+    testSchedule = [None] * 3
+    testSchedule[1] = gameObj
+    testSchedule[2] = "2018"
 
 
     #function to format and return information about team stats
@@ -41,28 +50,30 @@ class response(object):
                 statArray.append(keyList[i])
                 indexList.append(i)
                 count +=1
-        #if statement to be removed later when exception handling works
-       
-        
-        if(count<=1):
-            print("Unable to retrieve sufficent information")
-        else:
-            for i in range(len(indexList)):
-                
-                nameStatArray.append(teamStatList[indexList[i]])
-                
+
+
 
         
+        try:
+            for i in range(len(indexList)):
+                nameStatArray.append(teamStatList[indexList[i]])
+
             statString = nameStatArray[0]
             statNumString = statArray[0]
             yearString = str(statArray[1])
+        except IndexError:
+            
+            raise LACK_OF_TEAM_INFORMATION_ERROR("Unable to retrieve sufficient information for this team stat")
+            
 
-            printString = "The CWRU Baseball team has "+ statNumString +" "+ statString + " in " + yearString
-            print("The CWRU Baseball team has "+ statNumString +" "+ statString + " in " + yearString)
-            return(printString)
+        
+        
 
-       # except:
-            #raise LACK_OF_TEAM_INFORMATION_ERROR
+        printString = "The CWRU Baseball team has "+ statNumString +" "+ statString + " in " + yearString
+        print("The CWRU Baseball team has "+ statNumString +" "+ statString + " in " + yearString)
+        return(printString)
+
+       
 
         
 
@@ -83,32 +94,34 @@ class response(object):
         playerString = ""
         yearString = ""
 
-        #try:
+        
         for i in range(len(keyList)):
             if keyList[i] is not None:
                 statArray.append(keyList[i])
                 indexList.append(i)
                 count +=1
 
+            
         
-        #if statement to be removed later when exception handling works
-        if(count<=2):
-            print("Unable to retrieve sufficent information")
+        try:
+            for i in range(len(indexList)):
+                nameStatArray.append(participantStatList[indexList[i]])
 
-        for i in range(len(indexList)):
-            nameStatArray.append(participantStatList[indexList[i]])
-        else:
             statString = nameStatArray[0]
             statNumString = str(statArray[0])
             yearString = str(statArray[2])
             playerString = str(statArray[1])
-            
-            printString = "Player No." + playerString + " has " + statNumString + " " + statString + " in " + yearString
-            print("Player No." + playerString + " has " + statNumString + " " + statString + " in " + yearString)
-            return(printString)
         
-        #except:
-            #raise LACK_OF_PARTICIPANT_INFORMATION_ERROR
+            
+        except IndexError:
+            raise LACK_OF_PARTICIPANT_INFORMATION_ERROR("Unable to retrieve sufficient information for this team stat")
+
+
+        printString = "Player No." + playerString + " has " + statNumString + " " + statString + " in " + yearString
+        print("Player No." + playerString + " has " + statNumString + " " + statString + " in " + yearString)
+        return(printString)
+        
+            
             
         
 
@@ -126,29 +139,60 @@ class response(object):
                 statArray.append(keyList[i])
                 indexList.append(i)
                 count +=1
+            elif keyList[i] is None:
+                statArray.append(-1)
                 
+        
+        
+        try:
+            for i in range(len(indexList)):
+                nameStatArray.append(scheduleStatList[indexList[i]])
+        
+            
+        
 
-        for i in range(len(indexList)):
-            nameStatArray.append(scheduleStatList[indexList[i]])
+            printString =""
+            
+            if(statArray[0] == -1):
+                empty = []
+                gameObj = game(empty)
+                gameObj  = statArray[1]
+                monthString = gameObj.month
+                dayString = str(gameObj.day)
+                oppString = gameObj.opponent_name
+                resultString = gameObj.result
+                yearString = statArray[1]
+                printString = "CWRU baseball team played " + oppString+ " on the " +dayString+ " of "+monthString+ ", and the result was " + resultString+ "." 
+                print("CWRU baseball team played " + oppString+ " on the " +dayString+ " of "+monthString+ ", and the result was " + resultString+ "." )
+            elif(statArray[1] == -1):
+                empty = []
+                gameObj = game(empty)
+                gameObj  = statArray[0]
+                monthString = gameObj.month
+                dayString = str(gameObj.day)
+                oppString = gameObj.opponent_name
+                resultString = gameObj.result
+                yearString = statArray[1]
+                printString = "CWRU baseball team will play " + oppString+ " on the " +dayString+ " of "+monthString+ "." 
+                print("CWRU baseball team will play " + oppString+ " on the " +dayString+ " of "+monthString+ "." )
+
+
+        except (IndexError , AttributeError):
+            raise LACK_OF_TEAM_INFORMATION_ERROR("Unable to retrieve sufficient information for this schedule inquiry")
         
-        empty = []
-        gameObj = game(empty)
-        gameObj  = statArray[0]
-        monthString = gameObj.month
-        dayString = str(gameObj.day)
-        oppString = gameObj.opponent_name
-        resultString = gameObj.result
-        yearString = statArray[1]
+
         
-        printString = "CWRU baseball team played " + oppString+ " on the " +dayString+ " of "+monthString+ ", and the result was " + resultString+ "." 
-        print("CWRU baseball team played " + oppString+ " on the " +dayString+ " of "+monthString+ ", and the result was " + resultString+ "." )
+
+
         return(printString)
         
 
 
-
+    #Make if statement to check if previous game or next game
 
 
     
     #teamResponse(testTeamStat)
     #participantResponse(testPlayerStat)
+    #scheduleResponse(testSchedule)
+
