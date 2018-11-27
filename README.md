@@ -1,5 +1,6 @@
 # CwruBaseballAlexa
 This codebase is a CWRU Baseball Amazon Alexa Skill. It is deployed to Amazon Web Services to interact with our developed interaction model.
+It currently uses AWS Lambda free tier which provides up to 1,000,000 free requests per month and up to 3.2 million seconds of compute power per month.
 
 ## Getting Started
 All necissary back end code is provided in this github project. To run it with Alexa, an interaction model must also be developed on the Alexa Development Console and paired with this github project while this github project is being hosted as a lambda function on AWS. For additional information on how it was deployed, see the Deployment section below.
