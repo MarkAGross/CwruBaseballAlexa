@@ -1,6 +1,6 @@
+from __future__ import print_function
 from RequestReciever import receiver
 from response import response
-from __future__ import print_function
 
 
 # --------------- Helpers that build all of the responses ----------------------
