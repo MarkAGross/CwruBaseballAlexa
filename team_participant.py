@@ -66,7 +66,7 @@ class team_participant:
         try:
             request = urllib.request.Request(roster_page_url, headers={'User-Agent' : "AlexaSkill"})
             webpage = urllib.request.urlopen(request)
-            soup = BeautifulSoup(webpage, 'lxml')
+            soup = BeautifulSoup(webpage, 'html.parser')
             table = soup.find('table')
             table_rows = table.find_all('tr')
             for table_row in table_rows:
@@ -109,7 +109,7 @@ class team_participant:
         try:
             request = urllib.request.Request(url, headers={'User-Agent' : "AlexaSkill"})
             webpage = urllib.request.urlopen(request)
-            soup = BeautifulSoup(webpage, 'lxml')
+            soup = BeautifulSoup(webpage, 'html.parser')
             table = soup.find_all('table')[table_number]
             table_rows = table.find_all('tr')
             #get all headers

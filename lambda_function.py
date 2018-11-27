@@ -1,6 +1,8 @@
 from __future__ import print_function
+
 from RequestReciever import receiver
 from response import response
+
 
 
 # --------------- Helpers that build all of the responses ----------------------
@@ -28,31 +30,71 @@ def build_response(speechlet_response):
 
 # --------------- Functions that control the skill's behavior ------------------
 
-def recieve_request(intent):
-    pass
-    '''
+def recieve_bad_request(intent):
+    return build_response(build_speechlet_response('case baseball', "Sorry, Case Baseball could not find what you asked."))
+
+def recieve_team_request(intent):
     title = intent['name']
     input_string = ""
-    for slot in intent['slots']:
-        if 'value' in slot:
-            input_string = input_string + ' '
-            input_string = input_string + slot['value']
-    rec = reciever(input_string)
+    if 'team_stat_type' in intent['slots']:
+        if 'value' in intent['slots']['team_stat_type']:
+            input_string = intent['slots']['team_stat_type']['value']
+            input_string = input_string + " "
+    if 'year' in intent['slots']:
+        if 'value' in intent['slots']['year']:
+            input_string = input_string + intent['slots']['year']['value']
+    return get_output(title, input_string)
+
+
+def recieve_team_participant_request(intent):
+    title = intent['name']
+    input_string = ""
+    if 'team_participant_stat_type' in intent['slots']:
+        if 'value' in intent['slots']['team_participant_stat_type']:
+            input_string = intent['slots']['team_participant_stat_type']['value']
+            input_string = input_string + " "
+    if 'player_number'in intent['slots']:
+        if 'value' in intent['slots']['player_number']:
+            input_string = input_string + intent['slots']['player_number']['value']
+            input_string = input_string + " "
+    if 'year' in intent['slots']:
+        if 'value' in intent['slots']['year']:
+            input_string = input_string + intent['slots']['year']['value']
+    return get_output(title, input_string)
+
+def recieve_schedule_request(intent):
+    title = intent['name']
+    input_string = ""
+    if 'month' in intent['slots']:
+        if 'value' in intent['slots']['month']:
+            input_string = intent['slots']['month']['value']
+            input_string = input_string + " "
+    if 'day'in intent['slots']:
+        if 'value' in intent['slots']['day']:
+            input_string = input_string + intent['slots']['day']['value']
+            input_string = input_string + " "
+    if 'year' in intent['slots']:
+        if 'value' in intent['slots']['year']:
+            input_string = input_string + intent['slots']['year']['value']
+            input_string = anser + " "
+    if 'previous_game_or_next_game' in intent['slots']:
+        if 'value' in intent['slots']['previous_game_or_next_game']:
+            input_string = input_string + intent['slots']['previous_game_or_next_game']['value']
+    return get_output(title, input_string)
+
+def get_output(title, input_string):
+    rec = receiver(input_string)
     data = []
     data = rec.parse_string()
-    response = response()
+    res = response()
     speech_output = "Default Response - Error"
     if (len(data) == 28):
-        speech_output = reponse.teamResponse(data)
+        speech_output = res.teamResponse(data)
     elif (len(data) == 33):
-        speech_output = response.participantResponse(data)
+        speech_output = res.participantResponse(data)
     elif (len(data) == 3):
-        speech_output = response.scheduleResponse(data)
+        speech_output = res.scheduleResponse(data)
     return build_response(build_speechlet_response(title, speech_output))
-    '''
-    return build_response(build_speechlet_response('case baseball', 'There are some games played'))
-
-
 # --------------- Events ------------------
 
 def on_intent(intent_request):
@@ -63,13 +105,13 @@ def on_intent(intent_request):
 
     # Dispatch to your skill's intent handlers
     if intent_name == "TeamIntent":
-        return recieve_request(intent)
+        return recieve_team_request(intent)
     elif intent_name == "TeamParticipantIntent":
-        return recieve_request(intent)
+        return recieve_team_participant_request(intent)
     elif intent_name == "ScheduleIntent":
-        return recieve_request(intent)
+        return recieve_schedule_request(intent)
     else:
-        raise ValueError("Invalid intent")
+        return recieve_bad_request(intent)
 
 
 # --------------- Main handler ------------------

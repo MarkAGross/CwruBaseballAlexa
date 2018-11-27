@@ -10,7 +10,7 @@ class team:
     def __init__(self, year):
         if year == None:
             year = datetime.datetime.now().year
-            
+
         self.year = year
 
         self.team_stats_url = None
@@ -38,7 +38,7 @@ class team:
         try:
             request = urllib.request.Request(self.team_stats_url, headers={'User-Agent' : "AlexaSkill"})
             webpage = urllib.request.urlopen(request)
-            soup = BeautifulSoup(webpage, 'lxml')
+            soup = BeautifulSoup(webpage, 'html.parser')
             table = soup.find_all('table')[2]
             table_rows = table.find_all('tr')
             for table_row in table_rows:

@@ -132,7 +132,7 @@ class schedule:
         try:
             request = urllib.request.Request(url, headers={'User-Agent' : "AlexaSkill"})
             webpage = urllib.request.urlopen(request)
-            soup = BeautifulSoup(webpage, 'lxml')
+            soup = BeautifulSoup(webpage, 'html.parser')
             table = soup.find('table')
             table_rows = table.find_all('tr')
             month = None
