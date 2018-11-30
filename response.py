@@ -27,7 +27,7 @@ class response:
             else:
                 self.generate_error_response()
 
-                
+
     #-------------------------------------------------------------------------#
     #---------- The different types of response generator funcitons ----------#
     #-------------------------------------------------------------------------#
@@ -91,7 +91,9 @@ class response:
 
         if isinstance(game, list):
             for g in game:
-                speech_output = speech_output + self.generate_response_for_game(previous_game_or_next_game, month, day, year, g) + " and "
+                speech_output = speech_output + self.generate_response_for_game(previous_game_or_next_game, month, day, year, g)
+                if game.index(g) != (len(game) - 1):
+                    speech_output = speech_output + " and "
         elif game != None:
             speech_output = self.generate_response_for_game(previous_game_or_next_game, month, day, year, game)
         else:
@@ -122,7 +124,7 @@ class response:
                     speech_output = speech_output + " with a " + game.status + " result of " + game.result
         # asking for game by date
         elif game != None:
-            speech_output = "The C.W.R.U. baseball team game on " + game.day_of_week + " " + game.month + " " + game.day + " " + str(year) + " " + game.verses_or_at + " " + game.opponent_name
+            speech_output = "The C.W.R.U. baseball game on " + game.day_of_week + " " + game.month + " " + game.day + " " + str(year) + " " + game.verses_or_at + " " + game.opponent_name
             # game cancelled
             if game.status.lower() == "cancelled":
                 speech_output = speech_output + " shows as " + game.status
