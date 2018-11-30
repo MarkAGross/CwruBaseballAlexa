@@ -31,6 +31,9 @@ class team_participant:
         self.create_and_set_players_list(self.roster_dictionary_list, self.batters_individual_statistics_dictionary_list, self.pitchers_individual_statistics_dictionary_list)
         print("Finished Creating team_particpant Object: " + str(datetime.datetime.now()))
 
+    #--------------------------------------------------------------------------------#
+    #---------- Fetching Information for team_particpants from the website ----------#
+    #--------------------------------------------------------------------------------#
 
     """
     Functions for creating each URL for the input year.
@@ -172,11 +175,9 @@ class team_participant:
         # if player with input number not found
         return None
 
-
-    """
-    Functions for fetching from pulled data.
-    Assumes all data already stored in players_list
-    """
+    #------------------------------------------------------------------------------------#
+    #---------- Fetching information after it has been pulled from the website ----------#
+    #------------------------------------------------------------------------------------#
 
     def get_player_from_players_list_by_number(self, number):
         for player in self.players_list:
@@ -420,7 +421,10 @@ class team_participant:
         if player == None:
             return None
         return player.pitcher_earned_run_average
-
+        
+#--------------------------------------------------------------------------------------#
+#---------- Data storage and transfer object for team_participants (players) ----------#
+#--------------------------------------------------------------------------------------#
 class player:
 
     def __init__(self, roster_dictionary, batter_dictionary, pitcher_dictionary):

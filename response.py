@@ -8,6 +8,9 @@ class response:
     def __init__(self, response_dictionary):
         self.response_dictionary = response_dictionary
 
+    #---------------------------------------------------------------------------------------------------#
+    #---------- Determines the type of request and calls the corresponding response generator ----------#
+    #---------------------------------------------------------------------------------------------------#
     def generate_response(self):
         response_dictionary = self.response_dictionary
         if response_dictionary == None:
@@ -24,6 +27,12 @@ class response:
             else:
                 self.generate_error_response()
 
+                
+    #-------------------------------------------------------------------------#
+    #---------- The different types of response generator funcitons ----------#
+    #-------------------------------------------------------------------------#
+
+    #generates responsnes for team requests
     def generate_team_response(self, response_dictionary):
         '''response dictionary values
         intent : "TeamIntent"
@@ -42,6 +51,7 @@ class response:
             speech_output = "Sorry, I could not find what team information you asked for. Please try rephrasing."
         return speech_output
 
+    #generates responses for team participant requests
     def generate_team_participant_response(self, response_dictionary):
         '''response dictionary values
         intent : "TeamParticipantIntent"
@@ -62,6 +72,7 @@ class response:
             speech_output = "Sorry, I could not find what player information you asked for. Please try rephrasing."
         return speech_output
 
+    #generates responses for schedule requests
     def generate_schedule_response(self, response_dictionary):
         '''response dicitonary values
         intent : "ScheduleIntent"
@@ -91,6 +102,7 @@ class response:
 
         return speech_output
 
+    #helper for generate_schedule_response, generates response for a single game
     def generate_response_for_game(self, previous_game_or_next_game, month, day, year, game):
         speech_output = ""
         # asking for previous or next game, only singular game not a list of games
@@ -122,5 +134,6 @@ class response:
                 speech_output = speech_output + " is ongoing in the " + game.status + " with a score of " + game.result
         return speech_output
 
+    #generates the response for an error
     def generate_error_response(self):
         return "Sorry, Case Baseball could not find what you were asking for. Please rephrase and ask again."

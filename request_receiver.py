@@ -13,7 +13,10 @@ class receiver:
         self.intent = intent
         self.slot_dictionary = slot_dictionary
 
-    # produces a response based on the input intnet and slots
+    #--------------------------------------------------------------------------------------#
+    #---------- Decides the response dictionary to be made based on intent type  ----------#
+    #--------------------------------------------------------------------------------------#
+
     def get_response(self):
         intent = self.intent
         slot_dictionary = self.slot_dictionary
@@ -28,7 +31,11 @@ class receiver:
             response_dictionary = None
         return response(response_dictionary).generate_response()
 
+    #-----------------------------------------------------------------------#
     # ---------- produces a response dictionary for a team intent ----------#
+    #-----------------------------------------------------------------------#
+
+    #---------- produces a team respone dictionary ----------#
     def interpret_team_intent(self, intent, slot_dictionary):
         response_dictionary = {}
 

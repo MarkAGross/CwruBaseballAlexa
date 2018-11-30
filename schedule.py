@@ -4,7 +4,7 @@ from error import CONNECTION_TO_WEBSITE_ERROR
 import datetime
 import calendar
 
-#Class for fetching information and statistics about players and coaches
+#Class for fetching information and statistics about players
 class schedule:
 
     def __init__(self, year):
@@ -26,80 +26,9 @@ class schedule:
                 self.list_of_games.append(game(dictionary))
         print("Finished Creating schedule Object:" + str(datetime.datetime.now()))
 
-    def fetch_games_by_date(self, month, day):
-        """ Returns a list of games for the given date
-
-        Args:
-            month (string) : full name of the month of the game
-            day (int) : day of the month
-
-        Returns:
-            list : list of game dictionaries on the input date
-        """
-        games_for_input_day = []
-        for game in self.list_of_games:
-            if game.month == month and game.day == day:
-                games_for_input_day.append(game)
-        if not games_for_input_day:
-            return None
-        else:
-            return games_for_input_day
-
-    def fetch_previous_game(self):
-        """ Returns the most recent game that occured on or before the current date
-
-        Returns:
-            dictionary : dictionary of the game on the current date or closest previous game to current date
-        """
-        current = datetime.datetime.now()
-        year = current.year
-        month_num = int(current.month)
-        month = current.strftime("%B")
-        day = int(current.day)
-        if year != self.year:
-            return None
-        games = self.fetch_games_by_date(calendar.month_name[month_num], str(day))
-        while games == None:
-            if month_num > 0 and day > 0:
-                day = day - 1
-            if month_num > 0 and day <= 0:
-                month_num = month_num - 1
-                day = 31
-            if month_num == 0:
-                return None
-            games = self.fetch_games_by_date(calendar.month_name[month_num], str(day))
-        return games[-1] #gets last and most recent game of the list of games
-
-
-
-    # if the schedule and current years are different, returns None
-    def fetch_next_game(self):
-        """ Returns the next game to occur on or after the current date.
-        If the scheudle and current years are different, returns None.
-
-        Returns:
-            dictionary : Dictionary of the game on the current date or closest future game to current date.
-                         If current year is not the same year as this scheudle object, reurns none.
-        """
-        current = datetime.datetime.now()
-        year = current.year
-        month_num = int(current.month)
-        month = current.strftime("%B")
-        day = int(current.day)
-        if year != self.year:
-            return None
-        games = self.fetch_games_by_date(calendar.month_name[month_num], str(day))
-        while games == None:
-            if month_num < 13 and day < 31:
-                day = day + 1
-            if month_num < 13 and day <= 32:
-                month_num = month_num + 1
-                day = 1
-            if month_num == 13:
-                return None
-            games = self.fetch_games_by_date(calendar.month_name[month_num], str(day))
-        return games[0] #gets first game in the list of games. The list of games is for the next day with games
-
+    #--------------------------------------------------------------------#
+    #---------- Fetching schedule information from the website ----------#
+    #--------------------------------------------------------------------#
 
     def schedule_url(self, year):
         """ Produces the expected url for the baseball schedule for the given year.
@@ -228,6 +157,87 @@ class schedule:
         """
         return text in ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
+    #-------------------------------------------------------------------------------------------------#
+    #---------- Fetch functions to get information once it has been pulled from the website ----------#
+    #-------------------------------------------------------------------------------------------------#
+
+    def fetch_games_by_date(self, month, day):
+        """ Returns a list of games for the given date
+
+        Args:
+            month (string) : full name of the month of the game
+            day (int) : day of the month
+
+        Returns:
+            list : list of game dictionaries on the input date
+        """
+        games_for_input_day = []
+        for game in self.list_of_games:
+            if game.month == month and game.day == day:
+                games_for_input_day.append(game)
+        if not games_for_input_day:
+            return None
+        else:
+            return games_for_input_day
+
+    def fetch_previous_game(self):
+        """ Returns the most recent game that occured on or before the current date
+
+        Returns:
+            dictionary : dictionary of the game on the current date or closest previous game to current date
+        """
+        current = datetime.datetime.now()
+        year = current.year
+        month_num = int(current.month)
+        month = current.strftime("%B")
+        day = int(current.day)
+        if year != self.year:
+            return None
+        games = self.fetch_games_by_date(calendar.month_name[month_num], str(day))
+        while games == None:
+            if month_num > 0 and day > 0:
+                day = day - 1
+            if month_num > 0 and day <= 0:
+                month_num = month_num - 1
+                day = 31
+            if month_num == 0:
+                return None
+            games = self.fetch_games_by_date(calendar.month_name[month_num], str(day))
+        return games[-1] #gets last and most recent game of the list of games
+
+
+
+    # if the schedule and current years are different, returns None
+    def fetch_next_game(self):
+        """ Returns the next game to occur on or after the current date.
+        If the scheudle and current years are different, returns None.
+
+        Returns:
+            dictionary : Dictionary of the game on the current date or closest future game to current date.
+                         If current year is not the same year as this scheudle object, reurns none.
+        """
+        current = datetime.datetime.now()
+        year = current.year
+        month_num = int(current.month)
+        month = current.strftime("%B")
+        day = int(current.day)
+        if year != self.year:
+            return None
+        games = self.fetch_games_by_date(calendar.month_name[month_num], str(day))
+        while games == None:
+            if month_num < 13 and day < 31:
+                day = day + 1
+            if month_num < 13 and day <= 32:
+                month_num = month_num + 1
+                day = 1
+            if month_num == 13:
+                return None
+            games = self.fetch_games_by_date(calendar.month_name[month_num], str(day))
+        return games[0] #gets first game in the list of games. The list of games is for the next day with games
+
+#-----------------------------------------------------------------------------------#
+#---------- Data storage and transfer object for a game from the schedule ----------#
+#-----------------------------------------------------------------------------------#
 class game:
 
     def __init__ (self, game_dictionary):

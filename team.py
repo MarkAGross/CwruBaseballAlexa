@@ -22,6 +22,11 @@ class team:
         self.fetch_all_team_stats(year)
         print ("Finished Creating team Object: " + str(datetime.datetime.now()))
 
+
+    #-------------------------------------------------------------#
+    #----------- Fetching team information from website ----------#
+    #-------------------------------------------------------------#
+
     # Produces the expected url for the baseball team statistics page given the year
     # Example Format as follows: https://athletics.case.edu/sports/bsb/2017-18/teams/casewesternreserve
     # NOTE: Does not check that the url is valid or the page exists
@@ -54,6 +59,10 @@ class team:
         except urllib.error.HTTPError:
             raise CONNECTION_TO_WEBSITE_ERROR("Cannot connect to team statistics website")
 
+
+    #-------------------------------------------------------------------------------#
+    #---------- Getting information once it has been fetched from website ----------#
+    #-------------------------------------------------------------------------------#
 
     def fetch_num_of_games(self):
         if "Games" in self.team_stats_dictionary:
