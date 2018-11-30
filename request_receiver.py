@@ -58,8 +58,8 @@ class receiver:
         # set team_stat_type in response dictionary
         team_stat_type = None
         if 'value' in slot_dictionary['team_stat_type']:
-            team_stat_type = slot_dictionary['team_stat_type']['value']
-            response_dictionary['team_stat_type'] = slot_dictionary['team_stat_type']['value']
+            team_stat_type = slot_dictionary['team_stat_type']['resolutions']['resolutionsPerAuthority'][0]['values'][0]['value']['name']
+            response_dictionary['team_stat_type'] = slot_dictionary['team_stat_type']['resolutions']['resolutionsPerAuthority'][0]['values'][0]['value']['name']
         else:
             response_dictionary = None
             return response_dictionary
@@ -157,9 +157,9 @@ class receiver:
 
         # set team_stat_type in response dictionary
         team_participant_stat_type = None
-        if 'value' in slot_dictionary['team_participant_stat_type']:
-            team_participant_stat_type = slot_dictionary['team_participant_stat_type']['value']
-            response_dictionary['team_participant_stat_type'] = slot_dictionary['team_participant_stat_type']['value']
+        if 'value' in slot_dictionary['team_participant_stat_type'] and 'resolutions' in slot_dictionary['team_participant_stat_type']:
+            team_participant_stat_type = slot_dictionary['team_participant_stat_type']['resolutions']['resolutionsPerAuthority'][0]['values'][0]['value']['name']
+            response_dictionary['team_participant_stat_type'] = slot_dictionary['team_participant_stat_type']['resolutions']['resolutionsPerAuthority'][0]['values'][0]['value']['name']
         else:
             response_dictionary = None
             return response_dictionary
@@ -265,8 +265,8 @@ class receiver:
         # set day of response dictionary
         day = None
         if 'value' in slot_dictionary['day']:
-            day = slot_dictionary['day']['value']
-            response_dictionary['day'] = slot_dictionary['day']['value']
+            day = slot_dictionary['day']['resolutions']['resolutionsPerAuthority'][0]['values'][0]['value']['name']
+            response_dictionary['day'] = slot_dictionary['day']['resolutions']['resolutionsPerAuthority'][0]['values'][0]['value']['name']
         else:
             day = None
             response_dictionary['day'] = None
@@ -276,6 +276,8 @@ class receiver:
         if 'value' in slot_dictionary['previous_game_or_next_game']:
             previous_game_or_next_game = slot_dictionary['previous_game_or_next_game']['value']
             response_dictionary['previous_game_or_next_game'] =  slot_dictionary['previous_game_or_next_game']['value']
+        else:
+            response_dictionary['previous_game_or_next_game'] = None
 
         # set value of game in response dictionary
         s = schedule(year)
