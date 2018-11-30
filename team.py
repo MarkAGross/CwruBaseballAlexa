@@ -1,6 +1,7 @@
 import urllib.request
 from bs4 import BeautifulSoup
 from error import CONNECTION_TO_WEBSITE_ERROR
+import datetime
 
 #Class for fetching team statistics from CWRU Baseball Athletics website
 #Each page contains the statistics for 1 year
@@ -8,6 +9,7 @@ from error import CONNECTION_TO_WEBSITE_ERROR
 class team:
 
     def __init__(self, year):
+        print ("Creating team Object: " + str(datetime.datetime.now()))
         if year == None:
             year = datetime.datetime.now().year
 
@@ -18,6 +20,7 @@ class team:
 
         self.team_stats_dictionary = None
         self.fetch_all_team_stats(year)
+        print ("Finished Creating team Object: " + str(datetime.datetime.now()))
 
     # Produces the expected url for the baseball team statistics page given the year
     # Example Format as follows: https://athletics.case.edu/sports/bsb/2017-18/teams/casewesternreserve

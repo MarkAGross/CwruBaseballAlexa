@@ -8,6 +8,7 @@ import calendar
 class schedule:
 
     def __init__(self, year):
+        print("Creating schedule Object: " + str(datetime.datetime.now()))
         if year == None:
             year = datetime.datetime.now().year
 
@@ -23,6 +24,7 @@ class schedule:
         if self.list_of_table_row_dictionaries != None:
             for dictionary in self.list_of_table_row_dictionaries:
                 self.list_of_games.append(game(dictionary))
+        print("Finished Creating schedule Object:" + str(datetime.datetime.now()))
 
     def fetch_games_by_date(self, month, day):
         """ Returns a list of games for the given date
