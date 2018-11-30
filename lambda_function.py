@@ -49,7 +49,7 @@ def on_intent(intent_request):
 def unknown_intent():
     """ Called when the intent is not valid for this skill """
     speech_output = "Sorry, but this Case Baseball Alexa skill does not support that type of request."
-    build_response(build_speechlet_response('Error', speech_output))
+    return build_response(build_speechlet_response('Error', speech_output))
 
 
 # --------------- Main handler ------------------
@@ -69,5 +69,7 @@ def lambda_handler(event, context):
         raise ValueError("Invalid Application ID")
     elif (event['request']['type'] == "IntentRequest"):
         return on_intent(event['request'])
+    elif (event['request']['type'] == "IntentRequest"):
+        return unknown_intent()
     else:
         return unknown_intent()
