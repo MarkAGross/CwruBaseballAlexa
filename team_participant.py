@@ -12,6 +12,7 @@ class team_participant:
     """
 
     def __init__(self, year):
+        print("Creating team_participant Object: " + str(datetime.datetime.now()))
         if year == None:
             year = datetime.datetime.now().year
 
@@ -28,6 +29,7 @@ class team_participant:
 
         self.players_list = []
         self.create_and_set_players_list(self.roster_dictionary_list, self.batters_individual_statistics_dictionary_list, self.pitchers_individual_statistics_dictionary_list)
+        print("Finished Creating team_particpant Object: " + str(datetime.datetime.now()))
 
 
     """
