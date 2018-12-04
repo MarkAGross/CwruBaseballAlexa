@@ -66,6 +66,8 @@ class receiver:
 
         # set team_stat_value in response dictionary
         t = team(year)
+        pluralCheck = True
+        caughtStealing = False
         if team_stat_type == 'games':
             response_dictionary['team_stat_value'] = t.fetch_num_of_games()
         elif team_stat_type == 'at bats':
@@ -102,27 +104,35 @@ class receiver:
             response_dictionary['team_stat_value'] = t.fetch_num_of_stolen_bases()
         elif team_stat_type == 'caught stealing':
             response_dictionary['team_stat_value'] = t.fetch_num_of_caught_stealing()
+            caughtStealing = True
         elif team_stat_type == 'batting average':
             response_dictionary['team_stat_value'] = t.fetch_batting_average()
+            pluralCheck = False
         elif team_stat_type == 'on base percentage':
             response_dictionary['team_stat_value'] = t.fetch_on_base_percentage()
+            pluralCheck = False
         elif team_stat_type == 'slugging percentage':
             response_dictionary['team_stat_value'] = t.fetch_slugging_percentage()
+            pluralCheck = False
         elif team_stat_type == 'earned run average':
             response_dictionary['team_stat_value'] = t.fetch_earned_run_average()
+            pluralCheck = False
         elif team_stat_type == 'shutouts':
             response_dictionary['team_stat_value'] = t.fetch_num_of_shutouts()
         elif team_stat_type == 'at bats against':
             response_dictionary['team_stat_value'] = t.fetch_num_of_at_bats_against()
         elif team_stat_type == 'batting average against':
             response_dictionary['team_stat_value'] = t.fetch_batting_average_against()
+            pluralCheck = False
         elif team_stat_type == 'home attendance':
             response_dictionary['team_stat_value'] = t.fetch_home_attendance()
+            pluralpluralCheck = False
         elif team_stat_type == 'home attendance average':
             response_dictionary['team_stat_value'] = t.fetch_home_attendance_average()
+            pluralCheck = False
         else:
             response_dictionary = None
-        return response_dictionary
+        return response_dictionary, pluralCheck, caughtStealing
 
 
     # ---------- produces a response dictionary for a team participant request ----------#
@@ -166,20 +176,28 @@ class receiver:
 
         # set team_stat_value in response dictionary
         tp = team_participant(year)
+        pluralCheck = True
         if team_participant_stat_type == 'name':
             response_dictionary['team_participant_stat_value'] = tp.fetch_player_name(player_number)
+            pluralCheck = False
         elif team_participant_stat_type == 'position':
             response_dictionary['team_participant_stat_value'] = tp.fetch_player_position(player_number)
+            pluralCheck = False
         elif team_participant_stat_type == 'bats and throws':
             response_dictionary['team_participant_stat_value'] = tp.fetch_player_bats_and_throws(player_number)
+            pluralCheck = False
         elif team_participant_stat_type == 'height':
             response_dictionary['team_participant_stat_value'] = tp.fetch_player_height(player_number)
+            pluralCheck = False
         elif team_participant_stat_type == 'weight':
             response_dictionary['team_participant_stat_value'] = tp.fetch_player_weight(player_number)
+            pluralCheck = False
         elif team_participant_stat_type == 'year':
             response_dictionary['team_participant_stat_value'] = tp.fetch_player_year(player_number)
+            pluralCheck = False
         elif team_participant_stat_type == 'hometown and high school':
             response_dictionary['team_participant_stat_value'] = tp.fetch_player_hometown_and_high_school(player_number)
+            pluralCheck = False
         elif team_participant_stat_type == 'games':
             response_dictionary['team_participant_stat_value'] = tp.fetch_batter_games_played(player_number)
         elif team_participant_stat_type == 'at bats':
@@ -204,10 +222,13 @@ class receiver:
             response_dictionary['team_participant_stat_value'] = tp.fetch_batter_num_of_stolen_bases(player_number)
         elif team_participant_stat_type == 'batting average':
             response_dictionary['team_participant_stat_value'] = tp.fetch_batter_batting_average(player_number)
+            pluralCheck = False
         elif team_participant_stat_type == 'on base percentage':
             response_dictionary['team_participant_stat_value'] = tp.fetch_batter_on_base_percentage(player_number)
+            pluralCheck = False
         elif team_participant_stat_type == 'slugging percentage':
             response_dictionary['team_participant_stat_value'] = tp.fetch_batter_slugging_percentage(player_number)
+            pluralCheck = False
         elif team_participant_stat_type == 'appearances':
             response_dictionary['team_participant_stat_value'] = tp.fetch_pitcher_num_of_appearances(player_number)
         elif team_participant_stat_type == 'game starts':
@@ -228,9 +249,10 @@ class receiver:
             response_dictionary['team_participant_stat_value'] = tp.fetch_pitcher_num_of_earned_runs(player_number)
         elif team_participant_stat_type == 'earned run average':
             response_dictionary['team_participant_stat_value'] = tp.fetch_pitcher_earned_run_average(player_number)
+            pluralCheck = False
         else:
             response_dictionary = None
-        return response_dictionary
+        return response_dictionary , pluralCheck
 
 
     # ---------- produces a response dictionary for a schedule reqeust ----------#

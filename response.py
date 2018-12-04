@@ -33,7 +33,7 @@ class response:
     #-------------------------------------------------------------------------#
 
     #generates responsnes for team requests
-    def generate_team_response(self, response_dictionary):
+    def generate_team_response(self, response_dictionary, pluralCheck, caughtStealing):
         '''response dictionary values
         intent : "TeamIntent"
         year : a string year
@@ -45,14 +45,18 @@ class response:
         year_string = str(year)
         team_stat_type = response_dictionary['team_stat_type']
         team_stat_value = response_dictionary['team_stat_value']
-        if year_string != None and team_stat_type != None and team_stat_value != None:
+        if year_string != None and team_stat_type != None and team_stat_value != None and pluralCheck == True and caughtStealing == False:
             speech_output = "The number of team " + team_stat_type + " in " + year_string + " is " + team_stat_value
+        elif year_string != None and team_stat_type != None and team_stat_value != None and pluralCheck == False and caughtStealing == False:
+            speech_output = "The team " + team_stat_type + " in " + year_string + " is " + team_stat_value
+        elif year_string != None and team_stat_type != None and team_stat_value != None and pluralCheck == True and caughtStealing == True:
+            speech_output = "The number of team times " + team_stat_type + " in " + year_string + " is " + team_stat_value
         else:
             speech_output = "Sorry, I could not find what team information you asked for. Please try rephrasing."
         return speech_output
 
     #generates responses for team participant requests
-    def generate_team_participant_response(self, response_dictionary):
+    def generate_team_participant_response(self, response_dictionary, pluralCheck):
         '''response dictionary values
         intent : "TeamParticipantIntent"
         year : a string year
@@ -66,8 +70,10 @@ class response:
         player_number = response_dictionary['player_number']
         team_participant_stat_type = response_dictionary['team_participant_stat_type']
         team_participant_stat_value = response_dictionary['team_participant_stat_value']
-        if year_string != None and player_number != None and team_participant_stat_type != None and team_participant_stat_value != None:
+        if year_string != None and player_number != None and team_participant_stat_type != None and team_participant_stat_value != None and pluralCheck == True:
             speech_output = "The number of " + team_participant_stat_type + " for player number " + player_number + " in " + year_string + " is " + team_participant_stat_value
+        elif year_string != None and player_number != None and team_participant_stat_type != None and team_participant_stat_value != None and pluralCheck == False:
+            speech_output = "The " + team_participant_stat_type + " for player number " + player_number + " in " + year_string + " is " + team_participant_stat_value
         else:
             speech_output = "Sorry, I could not find what player information you asked for. Please try rephrasing."
         return speech_output
