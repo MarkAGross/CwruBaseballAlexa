@@ -218,7 +218,6 @@ class schedule:
         found in the year of this schedule object
         """
         current = datetime.datetime.now()
-        print ("Schedule Object Year: " + str(self.year))
         #if in the current year, start from current date
         if current.year == self.year:
             month_num = int(current.month)
@@ -240,7 +239,6 @@ class schedule:
             #if reached end of year with no games found, search next year
             if month_num == 13:
                 return schedule((self.year + 1)).fetch_next_game()
-            print (calendar.month_name[month_num] + " " + str(day))
             games = self.fetch_games_by_date(calendar.month_name[month_num], str(day))
         return games[0] #gets first game in the list of games. The list of games is for the next day with games
 
@@ -278,7 +276,3 @@ class game:
             self.result = game_dictionary["e_result"]
         if "e_status" in game_dictionary:
             self.status = game_dictionary["e_status"]
-
-s = schedule(2018)
-g = s.fetch_next_game()
-print (g.day_of_week + " " + g.month + " " + g.day + " " + g.verses_or_at + " " + g.opponent_name + " " + g.status + " " + g.result)
