@@ -169,7 +169,7 @@ class schedule:
             day (int) : day of the month
 
         Returns:
-            list : list of game dictionaries on the input date
+            list : list of game dictionaries on the input date or None if there are no games
         """
         games_for_input_day = []
         for game in self.list_of_games:
@@ -181,27 +181,31 @@ class schedule:
             return games_for_input_day
 
     def fetch_previous_game(self):
-        """ Returns the most recent game that occured on or before the current date
-
-        Returns:
-            dictionary : dictionary of the game on the current date or closest previous game to current date
+        """
+        Returns the most recent game that occured on or before the current date.
+        Will search previous years if no next game is found in the year of this object.
         """
         current = datetime.datetime.now()
-        year = current.year
-        month_num = int(current.month)
-        month = current.strftime("%B")
-        day = int(current.day)
-        if year != self.year:
+        #if in the current year, start from current date
+        if current.year == self.year:
+            month_num = int(current.month)
+            day = int(current.day)
+        #if looking at furture year, start on December 31
+        elif current.year > self.year:
+            month_num = 12
+            day = 31
+        #should not be looking for previous game in a future year
+        else:
             return None
         games = self.fetch_games_by_date(calendar.month_name[month_num], str(day))
         while games == None:
-            if month_num > 0 and day > 0:
+            if month_num > 0 and day >= 0:
                 day = day - 1
             if month_num > 0 and day <= 0:
                 month_num = month_num - 1
                 day = 31
             if month_num == 0:
-                return None
+                return schedule((self.year - 1)).fetch_next_game()
             games = self.fetch_games_by_date(calendar.month_name[month_num], str(day))
         return games[-1] #gets last and most recent game of the list of games
 
@@ -209,31 +213,37 @@ class schedule:
 
     # if the schedule and current years are different, returns None
     def fetch_next_game(self):
-        """ Returns the next game to occur on or after the current date.
-        If the scheudle and current years are different, returns None.
-
-        Returns:
-            dictionary : Dictionary of the game on the current date or closest future game to current date.
-                         If current year is not the same year as this scheudle object, reurns none.
+        """
+        Returns the next game to occur on or after the current date. Will search future years if no next game is
+        found in the year of this schedule object
         """
         current = datetime.datetime.now()
-        year = current.year
-        month_num = int(current.month)
-        month = current.strftime("%B")
-        day = int(current.day)
-        if year != self.year:
+        print ("Schedule Object Year: " + str(self.year))
+        #if in the current year, start from current date
+        if current.year == self.year:
+            month_num = int(current.month)
+            day = int(current.day)
+        #if looking at furture year, start on January 1
+        elif current.year < self.year:
+            month_num = 1
+            day = 1
+        #should not be looking for next game in year before current year
+        else:
             return None
         games = self.fetch_games_by_date(calendar.month_name[month_num], str(day))
         while games == None:
-            if month_num < 13 and day < 31:
+            if month_num < 13 and day <= 31:
                 day = day + 1
-            if month_num < 13 and day <= 32:
+            if month_num < 13 and day >= 32:
                 month_num = month_num + 1
                 day = 1
+            #if reached end of year with no games found, search next year
             if month_num == 13:
-                return None
+                return schedule((self.year + 1)).fetch_next_game()
+            print (calendar.month_name[month_num] + " " + str(day))
             games = self.fetch_games_by_date(calendar.month_name[month_num], str(day))
         return games[0] #gets first game in the list of games. The list of games is for the next day with games
+
 
 #-----------------------------------------------------------------------------------#
 #---------- Data storage and transfer object for a game from the schedule ----------#
@@ -268,3 +278,7 @@ class game:
             self.result = game_dictionary["e_result"]
         if "e_status" in game_dictionary:
             self.status = game_dictionary["e_status"]
+
+s = schedule(2018)
+g = s.fetch_next_game()
+print (g.day_of_week + " " + g.month + " " + g.day + " " + g.verses_or_at + " " + g.opponent_name + " " + g.status + " " + g.result)
