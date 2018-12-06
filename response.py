@@ -33,36 +33,42 @@ class response:
     #-------------------------------------------------------------------------#
 
     #generates responsnes for team requests
-    def generate_team_response(self, response_dictionary, pluralCheck, caughtStealing):
+    def generate_team_response(self, response_dictionary):
         '''response dictionary values
         intent : "TeamIntent"
         year : a string year
         team_stat_type : the type of data requested (Ex: 'runs')
         team_stat_value: value of the type of data requested
+        grammar_type : number || value || occurances
         '''
         speech_output = ""
         year = response_dictionary['year']
         year_string = str(year)
         team_stat_type = response_dictionary['team_stat_type']
         team_stat_value = response_dictionary['team_stat_value']
-        if year_string != None and team_stat_type != None and team_stat_value != None and pluralCheck == True and caughtStealing == False:
-            speech_output = "The number of team " + team_stat_type + " in " + year_string + " is " + team_stat_value
-        elif year_string != None and team_stat_type != None and team_stat_value != None and pluralCheck == False and caughtStealing == False:
-            speech_output = "The team " + team_stat_type + " in " + year_string + " is " + team_stat_value
-        elif year_string != None and team_stat_type != None and team_stat_value != None and pluralCheck == True and caughtStealing == True:
-            speech_output = "The number of team times " + team_stat_type + " in " + year_string + " is " + team_stat_value
+        grammar_type = response_dictionary['grammar_type']
+        if year_string != None and team_stat_type != None and team_stat_value != None:
+            if grammar_type == 'number':
+                speech_output = "The number of team " + team_stat_type + " in " + year_string + " is " + team_stat_value
+            elif grammar_type == 'value':
+                speech_output = "The team " + team_stat_type + " in " + year_string + " is " + team_stat_value
+            elif grammar_type == 'occurances':
+                speech_output = "The number of team times " + team_stat_type + " in " + year_string + " is " + team_stat_value
+            else:
+                speech_output = "Sorry, I could not find what team information you asked for. Please try rephrasing."
         else:
             speech_output = "Sorry, I could not find what team information you asked for. Please try rephrasing."
         return speech_output
 
     #generates responses for team participant requests
-    def generate_team_participant_response(self, response_dictionary, pluralCheck):
+    def generate_team_participant_response(self, response_dictionary):
         '''response dictionary values
         intent : "TeamParticipantIntent"
         year : a string year
         player_number : string player number || None
         team_participant_stat_type : the type of data requested (Ex: 'runs')
         team_participant_stat_value: value of the type of data requested
+        grammar_type : number || value || occurances
         '''
         speech_output = ""
         year = response_dictionary['year']
@@ -70,10 +76,16 @@ class response:
         player_number = response_dictionary['player_number']
         team_participant_stat_type = response_dictionary['team_participant_stat_type']
         team_participant_stat_value = response_dictionary['team_participant_stat_value']
-        if year_string != None and player_number != None and team_participant_stat_type != None and team_participant_stat_value != None and pluralCheck == True:
-            speech_output = "The number of " + team_participant_stat_type + " for player number " + player_number + " in " + year_string + " is " + team_participant_stat_value
-        elif year_string != None and player_number != None and team_participant_stat_type != None and team_participant_stat_value != None and pluralCheck == False:
-            speech_output = "The " + team_participant_stat_type + " for player number " + player_number + " in " + year_string + " is " + team_participant_stat_value
+        grammar_type = response_dictionary['grammar_type']
+        if year_string != None and player_number != None and team_participant_stat_type != None and team_participant_stat_value != None:
+            if grammar_type == 'number':
+                speech_output = "The number of " + team_participant_stat_type + " for player number " + player_number + " in " + year_string + " is " + team_participant_stat_value
+            elif grammar_type == 'value':
+                speech_output = "The " + team_participant_stat_type + " for player number " + player_number + " in " + year_string + " is " + team_participant_stat_value
+            elif grammar_type == 'occurances':
+                speech_output = "The number of times " + team_stat_type + " by number " + player_number + " in " + year_string + " is " + team_participant_stat_value
+            else:
+                speech_output = "Sorry, I could not find what player information you asked for. Please try rephrasing."
         else:
             speech_output = "Sorry, I could not find what player information you asked for. Please try rephrasing."
         return speech_output
@@ -118,10 +130,10 @@ class response:
             speech_output = "The " + previous_game_or_next_game
             #asking for next game
             if previous_game_or_next_game == "next game":
-                speech_output = speech_output + " is at" + game.status + " on " + game.day_of_week + " " + game.month + " " + game.day + " " + str(year) + " " + game.verses_or_at + " " + game.opponent_name
+                speech_output = speech_output + " is at " + game.status + " on " + game.day_of_week + " " + game.month + " " + game.day + " " + game.year + " " + game.verses_or_at + " " + game.opponent_name
             #asking for previous game
             else:
-                speech_output = speech_output + " was on " + game.day_of_week + " " + game.month + " " + game.day + " " + str(year) + " " + game.verses_or_at + " " + game.opponent_name
+                speech_output = speech_output + " was on " + game.day_of_week + " " + game.month + " " + game.day + " " + game.year + " " + game.verses_or_at + " " + game.opponent_name
                 # game cancelled
                 if game.status.lower() == "cancelled":
                     speech_output = speech_output + " but was " + game.status
@@ -130,7 +142,7 @@ class response:
                     speech_output = speech_output + " with a " + game.status + " result of " + game.result
         # asking for game by date
         elif game != None:
-            speech_output = "The C.W.R.U. baseball game on " + game.day_of_week + " " + game.month + " " + game.day + " " + str(year) + " " + game.verses_or_at + " " + game.opponent_name
+            speech_output = "The C.W.R.U. baseball game on " + game.day_of_week + " " + game.month + " " + game.day + " " + game.year + " " + game.verses_or_at + " " + game.opponent_name
             # game cancelled
             if game.status.lower() == "cancelled":
                 speech_output = speech_output + " shows as " + game.status

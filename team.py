@@ -1,6 +1,5 @@
 import urllib.request
 from bs4 import BeautifulSoup
-from error import CONNECTION_TO_WEBSITE_ERROR
 import datetime
 
 #Class for fetching team statistics from CWRU Baseball Athletics website
@@ -17,6 +16,8 @@ class team:
 
         self.team_stats_url = None
         self.get_team_stats_url(year)
+
+        self.cannot_connect_to_website = False
 
         self.team_stats_dictionary = None
         self.fetch_all_team_stats(year)
@@ -57,7 +58,7 @@ class team:
                     value = (row[1])
                     self.team_stats_dictionary[key] = value
         except urllib.error.HTTPError:
-            raise CONNECTION_TO_WEBSITE_ERROR("Cannot connect to team statistics website")
+            self.cannot_connect_to_website = True
 
 
     #-------------------------------------------------------------------------------#

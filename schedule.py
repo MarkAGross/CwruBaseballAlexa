@@ -1,6 +1,5 @@
 import urllib.request
 from bs4 import BeautifulSoup
-from error import CONNECTION_TO_WEBSITE_ERROR
 import datetime
 import calendar
 
@@ -16,6 +15,8 @@ class schedule:
 
         self.url = None
         self.schedule_url(year)
+
+        self.cannot_connect_to_website = False
 
         self.list_of_table_row_dictionaries = None
         self.get_list_of_all_row_dictionaries(self.url)
@@ -85,7 +86,7 @@ class schedule:
                     list_of_table_row_dictionaries.append(row_dictionary)
             self.list_of_table_row_dictionaries = list_of_table_row_dictionaries
         except urllib.error.HTTPError:
-            raise CONNECTION_TO_WEBSITE_ERROR("Cannot connect to schedule website")
+            self.cannot_connect_to_website = True
 
 
     def make_row_dictionary(self, html_table_row, dictionary):
@@ -108,6 +109,7 @@ class schedule:
             html_table_row (str) : HTML of a table row
             dictionary (dictionary) : a dictionary object to append the table row classes to
         """
+        dictionary['year'] = str(self.year)
         if len(html_table_row) == 1:
             if self.is_Month(html_table_row.text):
                 dictionary['month-title'] = html_table_row.text
@@ -149,6 +151,7 @@ class schedule:
         "Changes W or L to the words Win or Loss"
         text = text.replace('W','Win')
         text = text.replace('L', 'Loss')
+        return  text
 
     def is_Month(self, text):
         """ Determines if input text is the full name of a month
@@ -253,6 +256,7 @@ class schedule:
 class game:
 
     def __init__ (self, game_dictionary):
+        self.year = None
         self.month = None
         self.day = None
         self.day_of_week = None
@@ -264,6 +268,8 @@ class game:
         self.initialize_from_game_dictionary(game_dictionary)
 
     def initialize_from_game_dictionary(self, game_dictionary):
+        if "year" in game_dictionary:
+            self.year = game_dictionary["year"]
         if "month-title" in game_dictionary:
             self.month = game_dictionary["month-title"]
         if "e_date" in game_dictionary:

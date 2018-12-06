@@ -2,7 +2,6 @@ from team import team
 from team_participant import team_participant
 from schedule import schedule
 from response import response
-from error import *
 import datetime
 
 class receiver:
@@ -66,8 +65,9 @@ class receiver:
 
         # set team_stat_value in response dictionary
         t = team(year)
-        pluralCheck = True
-        caughtStealing = False
+        if t.cannot_connect_to_website:
+            return None
+        response_dictionary['grammar_type'] = 'number'
         if team_stat_type == 'games':
             response_dictionary['team_stat_value'] = t.fetch_num_of_games()
         elif team_stat_type == 'at bats':
@@ -104,35 +104,35 @@ class receiver:
             response_dictionary['team_stat_value'] = t.fetch_num_of_stolen_bases()
         elif team_stat_type == 'caught stealing':
             response_dictionary['team_stat_value'] = t.fetch_num_of_caught_stealing()
-            caughtStealing = True
+            response_dictionary['grammar_type'] = 'occurances'
         elif team_stat_type == 'batting average':
             response_dictionary['team_stat_value'] = t.fetch_batting_average()
-            pluralCheck = False
+            response_dictionary['grammar_type'] = 'value'
         elif team_stat_type == 'on base percentage':
             response_dictionary['team_stat_value'] = t.fetch_on_base_percentage()
-            pluralCheck = False
+            response_dictionary['grammar_type'] = 'value'
         elif team_stat_type == 'slugging percentage':
             response_dictionary['team_stat_value'] = t.fetch_slugging_percentage()
-            pluralCheck = False
+            response_dictionary['grammar_type'] = 'value'
         elif team_stat_type == 'earned run average':
             response_dictionary['team_stat_value'] = t.fetch_earned_run_average()
-            pluralCheck = False
+            response_dictionary['grammar_type'] = 'value'
         elif team_stat_type == 'shutouts':
             response_dictionary['team_stat_value'] = t.fetch_num_of_shutouts()
         elif team_stat_type == 'at bats against':
             response_dictionary['team_stat_value'] = t.fetch_num_of_at_bats_against()
         elif team_stat_type == 'batting average against':
             response_dictionary['team_stat_value'] = t.fetch_batting_average_against()
-            pluralCheck = False
+            response_dictionary['grammar_type'] = 'value'
         elif team_stat_type == 'home attendance':
             response_dictionary['team_stat_value'] = t.fetch_home_attendance()
-            pluralpluralCheck = False
+            pluralresponse_dictionary['grammar_type'] = 'value'
         elif team_stat_type == 'home attendance average':
             response_dictionary['team_stat_value'] = t.fetch_home_attendance_average()
-            pluralCheck = False
+            response_dictionary['grammar_type'] = 'value'
         else:
             response_dictionary = None
-        return response_dictionary, pluralCheck, caughtStealing
+        return response_dictionary
 
 
     # ---------- produces a response dictionary for a team participant request ----------#
@@ -176,28 +176,30 @@ class receiver:
 
         # set team_stat_value in response dictionary
         tp = team_participant(year)
-        pluralCheck = True
+        if tp.cannot_connect_to_website:
+            return None
+        response_dictionary['grammar_type'] = 'number'
         if team_participant_stat_type == 'name':
             response_dictionary['team_participant_stat_value'] = tp.fetch_player_name(player_number)
-            pluralCheck = False
+            response_dictionary['grammar_type'] = 'value'
         elif team_participant_stat_type == 'position':
             response_dictionary['team_participant_stat_value'] = tp.fetch_player_position(player_number)
-            pluralCheck = False
+            response_dictionary['grammar_type'] = 'value'
         elif team_participant_stat_type == 'bats and throws':
             response_dictionary['team_participant_stat_value'] = tp.fetch_player_bats_and_throws(player_number)
-            pluralCheck = False
+            response_dictionary['grammar_type'] = 'value'
         elif team_participant_stat_type == 'height':
             response_dictionary['team_participant_stat_value'] = tp.fetch_player_height(player_number)
-            pluralCheck = False
+            response_dictionary['grammar_type'] = 'value'
         elif team_participant_stat_type == 'weight':
             response_dictionary['team_participant_stat_value'] = tp.fetch_player_weight(player_number)
-            pluralCheck = False
+            response_dictionary['grammar_type'] = 'value'
         elif team_participant_stat_type == 'year':
             response_dictionary['team_participant_stat_value'] = tp.fetch_player_year(player_number)
-            pluralCheck = False
+            response_dictionary['grammar_type'] = 'value'
         elif team_participant_stat_type == 'hometown and high school':
             response_dictionary['team_participant_stat_value'] = tp.fetch_player_hometown_and_high_school(player_number)
-            pluralCheck = False
+            response_dictionary['grammar_type'] = 'value'
         elif team_participant_stat_type == 'games':
             response_dictionary['team_participant_stat_value'] = tp.fetch_batter_games_played(player_number)
         elif team_participant_stat_type == 'at bats':
@@ -222,13 +224,13 @@ class receiver:
             response_dictionary['team_participant_stat_value'] = tp.fetch_batter_num_of_stolen_bases(player_number)
         elif team_participant_stat_type == 'batting average':
             response_dictionary['team_participant_stat_value'] = tp.fetch_batter_batting_average(player_number)
-            pluralCheck = False
+            response_dictionary['grammar_type'] = 'value'
         elif team_participant_stat_type == 'on base percentage':
             response_dictionary['team_participant_stat_value'] = tp.fetch_batter_on_base_percentage(player_number)
-            pluralCheck = False
+            response_dictionary['grammar_type'] = 'value'
         elif team_participant_stat_type == 'slugging percentage':
             response_dictionary['team_participant_stat_value'] = tp.fetch_batter_slugging_percentage(player_number)
-            pluralCheck = False
+            response_dictionary['grammar_type'] = 'value'
         elif team_participant_stat_type == 'appearances':
             response_dictionary['team_participant_stat_value'] = tp.fetch_pitcher_num_of_appearances(player_number)
         elif team_participant_stat_type == 'game starts':
@@ -249,10 +251,10 @@ class receiver:
             response_dictionary['team_participant_stat_value'] = tp.fetch_pitcher_num_of_earned_runs(player_number)
         elif team_participant_stat_type == 'earned run average':
             response_dictionary['team_participant_stat_value'] = tp.fetch_pitcher_earned_run_average(player_number)
-            pluralCheck = False
+            response_dictionary['grammar_type'] = 'value'
         else:
             response_dictionary = None
-        return response_dictionary , pluralCheck
+        return response_dictionary
 
 
     # ---------- produces a response dictionary for a schedule reqeust ----------#
@@ -303,23 +305,13 @@ class receiver:
 
         # set value of game in response dictionary
         s = schedule(year)
+        if s.cannot_connect_to_website:
+            return None
         if previous_game_or_next_game != None:
             if previous_game_or_next_game == "next game":
                 response_dictionary['game'] = s.fetch_next_game()
-                # search next year if no next games this year
-                while response_dictionary['game'] == None:
-                    year = year + 1
-                    response_dictionary['year'] = year
-                    new_schedule = schedule(year)
-                    response_dictionary['game'] = new_schedule.fetch_next_game()
             elif previous_game_or_next_game == "previous game":
                 response_dictionary['game'] = s.fetch_previous_game()
-                # search previous year if no previous games this year
-                while response_dictionary['game'] == None:
-                    year = year - 1
-                    response_dictionary['year'] = year
-                    new_schedule = schedule(year)
-                    response_dictionary['game'] = new_s.fetch_next_game()
         elif month != None and day != None:
             response_dictionary['game'] = s.fetch_games_by_date(month, day)
         else:

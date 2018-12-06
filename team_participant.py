@@ -1,6 +1,5 @@
 import urllib.request
 from bs4 import BeautifulSoup
-from error import CONNECTION_TO_WEBSITE_ERROR
 import datetime
 
 #Class for fetching information and statistics about players and coaches
@@ -8,7 +7,7 @@ class team_participant:
 
     """
     Constructor for team_particpant
-    Pulls information from website or throws error if unable to connect to website or pull data
+    Pulls information from website or sets self.cannot_connect_to_website to true if unable to connect to website or pull data
     """
 
     def __init__(self, year):
@@ -17,6 +16,8 @@ class team_participant:
             year = datetime.datetime.now().year
 
         self.year = year
+
+        self.cannot_connect_to_website = False
 
         self.roster_dictionary_list = []
         self.create_and_set_list_of_all_roster_data(year)
@@ -61,7 +62,7 @@ class team_participant:
 
     """
     Functions for creating and setting lists of dictionaries containing table data.
-    Throws error if there is an error connecting to the website of the specified year
+    Sets self.cannot_connect_to_website  to True if there is an error connecting to the website of the specified year
     """
 
     def create_and_set_list_of_all_roster_data(self, year):
@@ -96,7 +97,7 @@ class team_participant:
                 list_of_table_rows_refined.append(single_row_dictionary)
             self.roster_dictionary_list = list_of_table_rows_refined
         except urllib.error.HTTPError:
-            raise CONNECTION_TO_WEBSITE_ERROR("Cannot connect to roster website")
+            self.cannot_connect_to_website = True
 
     def create_and_set_list_of_all_batter_individual_statistics(self, year):
         individual_statistics_url = self.individual_statistics_url(year)
@@ -144,7 +145,7 @@ class team_participant:
             return list_of_player_dictionaries
         #if cannot connect to website
         except urllib.error.HTTPError:
-            raise CONNECTION_TO_WEBSITE_ERROR("Cannot connect to individual statistics website")
+            self.cannot_connect_to_website = True
 
 
     """
@@ -421,7 +422,7 @@ class team_participant:
         if player == None:
             return None
         return player.pitcher_earned_run_average
-        
+
 #--------------------------------------------------------------------------------------#
 #---------- Data storage and transfer object for team_participants (players) ----------#
 #--------------------------------------------------------------------------------------#
