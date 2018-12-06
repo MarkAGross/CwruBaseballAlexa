@@ -16,7 +16,7 @@ def build_speechlet_response(title, output):
         'card': {
             'type': 'Simple',
             'title': "SessionSpeechlet - " + title,
-            'content': "SessionSpeechlet - " + output
+            'content': output
         }
     }
 

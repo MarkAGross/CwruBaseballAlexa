@@ -125,7 +125,7 @@ class schedule:
             dictionary['neutralsite'] = self.clean_format(neutral_site.text)
         result =  html_table_row.find('td',{'class' : 'e_result'})
         if result:
-            dictionary['e_result'] = self.clean_format(result.text)
+            dictionary['e_result'] = self.spell_out_win_or_loss(self.clean_format(result.text))
         status = html_table_row.find('td',{'class' : 'e_status'})
         if status:
             dictionary['e_status'] = self.clean_format(status.text)
@@ -145,6 +145,10 @@ class schedule:
         text = text.strip()
         return text
 
+    def spell_out_win_or_loss(self, text):
+        "Changes W or L to the words Win or Loss"
+        text = text.replace('W','Win')
+        text = text.replace('L', 'Loss')
 
     def is_Month(self, text):
         """ Determines if input text is the full name of a month

@@ -118,7 +118,7 @@ class response:
             speech_output = "The " + previous_game_or_next_game
             #asking for next game
             if previous_game_or_next_game == "next game":
-                speech_output = speech_output + " is on " + game.day_of_week + " " + game.month + " " + game.day + " " + str(year) + " " + game.verses_or_at + " " + game.opponent_name
+                speech_output = speech_output + " is at" + game.status + " on " + game.day_of_week + " " + game.month + " " + game.day + " " + str(year) + " " + game.verses_or_at + " " + game.opponent_name
             #asking for previous game
             else:
                 speech_output = speech_output + " was on " + game.day_of_week + " " + game.month + " " + game.day + " " + str(year) + " " + game.verses_or_at + " " + game.opponent_name

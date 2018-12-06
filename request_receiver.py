@@ -296,8 +296,8 @@ class receiver:
         # set value of previous_game_or_next_game in response dictionary
         previous_game_or_next_game = None
         if 'value' in slot_dictionary['previous_game_or_next_game']:
-            previous_game_or_next_game = slot_dictionary['previous_game_or_next_game']['value']
-            response_dictionary['previous_game_or_next_game'] =  slot_dictionary['previous_game_or_next_game']['value']
+            previous_game_or_next_game = slot_dictionary['previous_game_or_next_game']['resolutions']['resolutionsPerAuthority'][0]['values'][0]['value']['name']
+            response_dictionary['previous_game_or_next_game'] =  slot_dictionary['previous_game_or_next_game']['resolutions']['resolutionsPerAuthority'][0]['values'][0]['value']['name']
         else:
             response_dictionary['previous_game_or_next_game'] = None
 
