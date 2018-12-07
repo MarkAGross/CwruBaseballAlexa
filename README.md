@@ -7,6 +7,7 @@ Inside of the directory titled "Documents" you will find the following files of 
 1. SRS
 2. Design Document
 3. Functional Test Plan
+4. CWRU Baseball Alexa Skill Presentation
 
 ## Testing the Code
 As outlined in our Functional Test plan, testing for this application occurs in 2 different places. 
