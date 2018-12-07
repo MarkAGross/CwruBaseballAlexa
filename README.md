@@ -43,7 +43,7 @@ As outlined in our Functional Test plan, testing for this application occurs in 
     1. "Alexa ask Case baseball for the number of games in twenty seventeen"
     2. "Alexa ask case baseball for the team batting average"
 2. Ask for player information or a statistic by player number (Alexa can not interpret player names). If no year is specified, defaults to the current year. For a list of all supported information and statistics, please see the Design Document in the Documents directory.
-    1. "Alexa ask case baseball for the name of number thirty three in twenty fifteen"
+    1. "Alexa ask case baseball for the name of number thirty three in twenty sixteen"
     2. "Alexa ask case baseball for the number of stolen bases for number twenty nine"
 3. Ask for a game/score.
     1. "Alexa ask case baseball for the next game"
