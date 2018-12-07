@@ -39,13 +39,13 @@ As outlined in our Functional Test plan, testing for this application occurs in 
 ***Note: All requests must start with "Alexa ask Case Baseball..."***    
 ***Note 2: This application can handle requests referring to information from 2011 up to the current year***    
 ***Note 3: This applicaiton runs slow. Unfortunatly there was nothing we could do about this. The problem with the speed, sometimes taking up to 25 seconds to respond to a request, is due solely to the CWRU Athletics website taking so long to connect to. For example, for a request taking 20 seconds to respond, about 18 of those seconds are just waiting to connect to the website.***    
-1. Ask For a Team Stat (if no year specified, defaults to current year)
+1. Ask For a Team Stat. If no year specified, defaults to current year. For a list of all supported statistics, please see the Design Document in the Documents directory.
     1. "Alexa ask Case baseball for the number of games in twenty seventeen"
     2. "Alexa ask case baseball for the team batting average"
-2. Ask for player information or a statistic by player number (Alexa can not interpret player names)
+2. Ask for player information or a statistic by player number (Alexa can not interpret player names). If no year is specified, defaults to the current year. For a list of all supported information and statistics, please see the Design Document in the Documents directory.
     1. "Alexa ask case baseball for the name of number thirty three in twenty fifteen"
     2. "Alexa ask case baseball for the number of stolen bases for number twenty nine"
-3. Ask for a game/score
+3. Ask for a game/score.
     1. "Alexa ask case baseball for the next game"
     2. "Alexa ask case baseball for the previous game"
     3. "Alexa ask case baseball for the games on April first twenty eighteen"
