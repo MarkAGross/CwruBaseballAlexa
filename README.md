@@ -13,7 +13,7 @@ As outlined in our Functional Test plan, testing for this application occurs in 
 1. Testing the recieveing and response generation of Alexa requests can be done at https://aws.amazon.com/free/
     1. Sign into the Amazon Web Services account using my account:   
       *username - mag210@case.edu  
-      *password - grade  
+      *password - eecs393grader!  
     2. Select or search for the "lambda" service
     3. Select the CaseBaseball lambda function
     4. At the top of the page there is a drop down menu of all tests we have configured. Select a test and press the "Test" button to run that test.
@@ -23,7 +23,7 @@ As outlined in our Functional Test plan, testing for this application occurs in 
 ## Running the Code as an Alexa Skill
 1. Log into my Amazon Development Console Account at https://developer.amazon.com/alexa/console/ask  
     *username - mag210@case.edu  
-    *password - grade  
+    *password - eecs393grader! 
 2. Select the Skill titled CWRU Baseball (Unofficial)
 3. At the top of the page, go to "Test"
 4. On the left side of the page:
